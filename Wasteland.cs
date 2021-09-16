@@ -14,5 +14,9 @@ namespace project_project_temporary_name_
             this.terrain = terrain;
             this.is_water = is_water;
         }
+        public bool Equals(Wasteland wasteland)
+        {
+            return wasteland.province_id == this.province_id;
+        }
     }
 }

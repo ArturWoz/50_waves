@@ -29,5 +29,9 @@ namespace project_project_temporary_name_
         {
             this.province_owner = province_owner;
         }
+        public bool Equals(Province province)
+        {
+            return province.province_id == this.province_id;
+        }
     }
 }
