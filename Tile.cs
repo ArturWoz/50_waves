@@ -4,7 +4,7 @@ using System.Text;
 
 public enum terrain
 {
-    farmland, desert, lake, sea, forest, jungle, hills, mountains, taiga, tundra
+    farmland, desert, lake, sea, forest, jungle, hills, mountains, taiga, tundra, plains
 }
 namespace project_project_temporary_name_
 {
@@ -12,7 +12,7 @@ namespace project_project_temporary_name_
     {
         protected int province_id;
         protected string province_name;
-        protected int province_owner;
+        protected int province_owner = 0;
         protected terrain terrain;
         protected bool is_water;
 

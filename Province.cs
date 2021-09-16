@@ -21,6 +21,13 @@ namespace project_project_temporary_name_
             this.province_value = province_value;
 
         }
-
+        public void ChangeProvinceValue(int province_value)
+        {
+            this.province_value += province_value;
+        }
+        public void ChangeOwnership(int province_owner)
+        {
+            this.province_owner = province_owner;
+        }
     }
 }
