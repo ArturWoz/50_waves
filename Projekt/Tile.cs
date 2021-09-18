@@ -4,7 +4,7 @@ using System.Text;
 
 public enum terrain
 {
-    farmland, desert, lake, sea, forest, jungle, hills, mountains, taiga, tundra, plains
+    farmland, desert, lake, sea, forest, jungle, hills, mountains, taiga, tundra, plains, coast
 }
 namespace project_project_temporary_name_
 {
