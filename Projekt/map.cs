@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Collections;
 
-namespace project_project_temporary_name_
+namespace Projekt
 {
     class map
     {

@@ -6,7 +6,7 @@ public enum terrain
 {
     farmland, desert, lake, sea, forest, jungle, hills, mountains, taiga, tundra, plains, coast
 }
-namespace project_project_temporary_name_
+namespace Projekt
 {
     abstract class Tile
     {

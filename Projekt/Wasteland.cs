@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace project_project_temporary_name_
+namespace Projekt
 {
     class Wasteland:Tile
     {
