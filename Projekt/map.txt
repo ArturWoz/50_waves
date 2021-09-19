@@ -1,4 +1,4 @@
-sea	coast	coast	hills	hills	hills	hills	lake	hills	hills	plains	tundra	tundra	tundra	mountains	mountains	mountains	mountains	tundra	tundra	tundra	plains	desert	desert	desert	desert	desert	coast	sea	sea	sea	sea
+32	32	sea	coast	coast	hills	hills	hills	hills	lake	hills	hills	plains	tundra	tundra	tundra	mountains	mountains	mountains	mountains	tundra	tundra	tundra	plains	desert	desert	desert	desert	desert	coast	sea	sea	sea	sea
 sea	sea	coast	hills	hills	hills	hills	lake	hills	hills	plains	tundra	tundra	tundra	mountains	mountains	mountains	mountains	tundra	tundra	tundra	plains	desert	desert	desert	desert	desert	coast	sea	sea	sea	sea
 sea	sea	coast	hills	hills	hills	hills	lake	hills	hills	plains	tundra	tundra	tundra	tundra	mountains	mountains	tundra	tundra	tundra	tundra	plains	desert	desert	desert	desert	desert	coast	sea	sea	sea	sea
 sea	sea	coast	hills	hills	hills	hills	hills	hills	hills	plains	tundra	tundra	tundra	tundra	tundra	tundra	tundra	tundra	tundra	tundra	plains	plains	desert	desert	desert	desert	coast	sea	sea	sea	sea

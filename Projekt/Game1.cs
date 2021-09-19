@@ -12,10 +12,13 @@ namespace Projekt
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra;
+        float targetX = 16;
+        float targetY;
+        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra,province_coast,province_hills;
         Vector2 province_position;
         Vector2 province_offset;
-        string path = "mapa.txt";
+        Vector2 scale;
+        string path = "map.txt";
         string s;
         terrain s2;
         int i = 0;
@@ -29,15 +32,6 @@ namespace Projekt
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            if (File.Exists(path))
-            {
-                StreamReader sr = File.OpenText(path);
-                while ((s = sr.ReadLine()) != null)
-                {
-                    s2=(terrain)Enum.Parse(typeof(terrain),s,true);
-                    Province load = new Province(i, "placeholder", 0, s2, false, 0, 0);
-                }    
-            }
             base.Initialize();
         }
 
@@ -54,6 +48,10 @@ namespace Projekt
             province_sea = Content.Load<Texture2D>("sea1");
             province_taiga = Content.Load<Texture2D>("taiga1");
             province_tundra = Content.Load<Texture2D>("tundra1");
+            province_coast = Content.Load<Texture2D>("coast1");
+            province_hills = Content.Load<Texture2D>("mountains1");
+            scale = new Vector2(targetX / (float)province_desert.Width, targetX / (float)province_desert.Width);
+            targetY = province_desert.Height * scale.Y;
             // TODO: use this.Content to load your game content here
         }
 
@@ -70,10 +68,35 @@ namespace Projekt
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            StreamReader sr = File.OpenText(path);
+                int x = int.Parse(sr.ReadLine());
+                int y = int.Parse(sr.ReadLine());
+                Province[,] mapa = new Province[x, y];
             _spriteBatch.Begin();
-            _spriteBatch.Draw(province_desert, Vector2.Zero,Color.White);
-            province_offset = new Vector2(province_desert.Width,0);
-            _spriteBatch.Draw(province_taiga, province_offset, Color.White);
+            for (int k = 0; k < y; k++)
+                {
+                    for (int k2 = 0; k2 <x ; k2++)
+                    {
+                    s = sr.ReadLine();
+                    s2 = (terrain)Enum.Parse(typeof(terrain), s, true);
+                    Province load = new Province(i, "placeholder", 0, s2, false, 0, 0);
+                    mapa[k2, k] = load;
+                    province_offset = new Vector2(16 * k, 16 * k2);
+                    if (s == "desert") _spriteBatch.Draw(province_desert, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "sea") _spriteBatch.Draw(province_sea, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "coast") _spriteBatch.Draw(province_coast, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "lake") _spriteBatch.Draw(province_lake, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "hills") _spriteBatch.Draw(province_hills, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "taiga") _spriteBatch.Draw(province_taiga, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "tundra") _spriteBatch.Draw(province_tundra, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "plains") _spriteBatch.Draw(province_plains, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "farmland") _spriteBatch.Draw(province_farmland, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "forest") _spriteBatch.Draw(province_forest, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "mountains") _spriteBatch.Draw(province_mountains, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else _spriteBatch.Draw(province_sea, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    }
+                }
+            sr.Close();
             _spriteBatch.End();
 
             // TODO: Add your drawing code here
