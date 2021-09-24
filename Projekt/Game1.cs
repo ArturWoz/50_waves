@@ -71,9 +71,37 @@ namespace Projekt
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
+<<<<<<< Updated upstream
             _spriteBatch.Draw(province_desert, Vector2.Zero,Color.White);
             province_offset = new Vector2(province_desert.Width,0);
             _spriteBatch.Draw(province_taiga, province_offset, Color.White);
+=======
+            for (int k = 0; k < y; k++)
+                {
+                    for (int k2 = 0; k2 <x ; k2++)
+                    {
+                    s = sr.ReadLine();
+                    s2 = (terrain)Enum.Parse(typeof(terrain), s, true);
+                    Province load = new Province(i, "placeholder", 0, s2, false, 0, 0);
+                    i++;
+                    mapa[k2, k] = load;
+                    province_offset = new Vector2(16 * k, 16 * k2);
+                    if (s == "desert") _spriteBatch.Draw(province_desert, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "sea") _spriteBatch.Draw(province_sea, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "coast") _spriteBatch.Draw(province_coast, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "lake") _spriteBatch.Draw(province_lake, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "hills") _spriteBatch.Draw(province_hills, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "taiga") _spriteBatch.Draw(province_taiga, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "tundra") _spriteBatch.Draw(province_tundra, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "plains") _spriteBatch.Draw(province_plains, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "farmland") _spriteBatch.Draw(province_farmland, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "forest") _spriteBatch.Draw(province_forest, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (s == "mountains") _spriteBatch.Draw(province_mountains, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else _spriteBatch.Draw(province_sea, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    }
+                }
+            sr.Close();
+>>>>>>> Stashed changes
             _spriteBatch.End();
 
             // TODO: Add your drawing code here
