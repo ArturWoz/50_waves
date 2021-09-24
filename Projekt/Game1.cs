@@ -69,7 +69,7 @@ namespace Projekt
             province_taiga = Content.Load<Texture2D>("taiga1");
             province_tundra = Content.Load<Texture2D>("tundra1");
             province_coast = Content.Load<Texture2D>("coast1");
-            province_hills = Content.Load<Texture2D>("mountains1");
+            province_hills = Content.Load<Texture2D>("hills1");
             scale = new Vector2(targetX / (float)province_desert.Width, targetX / (float)province_desert.Width);
             targetY = province_desert.Height * scale.Y;
             // TODO: use this.Content to load your game content here
@@ -106,6 +106,7 @@ namespace Projekt
                     else if (SS == "farmland") _spriteBatch.Draw(province_farmland, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
                     else if (SS == "forest") _spriteBatch.Draw(province_forest, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
                     else if (SS == "mountains") _spriteBatch.Draw(province_mountains, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (SS == "jungle") _spriteBatch.Draw(province_jungle, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
                     else _spriteBatch.Draw(province_sea, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
                     }
                 }

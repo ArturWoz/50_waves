@@ -59,3 +59,17 @@ C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\
 C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\sea1.xnb
 C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\taiga1.xnb
 C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\tundra1.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\coast1.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\desert1.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\desert1_highlighted.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\farmland1.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\forest1.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\jungle1.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\lake1.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\mountains1.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\plains1.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\plains1_highlighted.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\sea1.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\taiga1.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\tundra1.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\hills1.xnb
