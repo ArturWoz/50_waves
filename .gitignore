@@ -1,0 +1,8 @@
+
+*.mgcontent
+*.cache
+*.dll
+*.editorconfig
+Projekt/obj/project.assets.json
+*.cache
+*.props
