@@ -12,7 +12,7 @@ namespace Projekt
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        float targetX = 16;
+        float targetX = 32;
         float targetY;
         Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra,province_coast,province_hills;
         Vector2 province_position;
@@ -97,7 +97,7 @@ namespace Projekt
                     for (int k2 = 0; k2 <x ; k2++)
                     {
                     string SS = mapaS[k2, k];
-                    province_offset = new Vector2(16 * k, 16 * k2);
+                    province_offset = new Vector2(targetX * k, targetY * k2);
                     if (SS == "desert") _spriteBatch.Draw(province_desert, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
                     else if (SS == "sea") _spriteBatch.Draw(province_sea, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
                     else if (SS == "coast") _spriteBatch.Draw(province_coast, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
