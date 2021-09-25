@@ -33,6 +33,9 @@ namespace Projekt
 
         protected override void Initialize()
         {
+            _graphics.PreferredBackBufferWidth = GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+            _graphics.PreferredBackBufferHeight = GraphicsDevice.Adapter.CurrentDisplayMode.Height;
+            _graphics.ApplyChanges();
             StreamReader sr = File.OpenText(path);
             x = int.Parse(sr.ReadLine());
             y = int.Parse(sr.ReadLine());
