@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/plains1_highlighted.png</SourceFile>
-  <SourceTime>2021-09-17T18:26:17.9274122+02:00</SourceTime>
+  <SourceTime>2021-09-25T15:06:46.8437067+02:00</SourceTime>
   <DestFile>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/bin/DesktopGL/Content/plains1_highlighted.xnb</DestFile>
-  <DestTime>2021-09-24T23:10:53.5778287+02:00</DestTime>
+  <DestTime>2021-09-25T15:07:27.904133+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T16:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
