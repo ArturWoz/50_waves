@@ -12,8 +12,9 @@ namespace Projekt
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        float targetX = 32;
+        float targetX =32;
         float targetY;
+        float zoom = 0.5f;
         Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra,province_coast,province_hills;
         Vector2 Camera_position = Vector2.Zero;
         Vector2 scale;
@@ -72,8 +73,6 @@ namespace Projekt
             province_tundra = Content.Load<Texture2D>("tundra1");
             province_coast = Content.Load<Texture2D>("coast1");
             province_hills = Content.Load<Texture2D>("hills1");
-            scale = new Vector2(targetX / (float)province_desert.Width, targetX / (float)province_desert.Width);
-            targetY = province_desert.Height * scale.Y;
             // TODO: use this.Content to load your game content here
         }
 
@@ -98,7 +97,17 @@ namespace Projekt
             {
                 Camera_position.X = Camera_position.X + 5;
             }
+            if (keystate.IsKeyDown(Keys.Down)&&zoom>0.1)
+            {
+                zoom = zoom - (float)0.01;
+            }
+            if (keystate.IsKeyDown(Keys.Up)&&zoom<1)
+            {
+                zoom = zoom + (float)0.01;
+            }
             // TODO: Add your update logic here
+            scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height);
+            targetY = targetX;
 
             base.Update(gameTime);
         }
