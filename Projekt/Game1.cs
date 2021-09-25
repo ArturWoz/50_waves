@@ -12,9 +12,9 @@ namespace Projekt
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        float targetX =32;
+        float targetX =255;
         float targetY;
-        float zoom = 0.5f;
+        float zoom = 1;
         Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra,province_coast,province_hills;
         Vector2 Camera_position = Vector2.Zero;
         Vector2 scale;
@@ -97,11 +97,11 @@ namespace Projekt
             {
                 Camera_position.X = Camera_position.X + 5;
             }
-            if (keystate.IsKeyDown(Keys.Down)&&zoom>0.1)
+            if (keystate.IsKeyDown(Keys.Up)&&zoom>0.5)
             {
                 zoom = zoom - (float)0.01;
             }
-            if (keystate.IsKeyDown(Keys.Up)&&zoom<1)
+            if (keystate.IsKeyDown(Keys.Down)&&zoom<8)
             {
                 zoom = zoom + (float)0.01;
             }
@@ -121,7 +121,7 @@ namespace Projekt
                     for (int k2 = 0; k2 <x ; k2++)
                     {
                     string SS = mapaS[k2, k];
-                    Vector2 province_offset = new Vector2(targetX * k, targetY * k2);
+                    Vector2 province_offset = new Vector2(targetX/zoom * k, targetY/zoom * k2);
                     if (SS == "desert") _spriteBatch.Draw(province_desert, position: Camera_position+province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
                     else if (SS == "sea") _spriteBatch.Draw(province_sea, position: Camera_position+province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
                     else if (SS == "coast") _spriteBatch.Draw(province_coast, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
