@@ -15,8 +15,7 @@ namespace Projekt
         float targetX = 32;
         float targetY;
         Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra,province_coast,province_hills;
-        Vector2 province_position;
-        Vector2 province_offset;
+        Vector2 Camera_position = Vector2.Zero;
         Vector2 scale;
         string path = "map.txt";
         string s;
@@ -82,7 +81,23 @@ namespace Projekt
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            KeyboardState keystate = Keyboard.GetState();
+            if(keystate.IsKeyDown(Keys.W))
+            {
+                Camera_position.Y = Camera_position.Y - 5;
+            }
+            if (keystate.IsKeyDown(Keys.S))
+            {
+                Camera_position.Y = Camera_position.Y + 5;
+            }
+            if (keystate.IsKeyDown(Keys.A))
+            {
+                Camera_position.X = Camera_position.X -5;
+            }
+            if (keystate.IsKeyDown(Keys.D))
+            {
+                Camera_position.X = Camera_position.X + 5;
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -97,20 +112,20 @@ namespace Projekt
                     for (int k2 = 0; k2 <x ; k2++)
                     {
                     string SS = mapaS[k2, k];
-                    province_offset = new Vector2(targetX * k, targetY * k2);
-                    if (SS == "desert") _spriteBatch.Draw(province_desert, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "sea") _spriteBatch.Draw(province_sea, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "coast") _spriteBatch.Draw(province_coast, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "lake") _spriteBatch.Draw(province_lake, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "hills") _spriteBatch.Draw(province_hills, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "taiga") _spriteBatch.Draw(province_taiga, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "tundra") _spriteBatch.Draw(province_tundra, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "plains") _spriteBatch.Draw(province_plains, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "farmland") _spriteBatch.Draw(province_farmland, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "forest") _spriteBatch.Draw(province_forest, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "mountains") _spriteBatch.Draw(province_mountains, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "jungle") _spriteBatch.Draw(province_jungle, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else _spriteBatch.Draw(province_sea, position: province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    Vector2 province_offset = new Vector2(targetX * k, targetY * k2);
+                    if (SS == "desert") _spriteBatch.Draw(province_desert, position: Camera_position+province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (SS == "sea") _spriteBatch.Draw(province_sea, position: Camera_position+province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (SS == "coast") _spriteBatch.Draw(province_coast, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (SS == "lake") _spriteBatch.Draw(province_lake, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (SS == "hills") _spriteBatch.Draw(province_hills, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (SS == "taiga") _spriteBatch.Draw(province_taiga, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (SS == "tundra") _spriteBatch.Draw(province_tundra, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (SS == "plains") _spriteBatch.Draw(province_plains, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (SS == "farmland") _spriteBatch.Draw(province_farmland, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (SS == "forest") _spriteBatch.Draw(province_forest, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (SS == "mountains") _spriteBatch.Draw(province_mountains, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else if (SS == "jungle") _spriteBatch.Draw(province_jungle, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    else _spriteBatch.Draw(province_sea, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
                     }
                 }
             _spriteBatch.End();
