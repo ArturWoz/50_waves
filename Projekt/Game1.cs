@@ -23,7 +23,7 @@ namespace Projekt
         string[,] mapaS; 
         Province[,] mapa;
         terrain s2;
-        int i = 0,x,y;
+        int i = 0, x, y, scroll = 0;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -82,35 +82,49 @@ namespace Projekt
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             KeyboardState keystate = Keyboard.GetState();
-            if(keystate.IsKeyDown(Keys.S))
+            MouseState mousestate = Mouse.GetState();
+
+            if(keystate.IsKeyDown(Keys.S) | mousestate.Y >= _graphics.PreferredBackBufferHeight-15)
             {
-                Camera_position.Y = Camera_position.Y - (20/zoom);
+                Camera_position.Y = Camera_position.Y - (30*zoom);
             }
-            if (keystate.IsKeyDown(Keys.W))
+            if (keystate.IsKeyDown(Keys.W) | mousestate.Y <= 25)
             {
-                Camera_position.Y = Camera_position.Y + (20/zoom);
+                Camera_position.Y = Camera_position.Y + (30*zoom);
             }
-            if (keystate.IsKeyDown(Keys.D))
+            if (keystate.IsKeyDown(Keys.D) | mousestate.X >= _graphics.PreferredBackBufferWidth - 15)
             {
-                Camera_position.X = Camera_position.X -(20/zoom);
+                Camera_position.X = Camera_position.X -(30*zoom);
             }
-            if (keystate.IsKeyDown(Keys.A))
+            if (keystate.IsKeyDown(Keys.A) | mousestate.X <= 25)
             {
-                Camera_position.X = Camera_position.X + (20/zoom);
+                Camera_position.X = Camera_position.X + (30*zoom);
             }
-            if (keystate.IsKeyDown(Keys.Up)&&zoom>0.5)
+            if (keystate.IsKeyDown(Keys.Up) &&zoom>0.5)
             {
                 //Camera_position = Camera_position / 0.99f;
                 zoom = zoom - (float)0.01;
             }
-            if (keystate.IsKeyDown(Keys.Down)&&zoom<9)
+            if (keystate.IsKeyDown(Keys.Down) && zoom<9)
             {
                 //Camera_position = Camera_position / 1.01f;
                 zoom = zoom + (float)0.01;
             }
+
+            if (mousestate.ScrollWheelValue > scroll && zoom > 0.5)
+            {
+                //Camera_position = Camera_position / 0.99f;
+                zoom = zoom - (float)0.06;
+            }
+            if (mousestate.ScrollWheelValue < scroll && zoom < 9)
+            {
+                //Camera_position = Camera_position / 1.01f;
+                zoom = zoom + (float)0.06;
+            }
             // TODO: Add your update logic here
             scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height);
             targetY = targetX;
+            scroll = mousestate.ScrollWheelValue;
 
             base.Update(gameTime);
         }
