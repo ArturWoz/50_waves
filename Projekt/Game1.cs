@@ -102,25 +102,24 @@ namespace Projekt
             }
             if (keystate.IsKeyDown(Keys.Up) &&zoom>0.5)
             {
-                //Camera_position = Camera_position / 0.99f;
-                zoom = zoom - (float)0.01;
+                zoom = zoom - (float)0.025;
             }
-            if (keystate.IsKeyDown(Keys.Down) && zoom<9)
+            if (keystate.IsKeyDown(Keys.Down) && zoom<8)
             {
-                //Camera_position = Camera_position / 1.01f;
-                zoom = zoom + (float)0.01;
+                zoom = zoom + (float)0.025;
             }
 
             if (mousestate.ScrollWheelValue > scroll && zoom > 0.5)
             {
-                //Camera_position = Camera_position / 0.99f;
-                zoom = zoom - (float)0.4;
+                zoom = zoom - (float)0.25;
             }
-            if (mousestate.ScrollWheelValue < scroll && zoom < 9)
+            if (mousestate.ScrollWheelValue < scroll && zoom < 8)
             {
-                //Camera_position = Camera_position / 1.01f;
-                zoom = zoom + (float)0.4;
+                zoom = zoom + (float)0.25;
             }
+            if (zoom < 0.5) zoom = 0.5f;
+            if (zoom > 8) zoom = 8;
+               
             // TODO: Add your update logic here
             scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height);
             targetY = targetX;
@@ -135,24 +134,6 @@ namespace Projekt
             _spriteBatch.Begin();
             for (int k = 0; k < y; k++)
                 {
-                //for (int k2 = 0; k2 <x ; k2++)
-                //{
-                //string SS = mapaS[k2, k];
-                //Vector2 province_offset = new Vector2(targetX/zoom * k, targetY/zoom * k2);
-                //if (SS == "desert") _spriteBatch.Draw(province_desert, position: Camera_position+province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //else if (SS == "sea") _spriteBatch.Draw(province_sea, position: Camera_position+province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //else if (SS == "coast") _spriteBatch.Draw(province_coast, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //else if (SS == "lake") _spriteBatch.Draw(province_lake, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //else if (SS == "hills") _spriteBatch.Draw(province_hills, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //else if (SS == "taiga") _spriteBatch.Draw(province_taiga, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //else if (SS == "tundra") _spriteBatch.Draw(province_tundra, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //else if (SS == "plains") _spriteBatch.Draw(province_plains, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //else if (SS == "farmland") _spriteBatch.Draw(province_farmland, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //else if (SS == "forest") _spriteBatch.Draw(province_forest, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //else if (SS == "mountains") _spriteBatch.Draw(province_mountains, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //else if (SS == "jungle") _spriteBatch.Draw(province_jungle, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //else _spriteBatch.Draw(province_sea, position: Camera_position + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                //}(Camera_position / zoom)
 
                 for (int k2 = 0; k2 < x; k2++)
                 {

@@ -4,20 +4,20 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/coast1.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/desert1.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/desert1_highlighted.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/farmland1.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/forest1.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/hills1.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/jungle1.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/lake1.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/mountains1.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/plains1.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/plains1_highlighted.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/sea1.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/taiga1.png</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/repo/Projekt/Content/tundra1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/coast1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/desert1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/desert1_highlighted.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/farmland1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/forest1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/hills1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/jungle1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/lake1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/mountains1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/plains1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/plains1_highlighted.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/sea1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/taiga1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/tundra1.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
