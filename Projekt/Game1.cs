@@ -114,12 +114,12 @@ namespace Projekt
             if (mousestate.ScrollWheelValue > scroll && zoom > 0.5)
             {
                 //Camera_position = Camera_position / 0.99f;
-                zoom = zoom - (float)0.06;
+                zoom = zoom - (float)0.4;
             }
             if (mousestate.ScrollWheelValue < scroll && zoom < 9)
             {
                 //Camera_position = Camera_position / 1.01f;
-                zoom = zoom + (float)0.06;
+                zoom = zoom + (float)0.4;
             }
             // TODO: Add your update logic here
             scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height);
