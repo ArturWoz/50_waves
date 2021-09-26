@@ -12,18 +12,19 @@ namespace Projekt
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        float targetX =128;
+        float targetX =128; //province size
         float targetY;
         float zoom = 1;
         Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra,province_coast,province_hills;
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Mouse_position;
-        Vector2 scale;
+        Vector2 Scale;
+        Vector2 Highlighted_province;
         string path = "map.txt";
-        string s;
+        string s; //string used for loading map files
         string[,] mapaS; 
         Province[,] mapa;
-        terrain s2;
+        terrain s2; //string s converted to type terrain
         SpriteFont font;
         int i = 0, x, y, scroll = 0,Xprov,Yprov;
         public Game1()
@@ -33,19 +34,29 @@ namespace Projekt
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
+        protected Vector2 MouseToMapCoordinate(Vector2 Mouse_position)
+        {
+            Vector2 Output;
+            Vector2 Province_size = new Vector2(this.targetX / this.zoom, this.targetY / this.zoom);
+            Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
+            Vector2 Temp = Mouse_position - this.Camera_position - Camera_offset;
+            Output.X = (int) (Temp.X / Province_size.X);
+            Output.Y = (int) (Temp.Y / Province_size.Y);
+            return Output;
+        }
 
         protected override void Initialize()
         {
-            _graphics.PreferredBackBufferWidth = GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+            _graphics.PreferredBackBufferWidth = GraphicsDevice.Adapter.CurrentDisplayMode.Width; // window size to be the display size
             _graphics.PreferredBackBufferHeight = GraphicsDevice.Adapter.CurrentDisplayMode.Height;
             _graphics.ApplyChanges();
             StreamReader sr = File.OpenText(path);
-            x = int.Parse(sr.ReadLine());
+            x = int.Parse(sr.ReadLine()); // map dimensions
             y = int.Parse(sr.ReadLine());
             mapa = new Province[x, y];
             mapaS = new string[x, y];
 
-            for (int k = 0; k < y; k++)
+            for (int k = 0; k < y; k++) // loading map file
             {
                 for (int k2 = 0; k2 < x; k2++)
                 {
@@ -63,7 +74,7 @@ namespace Projekt
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice); //loading graphics
             font = Content.Load<SpriteFont>("defaultFont");
             province_desert = Content.Load<Texture2D>("desert1");
             province_farmland = Content.Load<Texture2D>("farmland1");
@@ -87,7 +98,7 @@ namespace Projekt
             KeyboardState keystate = Keyboard.GetState();
             MouseState mousestate = Mouse.GetState();
 
-            if(keystate.IsKeyDown(Keys.S) | mousestate.Y >= _graphics.PreferredBackBufferHeight-15)
+            if(keystate.IsKeyDown(Keys.S) | mousestate.Y >= _graphics.PreferredBackBufferHeight-15) //camera movement
             {
                 Camera_position.Y = Camera_position.Y - (30*zoom);
             }
@@ -103,7 +114,7 @@ namespace Projekt
             {
                 Camera_position.X = Camera_position.X + (30*zoom);
             }
-            if (keystate.IsKeyDown(Keys.Up) &&zoom>0.5)
+            if (keystate.IsKeyDown(Keys.Up) &&zoom>0.5) //zoom
             {
                 zoom = zoom - (float)0.025;
             }
@@ -120,35 +131,20 @@ namespace Projekt
             {
                 zoom = zoom + (float)0.25;
             }
-            if (zoom < 0.5) zoom = 0.5f;
+            if (zoom < 0.5) zoom = 0.5f; //zoom cap
             if (zoom > 8) zoom = 8;
                
             // TODO: Add your update logic here
-            scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height);
+            Scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height); // adjusting scrolling to different camera positions
             targetY = targetX;
             scroll = mousestate.ScrollWheelValue;
-            int Xpos, Ypos;
+
+            int Xpos, Ypos; //reading mouse position
             Xpos = Mouse.GetState().Position.X;
             Ypos = Mouse.GetState().Position.Y;
             Mouse_position = new Vector2(Xpos, Ypos);
 
-            for (int k = 0; k < y; k++)
-            {
-
-                for (int k2 = 0; k2 < x; k2++)
-                {
-                    Vector2 size = new Vector2(targetX / zoom , targetY / zoom );
-                    Vector2 province_offset = new Vector2(targetX / zoom * k, targetY / zoom * k2);
-                    Vector2 camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
-                    Vector2 UL= ((Camera_position) / zoom + camera_offset) + province_offset;
-                    Vector2 DR =UL+size;
-                    if(UL.X<=Xpos && Xpos<=DR.X && DR.Y>=Ypos && Ypos>=UL.Y)
-                    {
-                        Xprov = k;
-                        Yprov = k2;
-                    }
-                }
-            }
+            Highlighted_province = MouseToMapCoordinate(Mouse_position);
 
             base.Update(gameTime);
         }
@@ -157,31 +153,31 @@ namespace Projekt
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
-            for (int k = 0; k < y; k++)
+            for (int k = 0; k < y; k++) //drawing provinces
                 {
 
                 for (int k2 = 0; k2 < x; k2++)
                 {
                     string SS = mapaS[k2, k];
-                    Vector2 province_offset = new Vector2(targetX / zoom * k, targetY / zoom * k2);
-                    Vector2 camera_offset = new Vector2(_graphics.PreferredBackBufferWidth/2, _graphics.PreferredBackBufferHeight / 2);
-                    if (SS == "desert") _spriteBatch.Draw(province_desert, position: ((Camera_position)/zoom+camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "sea") _spriteBatch.Draw(province_sea, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "coast") _spriteBatch.Draw(province_coast, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "lake") _spriteBatch.Draw(province_lake, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "hills") _spriteBatch.Draw(province_hills, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "taiga") _spriteBatch.Draw(province_taiga, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "tundra") _spriteBatch.Draw(province_tundra, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "plains") _spriteBatch.Draw(province_plains, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "farmland") _spriteBatch.Draw(province_farmland, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "forest") _spriteBatch.Draw(province_forest, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "mountains") _spriteBatch.Draw(province_mountains, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else if (SS == "jungle") _spriteBatch.Draw(province_jungle, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
-                    else _spriteBatch.Draw(province_sea, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
+                    Vector2 Province_offset = new Vector2(targetX / zoom * k, targetY / zoom * k2);
+                    Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth/2, _graphics.PreferredBackBufferHeight / 2);
+                    if (SS == "desert") _spriteBatch.Draw(province_desert, position: ((Camera_position)/zoom+Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    else if (SS == "sea") _spriteBatch.Draw(province_sea, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    else if (SS == "coast") _spriteBatch.Draw(province_coast, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    else if (SS == "lake") _spriteBatch.Draw(province_lake, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    else if (SS == "hills") _spriteBatch.Draw(province_hills, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    else if (SS == "taiga") _spriteBatch.Draw(province_taiga, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    else if (SS == "tundra") _spriteBatch.Draw(province_tundra, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    else if (SS == "plains") _spriteBatch.Draw(province_plains, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    else if (SS == "farmland") _spriteBatch.Draw(province_farmland, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    else if (SS == "forest") _spriteBatch.Draw(province_forest, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    else if (SS == "mountains") _spriteBatch.Draw(province_mountains, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    else if (SS == "jungle") _spriteBatch.Draw(province_jungle, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    else _spriteBatch.Draw(province_sea, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                 }
             }
-            //_spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString(),Vector2.Zero,Color.Black);
-            _spriteBatch.DrawString(font,Xprov.ToString()+"\n"+Yprov.ToString(),Vector2.Zero,Color.Black);
+            //show camera position and province id
+            _spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString() + '\n' + Highlighted_province.X.ToString() + "\n" + Highlighted_province.Y.ToString(), Vector2.Zero,Color.Black);
             _spriteBatch.End();
 
             // TODO: Add your drawing code here
