@@ -17,6 +17,7 @@ namespace Projekt
         float zoom = 1;
         Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra,province_coast,province_hills;
         Vector2 Camera_position = Vector2.Zero;
+        Vector2 Mouse_position;
         Vector2 scale;
         string path = "map.txt";
         string s;
@@ -126,7 +127,10 @@ namespace Projekt
             scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height);
             targetY = targetX;
             scroll = mousestate.ScrollWheelValue;
-
+            int Xpos, Ypos;
+            Xpos = Mouse.GetState().Position.X;
+            Ypos = Mouse.GetState().Position.Y;
+            Mouse_position = new Vector2(Xpos, Ypos);
             base.Update(gameTime);
         }
 
@@ -157,7 +161,7 @@ namespace Projekt
                     else _spriteBatch.Draw(province_sea, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
                 }
             }
-            _spriteBatch.DrawString(font,Camera_position.ToString(),Vector2.Zero,Color.Black);
+            _spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString(),Vector2.Zero,Color.Black);
             _spriteBatch.End();
 
             // TODO: Add your drawing code here
