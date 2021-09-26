@@ -39,7 +39,7 @@ namespace Projekt
             Vector2 Output;
             Vector2 Province_size = new Vector2(this.targetX / this.zoom, this.targetY / this.zoom);
             Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
-            Vector2 Temp = Mouse_position - this.Camera_position - Camera_offset;
+            Vector2 Temp = Mouse_position - this.Camera_position/zoom - Camera_offset;
             Output.X = (int) (Temp.X / Province_size.X);
             Output.Y = (int) (Temp.Y / Province_size.Y);
             return Output;
