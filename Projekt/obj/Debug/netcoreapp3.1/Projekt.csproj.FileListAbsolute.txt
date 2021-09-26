@@ -151,3 +151,4 @@ C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\repo\Projekt\obj\Debug\
 C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\repo\Projekt\obj\Debug\netcoreapp3.1\Projekt.pdb
 C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\repo\Projekt\obj\Debug\netcoreapp3.1\Projekt.genruntimeconfig.cache
 C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\defaultFont.xnb
+C:\Users\Artur\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\defaultFont.xnb

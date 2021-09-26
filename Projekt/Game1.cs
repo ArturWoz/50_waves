@@ -25,7 +25,7 @@ namespace Projekt
         Province[,] mapa;
         terrain s2;
         SpriteFont font;
-        int i = 0, x, y, scroll = 0;
+        int i = 0, x, y, scroll = 0,Xprov,Yprov;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -131,6 +131,25 @@ namespace Projekt
             Xpos = Mouse.GetState().Position.X;
             Ypos = Mouse.GetState().Position.Y;
             Mouse_position = new Vector2(Xpos, Ypos);
+
+            for (int k = 0; k < y; k++)
+            {
+
+                for (int k2 = 0; k2 < x; k2++)
+                {
+                    Vector2 size = new Vector2(targetX / zoom , targetY / zoom );
+                    Vector2 province_offset = new Vector2(targetX / zoom * k, targetY / zoom * k2);
+                    Vector2 camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
+                    Vector2 UL= ((Camera_position) / zoom + camera_offset) + province_offset;
+                    Vector2 DR =UL+size;
+                    if(UL.X<=Xpos && Xpos<=DR.X && DR.Y>=Ypos && Ypos>=UL.Y)
+                    {
+                        Xprov = k;
+                        Yprov = k2;
+                    }
+                }
+            }
+
             base.Update(gameTime);
         }
 
@@ -161,7 +180,8 @@ namespace Projekt
                     else _spriteBatch.Draw(province_sea, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
                 }
             }
-            _spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString(),Vector2.Zero,Color.Black);
+            //_spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString(),Vector2.Zero,Color.Black);
+            _spriteBatch.DrawString(font,Xprov.ToString()+"\n"+Yprov.ToString(),Vector2.Zero,Color.Black);
             _spriteBatch.End();
 
             // TODO: Add your drawing code here
