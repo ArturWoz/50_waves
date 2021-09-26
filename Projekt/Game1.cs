@@ -20,6 +20,7 @@ namespace Projekt
         Vector2 Mouse_position;
         Vector2 Scale;
         Vector2 Highlighted_province;
+        Vector2 Prev_highlighted_province;
         string path = "map.txt";
         string s; //string used for loading map files
         string[,] mapaS; 
@@ -134,6 +135,8 @@ namespace Projekt
             }
             if (zoom < 0.5) zoom = 0.5f; //zoom cap
             if (zoom > 8) zoom = 8;
+
+            
                
             // TODO: Add your update logic here
             Scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height); // adjusting scrolling to different camera positions
@@ -149,6 +152,13 @@ namespace Projekt
             {
                 Highlighted_province = MouseToMapCoordinate(Mouse_position);
             }
+            if (mousestate.LeftButton == ButtonState.Pressed)
+            {
+                mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
+                mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
+                Prev_highlighted_province = Highlighted_province;
+            }
+
             base.Update(gameTime);
         }
 
@@ -177,10 +187,13 @@ namespace Projekt
                     else if (SS == "mountains") _spriteBatch.Draw(province_mountains, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                     else if (SS == "jungle") _spriteBatch.Draw(province_jungle, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                     else _spriteBatch.Draw(province_sea, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+
+                    if (mapa[k, k2].GetClicked()) _spriteBatch.Draw(province_jungle, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                 }
             }
+            
             //show camera position and province id
-            _spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString() + '\n' + mapa[(int)Highlighted_province.X,(int)Highlighted_province.Y].GetID(), Vector2.Zero,Color.Black);
+            _spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString() + '\n' + mapa[(int)Highlighted_province.X,(int)Highlighted_province.Y].GetID() +'\n'+ mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetClicked(), Vector2.Zero,Color.OrangeRed);
             _spriteBatch.End();
 
             // TODO: Add your drawing code here

@@ -8,6 +8,8 @@ namespace Projekt
     {
         int province_building_slots;
         int province_value;
+        bool clicked;
+
         public Province(int province_id, string province_name, int province_owner, terrain terrain, bool is_water, int province_building_slots,
             int province_value):base(province_id, province_name, province_owner, terrain, is_water)
         {
@@ -34,5 +36,9 @@ namespace Projekt
         }
         public terrain GetTerrain() { return this.terrain; }
         public int GetID() { return this.province_id; }
+
+        public bool GetClicked() { return this.clicked; } //LMAO get clicked n00b
+
+        public void SetClicked(bool value) { this.clicked = value; }
     }
 }
