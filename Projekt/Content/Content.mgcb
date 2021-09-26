@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:coast1.png
 
+#begin defaultfont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:defaultfont.spritefont;defaultFont.spritefont
+
 #begin desert1.png
 /importer:TextureImporter
 /processor:TextureProcessor

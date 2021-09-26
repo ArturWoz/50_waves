@@ -23,6 +23,7 @@ namespace Projekt
         string[,] mapaS; 
         Province[,] mapa;
         terrain s2;
+        SpriteFont font;
         int i = 0, x, y, scroll = 0;
         public Game1()
         {
@@ -62,6 +63,7 @@ namespace Projekt
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            font = Content.Load<SpriteFont>("defaultFont");
             province_desert = Content.Load<Texture2D>("desert1");
             province_farmland = Content.Load<Texture2D>("farmland1");
             province_forest = Content.Load<Texture2D>("forest1");
@@ -155,6 +157,7 @@ namespace Projekt
                     else _spriteBatch.Draw(province_sea, position: ((Camera_position) / zoom + camera_offset) + province_offset, null, Color.White, 0, Vector2.Zero, scale, 0, 0);
                 }
             }
+            _spriteBatch.DrawString(font,Camera_position.ToString(),Vector2.Zero,Color.Black);
             _spriteBatch.End();
 
             // TODO: Add your drawing code here

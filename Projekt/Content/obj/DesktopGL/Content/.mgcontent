@@ -5,6 +5,7 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/coast1.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/defaultfont.spritefont</File>
     <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/desert1.png</File>
     <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/desert1_highlighted.png</File>
     <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/farmland1.png</File>
@@ -21,6 +22,7 @@
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
+    <File>defaultFont.spritefont</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
