@@ -65,6 +65,7 @@ namespace Projekt
                     s2 = (terrain)Enum.Parse(typeof(terrain), s, true);
                     Province load = new Province(i, "placeholder", 0, s2, false, 0, 0);
                     mapa[k2, k] = load;
+                    i++;
                 }
             }
 
@@ -143,9 +144,11 @@ namespace Projekt
             Xpos = Mouse.GetState().Position.X;
             Ypos = Mouse.GetState().Position.Y;
             Mouse_position = new Vector2(Xpos, Ypos);
-
-            Highlighted_province = MouseToMapCoordinate(Mouse_position);
-
+            Vector2 Test = MouseToMapCoordinate(Mouse_position);
+            if ((int)Test.X > -1 && (int)Test.Y > -1 && (int)Test.X < x && (int)Test.Y < y) // x and y are map dimensions
+            {
+                Highlighted_province = MouseToMapCoordinate(Mouse_position);
+            }
             base.Update(gameTime);
         }
 
@@ -177,7 +180,7 @@ namespace Projekt
                 }
             }
             //show camera position and province id
-            _spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString() + '\n' + Highlighted_province.X.ToString() + "\n" + Highlighted_province.Y.ToString(), Vector2.Zero,Color.Black);
+            _spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString() + '\n' + mapa[(int)Highlighted_province.X,(int)Highlighted_province.Y].GetID(), Vector2.Zero,Color.Black);
             _spriteBatch.End();
 
             // TODO: Add your drawing code here

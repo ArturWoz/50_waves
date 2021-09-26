@@ -33,5 +33,6 @@ namespace Projekt
             return province.province_id == this.province_id;
         }
         public terrain GetTerrain() { return this.terrain; }
+        public int GetID() { return this.province_id; }
     }
 }
