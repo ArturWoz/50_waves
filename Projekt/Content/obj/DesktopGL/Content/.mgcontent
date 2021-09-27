@@ -4,26 +4,28 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/../graphics/farmland1.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/../graphics/hills1.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/../graphics/taiga1.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/../graphics/taiga2.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/../graphics/tundra1.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/coast1.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/defaultfont.spritefont</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/desert1.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/desert1_highlighted.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/forest1.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/jungle1.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/lake1.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/mountains1.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/plains1.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/plains1_highlighted.png</File>
-    <File>C:/Users/Artur/Documents/GitHub/EREKTON/Projekt/Content/sea1.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/../graphics/farmland1.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/../graphics/hills1.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/../graphics/jungle1.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/../graphics/taiga1.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/../graphics/taiga2.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/../graphics/tundra1.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/coast1.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/defaultfont.spritefont</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/desert1.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/desert1_highlighted.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/forest1.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/jungle2.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/lake1.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/mountains1.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/plains1.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/plains1_highlighted.png</File>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/sea1.png</File>
   </SourceFiles>
   <DestFiles>
     <File>farmland1.png</File>
     <File>hills1.png</File>
+    <File>jungle1.png</File>
     <File>taiga1.png</File>
     <File>taiga2.png</File>
     <File>tundra1.png</File>
