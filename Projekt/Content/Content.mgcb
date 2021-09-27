@@ -25,18 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:../graphics/farmland1.png;farmland1.png
 
-#begin ../graphics/farmland1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../graphics/farmland1.png;farmland1.png
-
 #begin ../graphics/hills1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -49,7 +37,7 @@
 /processorParam:TextureFormat=Color
 /build:../graphics/hills1.png;hills1.png
 
-#begin ../graphics/hills1.png
+#begin ../graphics/jungle1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -59,31 +47,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../graphics/hills1.png;hills1.png
-
-#begin ../graphics/hills1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../graphics/hills1.png;hills1.png
-
-#begin ../graphics/taiga1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../graphics/taiga1.png;taiga1.png
+/build:../graphics/jungle1.png;jungle1.png
 
 #begin ../graphics/taiga1.png
 /importer:TextureImporter
@@ -108,18 +72,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../graphics/taiga2.png;taiga2.png
-
-#begin ../graphics/tundra1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../graphics/tundra1.png;tundra1.png
 
 #begin ../graphics/tundra1.png
 /importer:TextureImporter
@@ -188,7 +140,7 @@
 /processorParam:TextureFormat=Color
 /build:forest1.png
 
-#begin jungle1.png
+#begin jungle2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -198,7 +150,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:jungle1.png
+/build:jungle2.png
 
 #begin lake1.png
 /importer:TextureImporter
