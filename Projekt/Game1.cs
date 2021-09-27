@@ -35,7 +35,7 @@ namespace Projekt
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
-        protected Vector2 MouseToMapCoordinate(Vector2 Mouse_position)
+        protected Vector2 MouseToMapCoordinate(Vector2 Mouse_position) // return X and Y coordinates of the province that mouse points at
         {
             Vector2 Output;
             Vector2 Province_size = new Vector2(this.targetX / this.zoom, this.targetY / this.zoom);
