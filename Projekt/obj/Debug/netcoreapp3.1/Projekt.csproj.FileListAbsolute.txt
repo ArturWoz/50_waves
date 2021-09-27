@@ -153,3 +153,4 @@ C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\repo\Projekt\obj\Debug\
 C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\defaultFont.xnb
 C:\Users\Artur\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\defaultFont.xnb
 C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\repo\Projekt\bin\Debug\netcoreapp3.1\Content\defaultFont.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\defaultFont.xnb
