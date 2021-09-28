@@ -26,6 +26,7 @@ namespace Projekt
         Province[,] mapa;
         terrain s2; //string s converted to type terrain
         SpriteFont font;
+        private FrameCounter _frameCounter = new FrameCounter();
         int i = 0, x, y, scroll = 0; //Yprov will be always remembered :(
         public Game1()
         {
@@ -202,7 +203,11 @@ namespace Projekt
 
             //show camera position and province id
             
-            _spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString() + '\n' + mapa[(int)Highlighted_province.X,(int)Highlighted_province.Y].GetID() +'\n'+ mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetClicked(), Vector2.Zero,Color.OrangeRed);
+            
+            var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _frameCounter.Update(deltaTime);
+            var fps = string.Format("FPS: {0}", _frameCounter.AverageFramesPerSecond);
+            _spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString() + '\n' + mapa[(int)Highlighted_province.X,(int)Highlighted_province.Y].GetID() +'\n'+ mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetClicked()+'\n'+fps, Vector2.Zero,Color.OrangeRed);
             _spriteBatch.End();
             // TODO: Add your drawing code here
 
