@@ -35,6 +35,13 @@ namespace Projekt
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
+        protected Vector2 ProvinceIDToMapCoordinate(int id)
+        {
+            Vector2 output;
+            output.Y = id / this.y;
+            output.X = id % this.y;
+            return output;
+        }
         protected Vector2 MouseToMapCoordinate(Vector2 Mouse_position) // return X and Y coordinates of the province that mouse points at
         {
             Vector2 Output;
@@ -191,11 +198,11 @@ namespace Projekt
                     if (mapa[k, k2].GetClicked()) _spriteBatch.Draw(province_jungle, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                 }
             }
-            
+
             //show camera position and province id
+            
             _spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString() + '\n' + mapa[(int)Highlighted_province.X,(int)Highlighted_province.Y].GetID() +'\n'+ mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetClicked(), Vector2.Zero,Color.OrangeRed);
             _spriteBatch.End();
-
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
