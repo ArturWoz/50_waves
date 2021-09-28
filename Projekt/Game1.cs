@@ -12,10 +12,10 @@ namespace Projekt
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        float targetX =128; //province size
+        float targetX = 128; //province size
         float targetY;
         float zoom = 1;
-        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra,province_coast,province_hills,provInterface;
+        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills, provInterface, nationInterface,turnHUD;
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Mouse_position;
         Vector2 Scale;
@@ -48,13 +48,13 @@ namespace Projekt
             Vector2 Output;
             Vector2 Province_size = new Vector2(this.targetX / this.zoom, this.targetY / this.zoom);
             Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
-            Vector2 Temp = Mouse_position - this.Camera_position/zoom - Camera_offset;
-            Output.X = (int) (Temp.X / Province_size.X);
-            Output.Y = (int) (Temp.Y / Province_size.Y);
+            Vector2 Temp = Mouse_position - this.Camera_position / zoom - Camera_offset;
+            Output.X = (int)(Temp.X / Province_size.X);
+            Output.Y = (int)(Temp.Y / Province_size.Y);
             return Output;
         }
 
-        protected Texture2D TerrainToTexture (terrain SS)
+        protected Texture2D TerrainToTexture(terrain SS)
         {
             if (SS == terrain.desert) return province_desert;
             else if (SS == terrain.sea) return province_sea;
@@ -114,6 +114,8 @@ namespace Projekt
             province_coast = Content.Load<Texture2D>("coast1");
             province_hills = Content.Load<Texture2D>("hills1");
             provInterface = Content.Load<Texture2D>("provInterfacePlaceholder");
+            nationInterface = Content.Load<Texture2D>("countryHUD");
+            turnHUD = Content.Load<Texture2D>("turnHUD");
             // TODO: use this.Content to load your game content here
         }
 
@@ -124,27 +126,27 @@ namespace Projekt
             KeyboardState keystate = Keyboard.GetState();
             MouseState mousestate = Mouse.GetState();
 
-            if(keystate.IsKeyDown(Keys.S) | mousestate.Y >= _graphics.PreferredBackBufferHeight-15) //camera movement
+            if (keystate.IsKeyDown(Keys.S) | mousestate.Y >= _graphics.PreferredBackBufferHeight - 15) //camera movement
             {
-                Camera_position.Y = Camera_position.Y - (30*zoom);
+                Camera_position.Y = Camera_position.Y - (30 * zoom);
             }
             if (keystate.IsKeyDown(Keys.W) | mousestate.Y <= 25)
             {
-                Camera_position.Y = Camera_position.Y + (30*zoom);
+                Camera_position.Y = Camera_position.Y + (30 * zoom);
             }
             if (keystate.IsKeyDown(Keys.D) | mousestate.X >= _graphics.PreferredBackBufferWidth - 15)
             {
-                Camera_position.X = Camera_position.X -(30*zoom);
+                Camera_position.X = Camera_position.X - (30 * zoom);
             }
             if (keystate.IsKeyDown(Keys.A) | mousestate.X <= 25)
             {
-                Camera_position.X = Camera_position.X + (30*zoom);
+                Camera_position.X = Camera_position.X + (30 * zoom);
             }
-            if (keystate.IsKeyDown(Keys.Up) &&zoom>0.5) //zoom
+            if (keystate.IsKeyDown(Keys.Up) && zoom > 0.5) //zoom
             {
                 zoom = zoom - (float)0.025;
             }
-            if (keystate.IsKeyDown(Keys.Down) && zoom<8)
+            if (keystate.IsKeyDown(Keys.Down) && zoom < 8)
             {
                 zoom = zoom + (float)0.025;
             }
@@ -160,8 +162,8 @@ namespace Projekt
             if (zoom < 0.5) zoom = 0.5f; //zoom cap
             if (zoom > 8) zoom = 8;
 
-            
-               
+
+
             // TODO: Add your update logic here
             Scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height); // adjusting scrolling to different camera positions
             targetY = targetX;
@@ -197,35 +199,42 @@ namespace Projekt
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
             for (int k = 0; k < y; k++) //drawing provinces
-                {
+            {
 
                 for (int k2 = 0; k2 < x; k2++)
                 {
                     terrain SS = mapa[k2, k].GetTerrain();
                     Vector2 Province_offset = new Vector2(targetX / zoom * k, targetY / zoom * k2);
-                    Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth/2, _graphics.PreferredBackBufferHeight / 2);
+                    Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
                     _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                     if (mapa[k, k2].GetClicked()) _spriteBatch.Draw(province_jungle, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                 }
             }
 
             //show camera position and province id
-            
-            
+
+
             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _frameCounter.Update(deltaTime);
             var fps = string.Format("FPS: {0}", _frameCounter.AverageFramesPerSecond);
-            Vector2 interface_position = new Vector2(0, _graphics.PreferredBackBufferHeight-289);
+            Vector2 interface_position = new Vector2(0, _graphics.PreferredBackBufferHeight - 289);
+            Vector2 HUD_position = new Vector2(_graphics.PreferredBackBufferWidth - 350, 0);
             Vector2 interface_offset1 = new Vector2(100, 35);
             Vector2 interface_offset2 = new Vector2(150, 200);
             if (global_clicked)
             {
                 _spriteBatch.Draw(provInterface, position: interface_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
-                _spriteBatch.DrawString(font,"type"+" "+ mapa[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetTerrain().ToString(),interface_position+interface_offset1, Color.OrangeRed);
+                _spriteBatch.DrawString(font, "type" + " " + mapa[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetTerrain().ToString(), interface_position + interface_offset1, Color.OrangeRed);
                 _spriteBatch.DrawString(font, "Movement Cost" + " " + mapa[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetProvince_movement().ToString(), interface_position + interface_offset2, Color.OrangeRed);
 
             }
-            _spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString() + '\n' + mapa[(int)Highlighted_province.X,(int)Highlighted_province.Y].GetID() +'\n'+ mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetClicked()+'\n'+fps, Vector2.Zero,Color.OrangeRed);
+            _spriteBatch.Draw(nationInterface, position: Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
+            _spriteBatch.Draw(turnHUD, position: HUD_position,null, Color.White, 0, Vector2.Zero, 1, 0, 0);
+            _spriteBatch.DrawString(font, "100", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 50, Color.OrangeRed);
+            _spriteBatch.DrawString(font, "696969", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 350, Color.OrangeRed);
+            _spriteBatch.DrawString(font, "420", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 650, Color.OrangeRed);
+            _spriteBatch.DrawString(font, "0", HUD_position+Vector2.UnitY*60+Vector2.UnitX*75, Color.OrangeRed);
+            _spriteBatch.DrawString(font, Camera_position.ToString() + "\n" + Mouse_position.ToString() + '\n' + mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetID() + '\n' + mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetClicked() + '\n' + fps, Vector2.Zero + Vector2.UnitY * 200, Color.OrangeRed);
 
             _spriteBatch.End();
             // TODO: Add your drawing code here
