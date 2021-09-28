@@ -16,7 +16,7 @@ namespace Projekt
         public float AverageFramesPerSecond { get; private set; }
         public float CurrentFramesPerSecond { get; private set; }
 
-        public const int MAXIMUM_SAMPLES = 100;
+        public const int MAXIMUM_SAMPLES = 10;
 
         private Queue<float> _sampleBuffer = new Queue<float>();
 

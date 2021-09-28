@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "G8KFw+mPosWD4v53WQIUQbu+t6lAIw35JvpZRotyMk/bUliDXy0gnIemcD4XUSDm+bMg/DxVj6xZMOCRpAdRYw==",
+  "dgSpecHash": "vfAf/QqkQGGbMsNrzN1jTCk6FgSHtX8/olQFT9QeugSinUfcnrq4VX4dhgBc5Lh+RxT0fox2QmahVL3/Jw/rUw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\eldaw\\Documents\\GitHub\\EREKTON\\Projekt\\Projekt.csproj",
+  "projectFilePath": "C:\\Users\\Artur\\Documents\\GitHub\\EREKTON\\Projekt\\Projekt.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\eldaw\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
-    "C:\\Users\\eldaw\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512"
+    "C:\\Users\\Artur\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\Artur\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\Artur\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.19\\microsoft.netcore.app.host.win-x64.3.1.19.nupkg.sha512"
   ],
   "logs": []
 }
