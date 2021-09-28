@@ -15,12 +15,13 @@ namespace Projekt
         float targetX =128; //province size
         float targetY;
         float zoom = 1;
-        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra,province_coast,province_hills;
+        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra,province_coast,province_hills,provInterface;
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Mouse_position;
         Vector2 Scale;
         Vector2 Highlighted_province;
         Vector2 Prev_highlighted_province;
+        bool global_clicked = false;
         string path = "map.txt";
         string s; //string used for loading map files 
         Province[,] mapa;
@@ -112,6 +113,7 @@ namespace Projekt
             province_tundra = Content.Load<Texture2D>("tundra1");
             province_coast = Content.Load<Texture2D>("coast1");
             province_hills = Content.Load<Texture2D>("hills1");
+            provInterface = Content.Load<Texture2D>("provInterfacePlaceholder");
             // TODO: use this.Content to load your game content here
         }
 
@@ -176,9 +178,15 @@ namespace Projekt
             }
             if (mousestate.LeftButton == ButtonState.Pressed)
             {
+                global_clicked = true;
                 mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
                 mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
                 Prev_highlighted_province = Highlighted_province;
+            }
+            if (mousestate.RightButton == ButtonState.Pressed)
+            {
+                global_clicked = false;
+                mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
             }
 
             base.Update(gameTime);
@@ -207,7 +215,18 @@ namespace Projekt
             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _frameCounter.Update(deltaTime);
             var fps = string.Format("FPS: {0}", _frameCounter.AverageFramesPerSecond);
+            Vector2 interface_position = new Vector2(0, _graphics.PreferredBackBufferHeight-289);
+            Vector2 interface_offset1 = new Vector2(100, 35);
+            Vector2 interface_offset2 = new Vector2(150, 200);
+            if (global_clicked)
+            {
+                _spriteBatch.Draw(provInterface, position: interface_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
+                _spriteBatch.DrawString(font,"type"+" "+ mapa[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetTerrain().ToString(),interface_position+interface_offset1, Color.OrangeRed);
+                _spriteBatch.DrawString(font, "Movement Cost" + " " + mapa[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetProvince_movement().ToString(), interface_position + interface_offset2, Color.OrangeRed);
+
+            }
             _spriteBatch.DrawString(font,Camera_position.ToString()+"\n"+Mouse_position.ToString() + '\n' + mapa[(int)Highlighted_province.X,(int)Highlighted_province.Y].GetID() +'\n'+ mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetClicked()+'\n'+fps, Vector2.Zero,Color.OrangeRed);
+
             _spriteBatch.End();
             // TODO: Add your drawing code here
 

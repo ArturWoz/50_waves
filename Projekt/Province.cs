@@ -8,6 +8,7 @@ namespace Projekt
     {
         int province_building_slots;
         int province_value;
+        int province_movement = 2;
         bool clicked;
 
         public Province(int province_id, string province_name, int province_owner, terrain terrain, bool is_water, int province_building_slots,
@@ -38,6 +39,7 @@ namespace Projekt
         public int GetID() { return this.province_id; }
 
         public bool GetClicked() { return this.clicked; } //LMAO get clicked n00b
+        public int GetProvince_movement() { return this.province_movement; }
 
         public void SetClicked(bool value) { this.clicked = value; }
     }
