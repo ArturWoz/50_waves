@@ -174,23 +174,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Artur\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\eldaw\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Artur\\Documents\\GitHub\\EREKTON\\Projekt\\Projekt.csproj",
+      "projectUniqueName": "C:\\Users\\eldaw\\Documents\\GitHub\\EREKTON\\Projekt\\Projekt.csproj",
       "projectName": "Projekt",
-      "projectPath": "C:\\Users\\Artur\\Documents\\GitHub\\EREKTON\\Projekt\\Projekt.csproj",
-      "packagesPath": "C:\\Users\\Artur\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Artur\\Documents\\GitHub\\EREKTON\\Projekt\\obj\\",
+      "projectPath": "C:\\Users\\eldaw\\Documents\\GitHub\\EREKTON\\Projekt\\Projekt.csproj",
+      "packagesPath": "C:\\Users\\eldaw\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\eldaw\\Documents\\GitHub\\EREKTON\\Projekt\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Artur\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\eldaw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -236,12 +239,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[3.1.19, 3.1.19]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
