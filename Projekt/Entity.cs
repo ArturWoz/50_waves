@@ -22,12 +22,17 @@ namespace Projekt
         byte melee_attack;
         byte ranged_defence;
         byte attack_damage;
-        byte movement_points;
+        int movement_points;
         byte owner_id;
         int cost;
         void move(Province position) 
         {
-            if (movement_points >= position.GetProvince_movement()) this.position = position; stance = stance.moving;
+            if (movement_points >= position.GetProvince_movement())
+            {
+                this.position = position;
+                stance = stance.moving;
+                movement_points = movement_points - position.GetProvince_movement();
+            }
         }
         void kill(Nation killer) { position = null;stance = stance.idle;status = status.dead;hp = 0;melee_defence = 0;melee_attack = 0;ranged_defence = 0;movement_points = 0; if (killer.GetID() != owner_id) killer.AddSlaves(cost/2); }
         int GetCost() { return this.cost; }
