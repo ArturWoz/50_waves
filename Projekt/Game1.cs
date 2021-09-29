@@ -15,7 +15,7 @@ namespace Projekt
         float targetX = 128; //province size
         float targetY;
         float zoom = 1;
-        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight, provInterface, nationInterface,turnHUD;
+        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight, provInterface, nationInterface,turnHUD,kobold_settler;
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Mouse_position;
         Vector2 Scale;
@@ -117,6 +117,7 @@ namespace Projekt
             provInterface = Content.Load<Texture2D>("provInterfacePlaceholder");
             nationInterface = Content.Load<Texture2D>("countryHUD");
             turnHUD = Content.Load<Texture2D>("turnHUD");
+            kobold_settler = Content.Load<Texture2D>("kobold_osadnik_papież");
             // TODO: use this.Content to load your game content here
         }
 
