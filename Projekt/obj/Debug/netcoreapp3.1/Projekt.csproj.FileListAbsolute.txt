@@ -166,3 +166,4 @@ C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\
 C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\turnHUD.xnb
 C:\Users\Artur\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\countryHUD.xnb
 C:\Users\Artur\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\turnHUD.xnb
+C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\provinceHighlight.xnb

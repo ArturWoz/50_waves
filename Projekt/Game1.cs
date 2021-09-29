@@ -15,7 +15,7 @@ namespace Projekt
         float targetX = 128; //province size
         float targetY;
         float zoom = 1;
-        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills, provInterface, nationInterface,turnHUD;
+        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight, provInterface, nationInterface,turnHUD;
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Mouse_position;
         Vector2 Scale;
@@ -113,6 +113,7 @@ namespace Projekt
             province_tundra = Content.Load<Texture2D>("tundra1");
             province_coast = Content.Load<Texture2D>("coast1");
             province_hills = Content.Load<Texture2D>("hills1");
+            province_highlight = Content.Load<Texture2D>("provinceHighlight");
             provInterface = Content.Load<Texture2D>("provInterfacePlaceholder");
             nationInterface = Content.Load<Texture2D>("countryHUD");
             turnHUD = Content.Load<Texture2D>("turnHUD");
@@ -207,7 +208,7 @@ namespace Projekt
                     Vector2 Province_offset = new Vector2(targetX / zoom * k, targetY / zoom * k2);
                     Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
                     _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
-                    if (mapa[k, k2].GetClicked()) _spriteBatch.Draw(province_jungle, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    if (mapa[k, k2].GetClicked()) _spriteBatch.Draw(province_highlight, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                 }
             }
 
