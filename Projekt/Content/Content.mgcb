@@ -73,18 +73,6 @@
 /processorParam:TextureFormat=Color
 /build:../graphics/taiga2.png;taiga2.png
 
-#begin ../graphics/tundra1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../graphics/tundra1.png;tundra1.png
-
 #begin coast1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -247,6 +235,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:sea1.png
+
+#begin tundra1.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tundra1.jpg
 
 #begin turnHUD.png
 /importer:TextureImporter
