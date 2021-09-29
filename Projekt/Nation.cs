@@ -9,6 +9,7 @@ namespace Projekt
         byte nation_id;
         int slaves=0;
         string nation_name;
+        City[] cities;
         bool is_player_led;
         double nation_gold;
 
@@ -27,6 +28,8 @@ namespace Projekt
         {
             this.slaves += slaves;
         }
+        public City GetCity(int id) { return this.cities[id]; }
+        public void SetCity(City city, int id) { this.cities[id] = city; }
         public byte GetID()
         {
             return nation_id;

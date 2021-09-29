@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Projekt
 {
-    class Province:Tile
+    public class Province:Tile
     {
         int province_building_slots;
         int province_value;
@@ -36,6 +36,7 @@ namespace Projekt
             return province.province_id == this.province_id;
         }
         public terrain GetTerrain() { return this.terrain; }
+        public void SetTerrain(terrain terrain) { this.terrain = terrain; }
         public int GetID() { return this.province_id; }
 
         public bool GetClicked() { return this.clicked; } //LMAO get clicked n00b

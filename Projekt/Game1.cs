@@ -15,7 +15,7 @@ namespace Projekt
         float targetX = 128; //province size
         float targetY;
         float zoom = 1;
-        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight, provInterface, nationInterface,turnHUD,kobold_settler;
+        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight,province_city, provInterface, nationInterface,turnHUD,kobold_settler;
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Mouse_position;
         Vector2 Scale;
@@ -68,6 +68,7 @@ namespace Projekt
             else if (SS == terrain.forest) return province_forest;
             else if (SS == terrain.mountains) return province_mountains;
             else if (SS == terrain.jungle) return province_jungle;
+            else if (SS == terrain.city) return province_city;
             else return province_sea;
         }
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Projekt
 {
-    class City
+    public class City
     {
         int city_id;
         string city_name;

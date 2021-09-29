@@ -4,11 +4,11 @@ using System.Text;
 
 public enum terrain
 {
-    farmland, desert, lake, sea, forest, jungle, hills, mountains, taiga, tundra, plains, coast
+    farmland, desert, lake, sea, forest, jungle, hills, mountains, taiga, tundra, plains, coast,city
 }
 namespace Projekt
 {
-    abstract class Tile
+   public abstract class Tile
     {
         protected int province_id;
         protected string province_name;
