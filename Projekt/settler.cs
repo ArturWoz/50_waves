@@ -43,11 +43,12 @@ namespace Projekt
             }
         }
             public void CreateCity(Nation creator,int city_id,string city_name) 
-        { 
-            kill(creator); 
+            { 
             position.SetTerrain(terrain.city);
+            position.SetUnit(false);
             City City = new City(city_id, city_name, position, 1000, 100, 10, 10);
             creator.SetCity(City, city_id);
-        }
+            kill(creator);
+            }
     }
 }

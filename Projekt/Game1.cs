@@ -162,13 +162,17 @@ namespace Projekt
             {
                 zoom = zoom + (float)0.025;
             }
-           if (keystate.IsKeyDown(Keys.Space))
+            if (keystate.IsKeyDown(Keys.Space))
             {
-                ClickedSettler.CreateCity(Kobold, 1, "Nirwana");
-                ClickedSettler = null;
+                if(ClickedSettler != null)
+                {
+                    ClickedSettler.CreateCity(Kobold, 1, "Nirwana");
+                    Kobold.RemoveUnits(ClickedSettler);
+                    ClickedSettler = null;
+                }
             }
 
-                if (mousestate.ScrollWheelValue > scroll && zoom > 0.5)
+            if (mousestate.ScrollWheelValue > scroll && zoom > 0.5)
             {
                 zoom = zoom - (float)0.25;
             }

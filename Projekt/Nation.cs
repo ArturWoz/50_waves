@@ -10,7 +10,7 @@ namespace Projekt
         byte nation_id;
         int slaves=0;
         string nation_name;
-        City[] cities;
+        City[] cities= new City[200];
         bool is_player_led;
         double nation_gold=150;
         public ArrayList Units = new ArrayList();
@@ -32,6 +32,8 @@ namespace Projekt
         public City GetCity(int id) { return this.cities[id]; }
         public void SetCity(City city, int id) { this.cities[id] = city; }
         public void AddUnits(object unit) { Units.Add(unit);}
+
+        public void RemoveUnits(object unit) { Units.Remove(unit); }
         public byte GetID()
         {
             return nation_id;
