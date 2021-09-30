@@ -29,6 +29,7 @@ namespace Projekt
         SpriteFont font;
         private FrameCounter _frameCounter = new FrameCounter();
         int i = 0, x, y, scroll = 0; //Yprov will be always remembered :(
+        Nation Kobold = new Nation(1,"Kobolds",true);
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -95,7 +96,8 @@ namespace Projekt
             }
             sr.Close();
             Province spawnpoint = mapa[15, 15];
-            Settler kobold_settler=new Settler(spawnpoint,0);
+            Settler kobold_settler=new Settler(spawnpoint,1);
+            
             base.Initialize();
         }
 

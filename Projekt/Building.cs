@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Projekt
 {
-    class Building
+    public class Building
     {
         double income;
         double cost;

@@ -14,8 +14,12 @@ namespace Projekt
         int movement_points=4;
         byte owner_id;
         int cost=150;
-        public Settler(Province position,byte id) { this.position = position;this.owner_id = id; }
-        public void Create_City(Nation creator,int city_id,string city_name) 
+        public Settler(Province position,Nation Owner) 
+        {
+            this.position = position;
+            this.owner_id = Owner.GetID();
+        }
+        public void CreateCity(Nation creator,int city_id,string city_name) 
         { 
             kill(creator); 
             position.SetTerrain(terrain.city);
