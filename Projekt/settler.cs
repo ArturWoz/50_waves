@@ -19,7 +19,30 @@ namespace Projekt
             this.position = position;
             this.owner_id = Owner.GetID();
         }
-        public void CreateCity(Nation creator,int city_id,string city_name) 
+        public Settler(Settler settler)
+        {
+            this.hp = 10;
+            this.melee_defence = 0;
+            this.melee_attack = 1;
+            this.ranged_defence = 0;
+            this.attack_damage = 1;
+            this.movement_points = 4;
+            this.cost = 150;
+            this.position = settler.position;
+            this.owner_id = settler.owner_id;
+        }
+        public void move(Settler settler,Province position, int x, int y)  // x and y are size of the map
+        {
+            if (movement_points >= position.GetProvince_movement())
+            {
+                this.position.SetUnit(false);
+                this.position = position;
+                this.position.SetUnit(true);
+                stance = stance.moving;
+                movement_points = movement_points - position.GetProvince_movement();
+            }
+        }
+            public void CreateCity(Nation creator,int city_id,string city_name) 
         { 
             kill(creator); 
             position.SetTerrain(terrain.city);

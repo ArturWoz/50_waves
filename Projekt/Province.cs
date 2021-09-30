@@ -10,6 +10,7 @@ namespace Projekt
         int province_value;
         int province_movement = 2;
         bool clicked;
+        bool has_unit = false;
 
         public Province(int province_id, string province_name, int province_owner, terrain terrain, bool is_water, int province_building_slots,
             int province_value):base(province_id, province_name, province_owner, terrain, is_water)
@@ -41,6 +42,8 @@ namespace Projekt
 
         public bool GetClicked() { return this.clicked; } //LMAO get clicked n00b
         public int GetProvince_movement() { return this.province_movement; }
+        public bool HasUnit() { return has_unit; }
+        public void SetUnit(bool unit) { this.has_unit = unit;  }
 
         public void SetClicked(bool value) { this.clicked = value; }
     }

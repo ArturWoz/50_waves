@@ -21,7 +21,9 @@ namespace Projekt
         Vector2 Scale;
         Vector2 Highlighted_province;
         Vector2 Prev_highlighted_province;
+        Settler test;
         bool global_clicked = false;
+        object Unit; // selected unit
         string path = "map.txt";
         string s; //string used for loading map files 
         Province[,] mapa;
@@ -96,7 +98,8 @@ namespace Projekt
             }
             sr.Close();
             Province spawnpoint = mapa[15, 15];
-            Settler kobold_settler=new Settler(spawnpoint,1);
+            Settler kobold_settler=new Settler(spawnpoint,Kobold);
+            Kobold.AddUnits(kobold_settler);
             
             base.Initialize();
         }
@@ -157,8 +160,11 @@ namespace Projekt
             {
                 zoom = zoom + (float)0.025;
             }
+           if (keystate.IsKeyDown(Keys.Space))
+            {
+            }
 
-            if (mousestate.ScrollWheelValue > scroll && zoom > 0.5)
+                if (mousestate.ScrollWheelValue > scroll && zoom > 0.5)
             {
                 zoom = zoom - (float)0.25;
             }
@@ -187,16 +193,27 @@ namespace Projekt
             }
             if (mousestate.LeftButton == ButtonState.Pressed)
             {
-                global_clicked = true;
-                mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
-                mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
-                Prev_highlighted_province = Highlighted_province;
+                if (mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit()!=false)
+                {
+                    if (Unit.GetType() == test.GetType())
+                    {
+                        Unit = mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit(); // selected unit
+                    }
+                }
+                else
+                {
+                    global_clicked = true;
+                    mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
+                    mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
+                    Prev_highlighted_province = Highlighted_province;
+                }
             }
             if (mousestate.RightButton == ButtonState.Pressed)
             {
                 global_clicked = false;
                 mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
             }
+           
 
             base.Update(gameTime);
         }
@@ -205,6 +222,7 @@ namespace Projekt
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
+            Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
             for (int k = 0; k < y; k++) //drawing provinces
             {
 
@@ -212,12 +230,19 @@ namespace Projekt
                 {
                     terrain SS = mapa[k2, k].GetTerrain();
                     Vector2 Province_offset = new Vector2(targetX / zoom * k, targetY / zoom * k2);
-                    Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
                     _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                     if (mapa[k, k2].GetClicked()) _spriteBatch.Draw(province_highlight, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                 }
             }
+            foreach(Settler Settler in Kobold.Units)
+            {
+                Province settler_positionProvince = Settler.GetPosition();
+                Vector2 settler_positionID = ProvinceIDToMapCoordinate(settler_positionProvince.GetID());
+                Vector2 unit_offset = new Vector2(targetX / zoom * settler_positionID.X, targetY / zoom * settler_positionID.Y);
+                Settler.GetPosition().SetUnit(true);
+                _spriteBatch.Draw(kobold_settler, position: ((Camera_position) / zoom + Camera_offset) + unit_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
 
+            }
             //show camera position and province id
 
 
@@ -241,7 +266,7 @@ namespace Projekt
             _spriteBatch.DrawString(font, "696969", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 350, Color.OrangeRed);
             _spriteBatch.DrawString(font, "420", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 650, Color.OrangeRed);
             _spriteBatch.DrawString(font, "0", HUD_position+Vector2.UnitY*60+Vector2.UnitX*75, Color.OrangeRed);
-            _spriteBatch.DrawString(font, Camera_position.ToString() + "\n" + Mouse_position.ToString() + '\n' + mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetID() + '\n' + mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetClicked() + '\n' + fps, Vector2.Zero + Vector2.UnitY * 200, Color.OrangeRed);
+            _spriteBatch.DrawString(font, Camera_position.ToString() + "\n" + Mouse_position.ToString() + '\n' + mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetID() + '\n' + mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit() + '\n' + fps, Vector2.Zero + Vector2.UnitY * 200, Color.OrangeRed);
 
             _spriteBatch.End();
             // TODO: Add your drawing code here

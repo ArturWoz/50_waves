@@ -31,6 +31,7 @@ namespace Projekt
         }
         public City GetCity(int id) { return this.cities[id]; }
         public void SetCity(City city, int id) { this.cities[id] = city; }
+        public void AddUnits(object unit) { Units.Add(unit);}
         public byte GetID()
         {
             return nation_id;
