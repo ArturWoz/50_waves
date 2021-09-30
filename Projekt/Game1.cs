@@ -22,6 +22,7 @@ namespace Projekt
         Vector2 Highlighted_province;
         Vector2 Prev_highlighted_province;
         Settler test;
+        Settler ClickedSettler;
         bool global_clicked = false;
         object Unit; // selected unit
         string path = "map.txt";
@@ -32,6 +33,7 @@ namespace Projekt
         private FrameCounter _frameCounter = new FrameCounter();
         int i = 0, x, y, scroll = 0; //Yprov will be always remembered :(
         Nation Kobold = new Nation(1,"Kobolds",true);
+        bool check_unit = true;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -162,6 +164,8 @@ namespace Projekt
             }
            if (keystate.IsKeyDown(Keys.Space))
             {
+                ClickedSettler.CreateCity(Kobold, 1, "Nirwana");
+                ClickedSettler = null;
             }
 
                 if (mousestate.ScrollWheelValue > scroll && zoom > 0.5)
@@ -195,9 +199,16 @@ namespace Projekt
             {
                 if (mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit()!=false)
                 {
-                    if (Unit.GetType() == test.GetType())
+                    while (check_unit)
                     {
-                        Unit = mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit(); // selected unit
+                        foreach (Settler settler in Kobold.Units)
+                        {
+                            if (settler.GetPosition().GetID() == Highlighted_province.X *x + Highlighted_province.Y * 1)
+                            { 
+                                ClickedSettler = settler;
+                                check_unit = false;
+                            }
+                        }
                     }
                 }
                 else
