@@ -93,8 +93,9 @@ namespace Projekt
                     i++;
                 }
             }
-
             sr.Close();
+            Province spawnpoint = mapa[15, 15];
+            Settler kobold_settler=new Settler(spawnpoint,0);
             base.Initialize();
         }
 
@@ -119,6 +120,7 @@ namespace Projekt
             nationInterface = Content.Load<Texture2D>("countryHUD");
             turnHUD = Content.Load<Texture2D>("turnHUD");
             kobold_settler = Content.Load<Texture2D>("kobold_osadnik_papież");
+            province_city = Content.Load<Texture2D>("village");
             // TODO: use this.Content to load your game content here
         }
 
