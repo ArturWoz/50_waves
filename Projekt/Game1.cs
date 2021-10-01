@@ -32,7 +32,7 @@ namespace Projekt
         SpriteFont font;
         private FrameCounter _frameCounter = new FrameCounter();
         int i = 0, x, y, scroll = 0; //Yprov will be always remembered :(
-        Nation Kobold = new Nation(1,"Kobolds",true);
+        Nation Kobold = new Nation(1,"Kobolds");
         bool check_unit = true;
         public Game1()
         {

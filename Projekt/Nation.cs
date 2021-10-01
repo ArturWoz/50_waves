@@ -10,16 +10,14 @@ namespace Projekt
         byte nation_id;
         int slaves=0;
         string nation_name;
-        City[] cities= new City[200];
-        bool is_player_led;
+        City[] cities = new City[200];
         double nation_gold=150;
         public ArrayList Units = new ArrayList();
 
-        public Nation(byte nation_id, string nation_name, bool is_player_led)
+        public Nation(byte nation_id, string nation_name)
         {
             this.nation_id = nation_id;
             this.nation_name = nation_name;
-            this.is_player_led = is_player_led;
         }
         public void AddGold(double nation_gold)
         {
