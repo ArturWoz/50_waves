@@ -21,7 +21,6 @@ namespace Projekt
         Vector2 Scale;
         Vector2 Highlighted_province;
         Vector2 Prev_highlighted_province;
-        Settler test;
         Settler ClickedSettler;
         bool global_clicked = false;
         object Unit; // selected unit
