@@ -4,6 +4,7 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/../graphics/desert1.png</File>
     <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/../graphics/farmland1.png</File>
     <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/../graphics/hills1.png</File>
     <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/../graphics/jungle1.png</File>
@@ -12,7 +13,6 @@
     <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/coast1.png</File>
     <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/countryHUD.png</File>
     <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/defaultfont.spritefont</File>
-    <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/desert1.png</File>
     <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/desert1_highlighted.png</File>
     <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/forest1.png</File>
     <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/jungle2.png</File>
@@ -29,6 +29,7 @@
     <File>C:/Users/pucha/Desktop/Projekt Projekt(nazwa tymczasowa)/EREKTON/Projekt/Content/village.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>desert1.png</File>
     <File>farmland1.png</File>
     <File>hills1.png</File>
     <File>jungle1.png</File>
@@ -37,7 +38,6 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File>defaultFont.spritefont</File>
-    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
