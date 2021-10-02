@@ -24,7 +24,7 @@ namespace Projekt
         Settler ClickedSettler;
         Province Debug;
         Settler PrevClickedSettler;
-        bool global_clicked = false;
+        bool global_clicked = false,global_clicked2=false;
         object Unit; // selected unit
         string path = "map.txt";
         string s; //string used for loading map files 
@@ -167,11 +167,10 @@ namespace Projekt
             }
             if (keystate.IsKeyDown(Keys.Space))
             {
-                if(ClickedSettler != null)
+                if (PrevClickedSettler.GetClicked())
                 {
-                    ClickedSettler.CreateCity(Kobold, 1, "Nirwana");
-                    Kobold.RemoveUnits(ClickedSettler);
-                    ClickedSettler = null;
+                    PrevClickedSettler.CreateCity(Kobold, 1, "Nirwana");
+                    Kobold.RemoveUnits(PrevClickedSettler);
                 }
             }
 
@@ -209,13 +208,14 @@ namespace Projekt
                         foreach (Settler settler in Kobold.Units)
                         {
                             if (settler.GetPosition().GetID() == Highlighted_province.X *x + Highlighted_province.Y * 1)
-                            { 
+                            {
+                                global_clicked2 = true;
                                 ClickedSettler = settler;
                                 PrevClickedSettler.SetClicked(false);
                                 ClickedSettler.SetClicked(true);
                                 PrevClickedSettler = ClickedSettler;
                                 mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
-                            break;
+                                break;
                             }
                         }
                 }
@@ -224,15 +224,16 @@ namespace Projekt
                     global_clicked = true;
                     mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
                     mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
-                    if (ClickedSettler != null) ClickedSettler.SetClicked(false);
+                    PrevClickedSettler.SetClicked(false);
                     Prev_highlighted_province = Highlighted_province;
                 }
             }
             if (mousestate.RightButton == ButtonState.Pressed)
             {
                 global_clicked = false;
+                global_clicked2 = false;
                 mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
-                if (PrevClickedSettler != null) PrevClickedSettler.SetClicked(false);
+                PrevClickedSettler.SetClicked(false);
             }
            
 
