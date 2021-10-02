@@ -209,6 +209,7 @@ namespace Projekt
                         {
                             if (settler.GetPosition().GetID() == Highlighted_province.X *x + Highlighted_province.Y * 1)
                             {
+                                global_clicked = false;
                                 global_clicked2 = true;
                                 ClickedSettler = settler;
                                 PrevClickedSettler.SetClicked(false);
@@ -222,6 +223,7 @@ namespace Projekt
                 else
                 {
                     global_clicked = true;
+                    global_clicked2 = false;
                     mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
                     mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
                     PrevClickedSettler.SetClicked(false);
