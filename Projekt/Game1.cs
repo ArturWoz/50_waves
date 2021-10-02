@@ -15,7 +15,7 @@ namespace Projekt
         float targetX = 128; //province size
         float targetY;
         float zoom = 1;
-        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight,province_city, provInterface, nationInterface,turnHUD,kobold_settler;
+        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight,province_city, province_interface, city_interface, nationInterface,turnHUD,kobold_settler;
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Mouse_position;
         Vector2 Scale;
@@ -25,6 +25,7 @@ namespace Projekt
         Province Debug;
         Settler PrevClickedSettler;
         bool global_clicked_province = false,global_clicked_unit=false;
+        bool global_clicked_province_is_city = false;
         object Unit; // selected unit
         string path = "map.txt";
         string s; //string used for loading map files 
@@ -126,11 +127,12 @@ namespace Projekt
             province_coast = Content.Load<Texture2D>("coast1");
             province_hills = Content.Load<Texture2D>("hills1");
             province_highlight = Content.Load<Texture2D>("provinceHighlight");
-            provInterface = Content.Load<Texture2D>("provInterfacePlaceholder");
+            province_interface = Content.Load<Texture2D>("provInterfacePlaceholder");
             nationInterface = Content.Load<Texture2D>("countryHUD");
             turnHUD = Content.Load<Texture2D>("turnHUD");
             kobold_settler = Content.Load<Texture2D>("kobold_osadnik_papież");
             province_city = Content.Load<Texture2D>("village");
+            city_interface = Content.Load<Texture2D>("city_interface");
             // TODO: use this.Content to load your game content here
         }
 
@@ -210,6 +212,7 @@ namespace Projekt
                             if (settler.GetPosition().GetID() == Highlighted_province.X *x + Highlighted_province.Y * 1)
                             {
                                 global_clicked_province = false;
+                                global_clicked_province_is_city = false;
                                 global_clicked_unit = true;
                                 ClickedSettler = settler;
                                 PrevClickedSettler.SetClicked(false);
@@ -228,6 +231,14 @@ namespace Projekt
                     mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
                     PrevClickedSettler.SetClicked(false);
                     Prev_highlighted_province = Highlighted_province;
+                    if(mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetTerrain()==terrain.city)
+                    {
+                        global_clicked_province_is_city = true;
+                    }
+                    else
+                    {
+                        global_clicked_province_is_city = false;
+                    }
                 }
             }
             if (mousestate.RightButton == ButtonState.Pressed)
@@ -267,19 +278,23 @@ namespace Projekt
                 _spriteBatch.Draw(kobold_settler, position: ((Camera_position) / zoom + Camera_offset) + unit_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                 if(Settler.GetClicked()==true) { _spriteBatch.Draw(province_highlight, position: ((Camera_position) / zoom + Camera_offset) + unit_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0); }
             }
+            //draw city interface
+            if(global_clicked_province_is_city && global_clicked_province)
+            {
+                Vector2 city_interface_position = new Vector2(0, _graphics.PreferredBackBufferHeight - city_interface.Height);
+                _spriteBatch.Draw(city_interface, position: city_interface_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
+            }
             //show camera position and province id
-
-
             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _frameCounter.Update(deltaTime);
             var fps = string.Format("FPS: {0}", _frameCounter.AverageFramesPerSecond);
-            Vector2 interface_position = new Vector2(0, _graphics.PreferredBackBufferHeight - 289);
+            Vector2 interface_position = new Vector2(0, _graphics.PreferredBackBufferHeight - province_interface.Height);
             Vector2 HUD_position = new Vector2(_graphics.PreferredBackBufferWidth - 350, 0);
             Vector2 interface_offset1 = new Vector2(100, 35);
             Vector2 interface_offset2 = new Vector2(150, 200);
-            if (global_clicked_province)
+            if (global_clicked_province && !global_clicked_province_is_city)
             {
-                _spriteBatch.Draw(provInterface, position: interface_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
+                _spriteBatch.Draw(province_interface, position: interface_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
                 _spriteBatch.DrawString(font, "type" + " " + mapa[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetTerrain().ToString(), interface_position + interface_offset1, Color.OrangeRed);
                 _spriteBatch.DrawString(font, "Movement Cost" + " " + mapa[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetProvince_movement().ToString(), interface_position + interface_offset2, Color.OrangeRed);
 
@@ -291,6 +306,7 @@ namespace Projekt
             _spriteBatch.DrawString(font, "420", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 650, Color.OrangeRed);
             _spriteBatch.DrawString(font, "0", HUD_position+Vector2.UnitY*60+Vector2.UnitX*75, Color.OrangeRed);
             _spriteBatch.DrawString(font, Camera_position.ToString() + "\n" + Mouse_position.ToString() + '\n' + mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetID() + '\n' + mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit() + '\n' + fps, Vector2.Zero + Vector2.UnitY * 200, Color.OrangeRed);
+
 
             _spriteBatch.End();
             // TODO: Add your drawing code here
