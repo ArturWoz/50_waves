@@ -31,24 +31,13 @@ namespace Projekt
             this.position = settler.position;
             this.owner_id = settler.owner_id;
         }
-        public void move(Settler settler,Province position, int x, int y)  // x and y are size of the map
-        {
-            if (movement_points >= position.GetProvince_movement())
-            {
-                this.position.SetUnit(false);
-                this.position = position;
-                this.position.SetUnit(true);
-                stance = stance.moving;
-                movement_points = movement_points - position.GetProvince_movement();
-            }
-        }
             public void CreateCity(Nation creator,int city_id,string city_name) 
             { 
-            position.SetTerrain(terrain.city);
-            position.SetUnit(false);
-            City City = new City(city_id, city_name, position, 1000, 100, 10, 10);
-            creator.SetCity(City, city_id);
-            kill(creator);
+                position.SetTerrain(terrain.city);
+                position.SetUnit(false);
+                City City = new City(city_id, city_name, position, 1000, 100, 10, 10);
+                creator.SetCity(City, city_id);
+                kill(creator);
             }
     }
 }

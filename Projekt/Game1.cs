@@ -24,7 +24,7 @@ namespace Projekt
         Settler ClickedSettler;
         Province Debug;
         Settler PrevClickedSettler;
-        bool global_clicked = false,global_clicked2=false;
+        bool global_clicked_province = false,global_clicked_unit=false;
         object Unit; // selected unit
         string path = "map.txt";
         string s; //string used for loading map files 
@@ -209,8 +209,8 @@ namespace Projekt
                         {
                             if (settler.GetPosition().GetID() == Highlighted_province.X *x + Highlighted_province.Y * 1)
                             {
-                                global_clicked = false;
-                                global_clicked2 = true;
+                                global_clicked_province = false;
+                                global_clicked_unit = true;
                                 ClickedSettler = settler;
                                 PrevClickedSettler.SetClicked(false);
                                 ClickedSettler.SetClicked(true);
@@ -222,8 +222,8 @@ namespace Projekt
                 }
                 else
                 {
-                    global_clicked = true;
-                    global_clicked2 = false;
+                    global_clicked_province = true;
+                    global_clicked_unit = false;
                     mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
                     mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
                     PrevClickedSettler.SetClicked(false);
@@ -232,8 +232,8 @@ namespace Projekt
             }
             if (mousestate.RightButton == ButtonState.Pressed)
             {
-                global_clicked = false;
-                global_clicked2 = false;
+                global_clicked_province = false;
+                global_clicked_unit = false;
                 mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
                 PrevClickedSettler.SetClicked(false);
             }
@@ -277,7 +277,7 @@ namespace Projekt
             Vector2 HUD_position = new Vector2(_graphics.PreferredBackBufferWidth - 350, 0);
             Vector2 interface_offset1 = new Vector2(100, 35);
             Vector2 interface_offset2 = new Vector2(150, 200);
-            if (global_clicked)
+            if (global_clicked_province)
             {
                 _spriteBatch.Draw(provInterface, position: interface_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
                 _spriteBatch.DrawString(font, "type" + " " + mapa[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetTerrain().ToString(), interface_position + interface_offset1, Color.OrangeRed);
