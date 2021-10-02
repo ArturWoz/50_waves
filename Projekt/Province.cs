@@ -42,7 +42,7 @@ namespace Projekt
 
         public bool GetClicked() { return this.clicked; } //LMAO get clicked n00b
         public int GetProvince_movement() { return this.province_movement; }
-        public bool HasUnit() { return has_unit; }
+        public bool HasUnit() { return this.has_unit; }
         public void SetUnit(bool unit) { this.has_unit = unit;  }
 
         public void SetClicked(bool value) { this.clicked = value; }
