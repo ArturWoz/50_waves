@@ -202,23 +202,23 @@ namespace Projekt
             {
                 if (mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit()!=false)
                 {
-                    while (check_unit)
-                    {
                         foreach (Settler settler in Kobold.Units)
                         {
                             if (settler.GetPosition().GetID() == Highlighted_province.X *x + Highlighted_province.Y * 1)
                             { 
                                 ClickedSettler = settler;
-                                check_unit = false;
+                                ClickedSettler.SetClicked(true);
+                                mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
+                            break;
                             }
                         }
-                    }
                 }
                 else
                 {
                     global_clicked = true;
                     mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
                     mapa[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
+                    if (ClickedSettler != null) ClickedSettler.SetClicked(false);
                     Prev_highlighted_province = Highlighted_province;
                 }
             }
@@ -226,6 +226,7 @@ namespace Projekt
             {
                 global_clicked = false;
                 mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
+                if (ClickedSettler != null) ClickedSettler.SetClicked(false);
             }
            
 
@@ -255,7 +256,7 @@ namespace Projekt
                 Vector2 unit_offset = new Vector2(targetX / zoom * settler_positionID.X, targetY / zoom * settler_positionID.Y);
                 Settler.GetPosition().SetUnit(true);
                 _spriteBatch.Draw(kobold_settler, position: ((Camera_position) / zoom + Camera_offset) + unit_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
-
+                if(Settler.GetClicked()==true) { _spriteBatch.Draw(province_highlight, position: ((Camera_position) / zoom + Camera_offset) + unit_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0); }
             }
             //show camera position and province id
 
