@@ -22,6 +22,8 @@ namespace Projekt
         Vector2 Highlighted_province;
         Vector2 Prev_highlighted_province;
         Settler ClickedSettler;
+        Province Debug;
+        Settler PrevClickedSettler;
         bool global_clicked = false;
         object Unit; // selected unit
         string path = "map.txt";
@@ -101,7 +103,9 @@ namespace Projekt
             Province spawnpoint = mapa[15, 15];
             Settler kobold_settler=new Settler(spawnpoint,Kobold);
             Kobold.AddUnits(kobold_settler);
-            
+            Debug = new Province(99999, "debug", 999, terrain.sea, false, 0, 0);
+            PrevClickedSettler = new Settler(Debug, Kobold);
+
             base.Initialize();
         }
 
@@ -207,7 +211,9 @@ namespace Projekt
                             if (settler.GetPosition().GetID() == Highlighted_province.X *x + Highlighted_province.Y * 1)
                             { 
                                 ClickedSettler = settler;
+                                PrevClickedSettler.SetClicked(false);
                                 ClickedSettler.SetClicked(true);
+                                PrevClickedSettler = ClickedSettler;
                                 mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
                             break;
                             }
@@ -226,7 +232,7 @@ namespace Projekt
             {
                 global_clicked = false;
                 mapa[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
-                if (ClickedSettler != null) ClickedSettler.SetClicked(false);
+                if (PrevClickedSettler != null) PrevClickedSettler.SetClicked(false);
             }
            
 
