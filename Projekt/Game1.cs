@@ -33,7 +33,6 @@ namespace Projekt
             //bools used to determine what menu to display/what actions to allow
         bool global_clicked_province = false,global_clicked_unit=false;
         bool global_clicked_province_is_city = false;
-        object Unit; // selected unit
         string path = "map.txt";
         string s; //string used for loading map files 
         Province[,] map;
@@ -103,7 +102,7 @@ namespace Projekt
                 {
                     s = sr.ReadLine();
                     s2 = (terrain)Enum.Parse(typeof(terrain), s, true);
-                    Province load = new Province(i, "placeholder", 0, s2, false, 0, 0);
+                    Province load = new Province(i, 0, s2, false, 0);
                     map[k2, k] = load;
                     i++;
                 }
@@ -112,7 +111,7 @@ namespace Projekt
             Province spawnpoint = map[15, 15]; //making the settler
             Settler kobold_settler=new Settler(spawnpoint,Kobold);
             Kobold.AddUnits(kobold_settler);
-            Debug = new Province(99999, "debug", 999, terrain.sea, false, 0, 0);
+            Debug = new Province(99999, 999, terrain.sea, false, 0);
             PrevClickedSettler = new Settler(Debug, Kobold);
 
             base.Initialize();

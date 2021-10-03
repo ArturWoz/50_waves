@@ -6,21 +6,18 @@ namespace Projekt
 {
     public class Province:Tile
     {
-        int province_building_slots;
         int province_value;
         int province_movement = 2;
         bool clicked;
         bool has_unit = false;
 
-        public Province(int province_id, string province_name, int province_owner, terrain terrain, bool is_water, int province_building_slots,
-            int province_value):base(province_id, province_name, province_owner, terrain, is_water)
+        public Province(int province_id, int province_owner, terrain terrain, bool is_water,
+            int province_value):base(province_id, province_owner, terrain, is_water)
         {
             this.province_id = province_id;
-            this.province_name = province_name;
             this.province_owner = province_owner;
             this.terrain = terrain;
             this.is_water = is_water;
-            this.province_building_slots = province_building_slots;
             this.province_value = province_value;
 
         }
