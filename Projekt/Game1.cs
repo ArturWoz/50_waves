@@ -267,7 +267,7 @@ namespace Projekt
                         else
                         {
                             global_clicked_province_is_city = false;
-                            if(building_to_be_made)
+                            if(building_to_be_made && ClickedProvince.GetBuilding()==null)
                             {
                                 TradingPost TradingPost = new TradingPost(building_status.working, ClickedProvince);
                                 MostRecentlyClickedCity.AddBuilding(TradingPost);
