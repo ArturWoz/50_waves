@@ -10,6 +10,8 @@ namespace Projekt
         int province_movement = 2;
         bool clicked;
         bool has_unit = false;
+        City City_on_this_province = null;
+        Object Building_on_this_province = null;
 
         public Province(int province_id, int province_owner, terrain terrain, bool is_water,
             int province_value):base(province_id, province_owner, terrain, is_water)
@@ -18,12 +20,23 @@ namespace Projekt
             this.province_owner = province_owner;
             this.terrain = terrain;
             this.is_water = is_water;
-            this.province_value = province_value;
 
         }
-        public void ChangeProvinceValue(int province_value)
+        public void AddCity(City City)
         {
-            this.province_value += province_value;
+            this.City_on_this_province = City;
+        }
+        public City GetCity()
+        {
+            return this.City_on_this_province;
+        }
+        public void AddBuilding(Object Building)
+        {
+            this.Building_on_this_province = Building;
+        }
+        public Object GetBuilding()
+        {
+            return Building_on_this_province;
         }
         public void ChangeOwnership(int province_owner)
         {

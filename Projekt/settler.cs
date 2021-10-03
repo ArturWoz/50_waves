@@ -37,6 +37,7 @@ namespace Projekt
                 position.SetUnit(false);
                 City City = new City(city_id, city_name, position, 1000, 100, 10, 10);
                 creator.SetCity(City, city_id);
+                position.AddCity(City);
                 kill(creator);
             }
     }

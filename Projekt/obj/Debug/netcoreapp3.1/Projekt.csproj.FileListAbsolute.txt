@@ -180,3 +180,7 @@ C:\Users\Artur\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\
 C:\Users\Artur\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\village.xnb
 C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\city_interface.xnb
 C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\city_interface.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\city_interface_2.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\new_building.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\Trading_post.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\trading_post_province.xnb

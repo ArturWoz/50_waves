@@ -4,32 +4,21 @@ using System.Text;
 
 namespace Projekt
 {
-    public class Building
+    public abstract class Building
     {
-        double income;
-        double cost;
-        building_status status;
-        building_type type;
-        bool active;
+        protected double cost;
+        protected building_status status;
+        protected Province location;
 
-        Building(double income, double cost, building_status status, building_type type)
+        public Building(building_status status, Province location)
         {
-            this.income = income;
-            this.cost = cost;
             this.status = status;
-            this.type = type;
-            active = true;
+            this.location = location;
         }
-        public void DestroyBuilding()
+        public void SetStatus(building_status status)
         {
-            active = false;
+            this.status = status;
         }
-
-        public double GetIncome()
-        {
-            return income;
-        }
-
         public double GetCost()
         {
             return cost;
@@ -39,24 +28,10 @@ namespace Projekt
         {
             return status;
         }
-
-        public building_type GetBuildingType()
-        {
-            return type;
-        }
-        public bool GetActive()
-        {
-            return active;
-        }
     }
 
     public enum building_status
     { 
         working, in_progress, damaged
-    }
-
-    public enum building_type
-    {
-        succub_centre,mine,pits,tax_office,fort,barracs,harbour
     }
 }

@@ -19,13 +19,15 @@ namespace Projekt
         float targetY;
         float zoom = 1;
             //texture declarations
-        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight,province_city, province_interface, city_interface, nationInterface,turnHUD,kobold_settler;
+        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight,province_city, province_interface, city_interface, new_building, trading_post,trading_post_province,  nationInterface,turnHUD,kobold_settler;
             //vector variables 
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Mouse_position;
         Vector2 Scale;
         Vector2 Highlighted_province;
         Vector2 Prev_highlighted_province;
+        Vector2 City_interface_position;
+        Vector2 City_building_slots_origin_coordinates;
             //Settler objects to allow for city placement
         Settler ClickedSettler;
         Province Debug; //used to initialize the settler, this province is far beyond the map
@@ -33,6 +35,11 @@ namespace Projekt
             //bools used to determine what menu to display/what actions to allow
         bool global_clicked_province = false,global_clicked_unit=false;
         bool global_clicked_province_is_city = false;
+        bool building_to_be_made = false;
+        Province ClickedProvince;
+        City MostRecentlyClickedCity;
+        //if_interfaces_open
+        bool city_interface_open = false;
         string path = "map.txt";
         string s; //string used for loading map files 
         Province[,] map;
@@ -139,7 +146,10 @@ namespace Projekt
             turnHUD = Content.Load<Texture2D>("turnHUD");
             kobold_settler = Content.Load<Texture2D>("kobold_osadnik_papież");
             province_city = Content.Load<Texture2D>("village");
-            city_interface = Content.Load<Texture2D>("city_interface");
+            city_interface = Content.Load<Texture2D>("city_interface_2");
+            trading_post = Content.Load<Texture2D>("trading_post");
+            new_building = Content.Load<Texture2D>("new_building");
+            trading_post_province = Content.Load<Texture2D>("trading_post_province");
         }
 
         protected override void Update(GameTime gameTime)
@@ -201,17 +211,32 @@ namespace Projekt
             Ypos = Mouse.GetState().Position.Y;
             Mouse_position = new Vector2(Xpos, Ypos);
             Vector2 Test = MouseToMapCoordinate(Mouse_position);
-            if ((int)Test.X > -1 && (int)Test.Y > -1 && (int)Test.X < x && (int)Test.Y < y) // x and y are map dimensions; determining which province is selected
+            //checking if mouse is on the city interface (comment added to obscure the fact, that this is total spaghetti)
+            if (city_interface_open && Mouse_position.X < City_interface_position.X + city_interface.Width && Mouse_position.Y > City_interface_position.Y)
             {
-                Highlighted_province = MouseToMapCoordinate(Mouse_position);
+                int number_of_taken_building_slots = ClickedProvince.GetCity().GetBuildings().Count;
+
+                if (Mouse_position.X < City_building_slots_origin_coordinates.X + ((number_of_taken_building_slots % 3) + 1) * new_building.Width)
+                    if (Mouse_position.X > City_building_slots_origin_coordinates.X + (number_of_taken_building_slots % 3) * new_building.Width)
+                        if (Mouse_position.Y > City_building_slots_origin_coordinates.Y + (number_of_taken_building_slots / 3) * new_building.Width)
+                            if (Mouse_position.Y < City_building_slots_origin_coordinates.Y + ((number_of_taken_building_slots / 3) + 1) * new_building.Width)
+                            {
+                                building_to_be_made = true;
+                            }
             }
-            if (mousestate.LeftButton == ButtonState.Pressed)
+            else
             {
-                if (map[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit()!=false) //if a unit has been selected
+                if ((int)Test.X > -1 && (int)Test.Y > -1 && (int)Test.X < x && (int)Test.Y < y) // x and y are map dimensions; determining which province is selected
                 {
+                    Highlighted_province = MouseToMapCoordinate(Mouse_position);
+                }
+                if (mousestate.LeftButton == ButtonState.Pressed)
+                {
+                    if (map[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit() != false) //if a unit has been selected
+                    {
                         foreach (Settler settler in Kobold.Units)
                         {
-                            if (settler.GetPosition().GetID() == Highlighted_province.X *x + Highlighted_province.Y * 1)
+                            if (settler.GetPosition().GetID() == Highlighted_province.X * x + Highlighted_province.Y * 1)
                             {
                                 global_clicked_province = false;
                                 global_clicked_province_is_city = false;
@@ -224,22 +249,32 @@ namespace Projekt
                                 break;
                             }
                         }
-                }
-                else //if a province has been selected
-                {
-                    global_clicked_province = true;
-                    global_clicked_unit = false;
-                    map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
-                    map[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
-                    PrevClickedSettler.SetClicked(false);
-                    Prev_highlighted_province = Highlighted_province;
-                    if(map[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetTerrain()==terrain.city) // if the province is a city
-                    {
-                        global_clicked_province_is_city = true;
                     }
-                    else
+                    else //if a province has been selected
                     {
-                        global_clicked_province_is_city = false;
+                        global_clicked_province = true;
+                        global_clicked_unit = false;
+                        ClickedProvince = map[(int)Highlighted_province.X, (int)Highlighted_province.Y];
+                        map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
+                        map[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
+                        PrevClickedSettler.SetClicked(false);
+                        Prev_highlighted_province = Highlighted_province;
+                        if (map[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetTerrain() == terrain.city) // if the province is a city
+                        {
+                            global_clicked_province_is_city = true;
+                            MostRecentlyClickedCity = ClickedProvince.GetCity();
+                        }
+                        else
+                        {
+                            global_clicked_province_is_city = false;
+                            if(building_to_be_made)
+                            {
+                                TradingPost TradingPost = new TradingPost(building_status.working, ClickedProvince);
+                                MostRecentlyClickedCity.AddBuilding(TradingPost);
+                                ClickedProvince.AddBuilding(TradingPost);
+                                building_to_be_made = false;
+                            }
+                        }
                     }
                 }
             }
@@ -250,8 +285,8 @@ namespace Projekt
                 map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
                 PrevClickedSettler.SetClicked(false);
             }
-           
 
+            city_interface_open = global_clicked_province && global_clicked_province_is_city;
             base.Update(gameTime);
         }
 
@@ -270,7 +305,13 @@ namespace Projekt
                     terrain SS = map[k2, k].GetTerrain();
                     Vector2 Province_offset = new Vector2(targetX / zoom * k, targetY / zoom * k2);
                     _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    if(map[k, k2].GetBuilding()!=null)
+                        if(map[k,k2].GetBuilding().GetType()==typeof(TradingPost))
+                        {
+                            _spriteBatch.Draw(trading_post_province, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                        }
                     if (map[k, k2].GetClicked()) _spriteBatch.Draw(province_highlight, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+
                 }
             }
             //drawing units
@@ -286,8 +327,35 @@ namespace Projekt
             //draw city interface
             if(global_clicked_province_is_city && global_clicked_province)
             {
-                Vector2 city_interface_position = new Vector2(0, _graphics.PreferredBackBufferHeight - city_interface.Height);
-                _spriteBatch.Draw(city_interface, position: city_interface_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
+                City_interface_position = new Vector2(0, _graphics.PreferredBackBufferHeight - city_interface.Height);
+                _spriteBatch.Draw(city_interface, position: City_interface_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
+                // Drawing an array of building slots
+                float fraction_of_interfaces_height = (float)1 / 15;
+                float fraction_of_interfaces_width = (float)1 / 3;
+                Vector2 building_slot_position = new Vector2(city_interface.Width * fraction_of_interfaces_width, _graphics.PreferredBackBufferHeight - city_interface.Height + fraction_of_interfaces_height * city_interface.Height); //Git gud
+                int k = 0;
+                City_building_slots_origin_coordinates = building_slot_position;
+                if (ClickedProvince.GetCity().GetBuildings()!=null)
+                {
+                    foreach (TradingPost tradingPost in ClickedProvince.GetCity().GetBuildings())
+                    {
+                        _spriteBatch.Draw(trading_post, position: building_slot_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
+                        
+                        if (k > 1)
+                        {
+                            building_slot_position.Y += trading_post.Height;
+                            building_slot_position.X -= trading_post.Width*2;
+                            k = 0;
+                        }
+                        else
+                        {
+                            building_slot_position.X += trading_post.Width;
+                            k++;
+                        }
+                    }
+                }
+                _spriteBatch.Draw(new_building, position: building_slot_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
+
             }
             //show camera position and province id and FPS
             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;

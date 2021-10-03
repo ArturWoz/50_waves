@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections;
 
 namespace Projekt
 {
@@ -10,10 +11,11 @@ namespace Projekt
         string city_name;
         Province City_location;
         int city_population;
-        Building[] CityBuildings;
+        ArrayList CityBuildings;
         int city_happiness;
         int city_defensiveness;
         double city_income;
+        
         
         public City(int city_id, string city_name, Province City_location, int city_population, int city_happiness, int city_defensiveness, double city_income)
         {
@@ -24,19 +26,28 @@ namespace Projekt
             this.city_happiness = city_happiness;
             this.city_defensiveness = city_defensiveness;
             this.city_income = city_income;
+            CityBuildings = new ArrayList();
         }
         public double GetIncome()
         {
             double income = this.city_income;
-            foreach(Building i in this.CityBuildings)
+            foreach(TradingPost TradingPost in this.CityBuildings)
             {
-                income += i.GetIncome();
+                income += TradingPost.GetIncome();
             }
             return income;
         }
         public void ChangePopulation(int diff)
         {
             this.city_population += diff;
+        }
+        public ArrayList GetBuildings()
+        {
+            return this.CityBuildings;
+        }
+        public void AddBuilding(Object Building)
+        {
+            this.CityBuildings.Add(Building);
         }
     }
 }
