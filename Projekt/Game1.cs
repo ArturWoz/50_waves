@@ -19,7 +19,7 @@ namespace Projekt
         float targetY;
         float zoom = 1;
             //texture declarations
-        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight,province_city, province_interface, city_interface, new_building, trading_post,trading_post_province,  nationInterface,turnHUD,kobold_settler;
+        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight,province_city, province_interface, city_interface, new_building, trading_post,trading_post_province,  nationInterface,turnHUD,kobold_settler, allied_ZoC_R, allied_ZoC_U, allied_ZoC_D, allied_ZoC_L, hostile_ZoC_L, hostile_ZoC_R, hostile_ZoC_U, hostile_ZoC_D;
             //vector variables 
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Mouse_position;
@@ -150,6 +150,14 @@ namespace Projekt
             trading_post = Content.Load<Texture2D>("trading_post");
             new_building = Content.Load<Texture2D>("new_building");
             trading_post_province = Content.Load<Texture2D>("trading_post_province");
+            allied_ZoC_D = Content.Load<Texture2D>("allied_ZoC_down");
+            allied_ZoC_R = Content.Load<Texture2D>("allied_ZoC_right");
+            allied_ZoC_U = Content.Load<Texture2D>("allied_ZoC_up");
+            allied_ZoC_L = Content.Load<Texture2D>("allied_ZoC_left");
+            hostile_ZoC_D = Content.Load<Texture2D>("hostile_ZoC_down");
+            hostile_ZoC_R = Content.Load<Texture2D>("hostile_ZoC_right");
+            hostile_ZoC_U = Content.Load<Texture2D>("hostile_ZoC_up");
+            hostile_ZoC_L = Content.Load<Texture2D>("hostile_ZoC_left");
         }
 
         protected override void Update(GameTime gameTime)
@@ -297,10 +305,10 @@ namespace Projekt
         protected override void Draw(GameTime gameTime)
         {
             //background
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
-            //drawing provinces
+            //drawing provinces 
             for (int k = 0; k < y; k++) 
             {
 
