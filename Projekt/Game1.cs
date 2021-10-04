@@ -212,7 +212,7 @@ namespace Projekt
             Mouse_position = new Vector2(Xpos, Ypos);
             Vector2 Test = MouseToMapCoordinate(Mouse_position);
             //checking if mouse is on the city interface (comment added to obscure the fact, that this is total spaghetti)
-            if (city_interface_open && Mouse_position.X < City_interface_position.X + city_interface.Width && Mouse_position.Y > City_interface_position.Y)
+            if (city_interface_open && Mouse_position.X < City_interface_position.X + city_interface.Width && Mouse_position.Y > City_interface_position.Y && mousestate.LeftButton == ButtonState.Pressed)
             {
                 int number_of_taken_building_slots = ClickedProvince.GetCity().GetBuildings().Count;
 
@@ -386,6 +386,11 @@ namespace Projekt
             _spriteBatch.DrawString(font, "420", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 650, Color.OrangeRed);
             _spriteBatch.DrawString(font, "0", HUD_position+Vector2.UnitY*60+Vector2.UnitX*75, Color.OrangeRed);
             _spriteBatch.DrawString(font, Camera_position.ToString() + "\n" + Mouse_position.ToString() + '\n' + map[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetID() + '\n' + map[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit() + '\n' + fps, Vector2.Zero + Vector2.UnitY * 200, Color.OrangeRed);
+            if (ClickedProvince != null && ClickedProvince.GetBuilding() != null)
+            {  
+                _spriteBatch.DrawString(font, ","+'\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + ClickedProvince.GetBuilding().ToString(), Vector2.Zero , Color.OrangeRed);
+                //TradingPost post = ClickedProvince.GetBuilding();
+            }
 
 
             _spriteBatch.End();
