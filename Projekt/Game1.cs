@@ -222,6 +222,7 @@ namespace Projekt
                             if (Mouse_position.Y < City_building_slots_origin_coordinates.Y + ((number_of_taken_building_slots / 3) + 1) * new_building.Width)
                             {
                                 building_to_be_made = true;
+                                IsMouseVisible = false;
                             }
             }
             else
@@ -273,6 +274,7 @@ namespace Projekt
                                 MostRecentlyClickedCity.AddBuilding(TradingPost);
                                 ClickedProvince.AddBuilding(TradingPost);
                                 building_to_be_made = false;
+                                IsMouseVisible = true;
                             }
                         }
                     }
@@ -285,6 +287,7 @@ namespace Projekt
                 map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
                 PrevClickedSettler.SetClicked(false);
                 building_to_be_made = false;
+                IsMouseVisible = true;
             }
 
             city_interface_open = global_clicked_province && global_clicked_province_is_city;
