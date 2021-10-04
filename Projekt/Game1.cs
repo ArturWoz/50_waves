@@ -284,6 +284,7 @@ namespace Projekt
                 global_clicked_unit = false;
                 map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
                 PrevClickedSettler.SetClicked(false);
+                building_to_be_made = false;
             }
 
             city_interface_open = global_clicked_province && global_clicked_province_is_city;
@@ -372,6 +373,10 @@ namespace Projekt
                 _spriteBatch.DrawString(font, "type" + " " + map[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetTerrain().ToString(), interface_position + interface_offset1, Color.OrangeRed);
                 _spriteBatch.DrawString(font, "Movement Cost" + " " + map[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetProvince_movement().ToString(), interface_position + interface_offset2, Color.OrangeRed);
 
+            }
+            if(building_to_be_made) // building icon should follow mouse until it is placed
+            {
+                _spriteBatch.Draw(trading_post, position: Mouse_position, null, Color.White, 0, Vector2.Zero, 1/zoom, 0, 0);
             }
             //drawing nation interface
             _spriteBatch.Draw(nationInterface, position: Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
