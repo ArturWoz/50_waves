@@ -200,6 +200,18 @@
 /processorParam:TextureFormat=Color
 /build:desert1_highlighted.png
 
+#begin desert2.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:desert2.jpg
+
 #begin forest1.png
 /importer:TextureImporter
 /processor:TextureProcessor

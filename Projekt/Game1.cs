@@ -128,7 +128,7 @@ namespace Projekt
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice); //loading graphics
             font = Content.Load<SpriteFont>("defaultFont");
-            province_desert = Content.Load<Texture2D>("desert1");
+            province_desert = Content.Load<Texture2D>("desert2");
             province_farmland = Content.Load<Texture2D>("farmland1");
             province_forest = Content.Load<Texture2D>("forest1");
             province_jungle = Content.Load<Texture2D>("jungle1");
@@ -308,16 +308,25 @@ namespace Projekt
             GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
+            bool flip = false;
             //drawing provinces 
             for (int k = 0; k < y; k++) 
             {
-
+                if (k % 2 == 0) flip = true;
+                else flip = false;
                 for (int k2 = 0; k2 < x; k2++)
                 {
                     terrain SS = map[k2, k].GetTerrain();
                     Vector2 Province_offset = new Vector2(targetX / zoom * k, targetY / zoom * k2);
-                    _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
-                    if(map[k, k2].GetBuilding()!=null)
+                    if (flip)
+                    {
+                        _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0);
+                    }
+                    else
+                    {
+                        _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    }
+                    if (map[k, k2].GetBuilding()!=null)
                         if(map[k,k2].GetBuilding().GetType()==typeof(TradingPost))
                         {
                             _spriteBatch.Draw(trading_post_province, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
