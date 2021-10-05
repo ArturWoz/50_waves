@@ -308,21 +308,32 @@ namespace Projekt
             GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
-            bool flip = false;
+            bool flipH = false;
+            bool flipV = false;
             //drawing provinces 
             for (int k = 0; k < y; k++) 
             {
-                if (k % 2 == 0) flip = true;
-                else flip = false;
+                if (k % 2 == 0) flipH    = true;
+                else flipH = false;
                 for (int k2 = 0; k2 < x; k2++)
                 {
                     terrain SS = map[k2, k].GetTerrain();
                     Vector2 Province_offset = new Vector2(targetX / zoom * k, targetY / zoom * k2);
-                    if (flip)
+                    if (k2 % 2 == 0) flipV = true;
+                    else if (k2 % 2 != 0) flipV = false;
+                    if (flipH && flipV)
+                    {
+                        _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically, 0);
+                    }   
+                    else if (!flipH && flipV)
+                    {
+                        _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.FlipVertically, 0);
+                    }
+                    else if (flipH && !flipV)
                     {
                         _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0);
                     }
-                    else
+                    else 
                     {
                         _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                     }
