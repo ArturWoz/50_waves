@@ -6,7 +6,6 @@ namespace Projekt
 {
     public class Province
     {
-        int province_value;
         int province_movement = 2;
         bool clicked;
         bool has_unit = false;
@@ -17,8 +16,7 @@ namespace Projekt
         City City_on_this_province = null;
         Object Building_on_this_province = null;
 
-        public Province(int province_id, int province_owner, terrain terrain, bool is_water,
-            int province_value)
+        public Province(int province_id, int province_owner, terrain terrain, bool is_water)
         {
             this.province_id = province_id;
             this.province_owner = province_owner;

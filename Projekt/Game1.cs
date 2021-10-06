@@ -109,7 +109,7 @@ namespace Projekt
                 {
                     s = sr.ReadLine();
                     s2 = (terrain)Enum.Parse(typeof(terrain), s, true);
-                    Province load = new Province(i, 0, s2, false, 0);
+                    Province load = new Province(i, 0, s2, false);
                     map[k2, k] = load;
                     i++;
                 }
@@ -118,7 +118,7 @@ namespace Projekt
             Province spawnpoint = map[15, 15]; //making the settler
             Settler kobold_settler=new Settler(spawnpoint,Kobold);
             Kobold.AddUnits(kobold_settler);
-            Debug = new Province(99999, 999, terrain.sea, false, 0);
+            Debug = new Province(99999, 999, terrain.sea, false);
             PrevClickedSettler = new Settler(Debug, Kobold);
 
             base.Initialize();
