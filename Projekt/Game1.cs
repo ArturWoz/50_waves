@@ -19,7 +19,7 @@ namespace Projekt
         float targetY;
         float zoom = 1;
             //texture declarations
-        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight,province_city, province_interface, city_interface, new_building, trading_post,trading_post_province,  nationInterface,turnHUD,kobold_settler, allied_ZoC_R, allied_ZoC_U, allied_ZoC_D, allied_ZoC_L, hostile_ZoC_L, hostile_ZoC_R, hostile_ZoC_U, hostile_ZoC_D;
+        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight,province_city, province_interface, city_interface, new_building, trading_post,trading_post_province,  nationInterface,turnHUD,kobold_settler, allied_ZoC_R, allied_ZoC_U, allied_ZoC_D, allied_ZoC_L, hostile_ZoC_L, hostile_ZoC_R, hostile_ZoC_U, hostile_ZoC_D, border;
             //vector variables 
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Mouse_position;
@@ -158,6 +158,7 @@ namespace Projekt
             hostile_ZoC_R = Content.Load<Texture2D>("hostile_ZoC_right");
             hostile_ZoC_U = Content.Load<Texture2D>("hostile_ZoC_up");
             hostile_ZoC_L = Content.Load<Texture2D>("hostile_ZoC_left");
+            border = Content.Load<Texture2D>("border");
         }
 
         protected override void Update(GameTime gameTime)
@@ -187,7 +188,7 @@ namespace Projekt
             {
                 zoom = zoom - (float)0.025;
             }
-            if (keystate.IsKeyDown(Keys.Down) && zoom < 8)
+            if (keystate.IsKeyDown(Keys.Down) && zoom < 6)
             {
                 zoom = zoom + (float)0.025;
             }
@@ -195,12 +196,12 @@ namespace Projekt
             {
                 zoom = zoom - (float)0.25;
             }
-            if (mousestate.ScrollWheelValue < scroll && zoom < 8)
+            if (mousestate.ScrollWheelValue < scroll && zoom < 6)
             {
                 zoom = zoom + (float)0.25;
             }
             if (zoom < 0.5) zoom = 0.5f; //zoom cap
-            if (zoom > 8) zoom = 8;
+            if (zoom > 6) zoom = 6;
 
             if (keystate.IsKeyDown(Keys.Space)) //settling a city
             {
@@ -326,6 +327,8 @@ namespace Projekt
                     {
                         _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                     }
+                    _spriteBatch.Draw(border, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
+                    //_spriteBatch.Draw(allied_ZoC_R, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                     if (map[k, k2].GetBuilding()!=null)
                         if(map[k,k2].GetBuilding().GetType()==typeof(TradingPost))
                         {
