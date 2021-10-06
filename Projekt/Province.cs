@@ -23,6 +23,18 @@ namespace Projekt
             this.terrain = terrain;
             this.is_water = is_water;
         }
+        public Province(Province Province)
+        {
+            this.province_id = Province.province_id;
+            this.province_owner = Province.province_owner;
+            this.terrain = Province.terrain;
+            this.is_water = Province.is_water;
+            this.has_unit = Province.has_unit;
+            this.clicked = Province.clicked;
+            this.province_movement = Province.province_movement;
+            this.Building_on_this_province = Province.Building_on_this_province;
+            this.City_on_this_province = Province.City_on_this_province;
+        }
         public void AddCity(City City)
         {
             this.City_on_this_province = City;
@@ -55,7 +67,8 @@ namespace Projekt
         public int GetProvince_movement() { return this.province_movement; }
         public bool HasUnit() { return this.has_unit; }
         public void SetUnit(bool unit) { this.has_unit = unit;  }
-
+        public int GetOwner() { return province_owner; }
+        public bool IsWater() { return this.is_water; }
         public void SetClicked(bool value) { this.clicked = value; }
     }
 }
