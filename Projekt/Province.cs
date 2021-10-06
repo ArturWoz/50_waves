@@ -4,23 +4,26 @@ using System.Text;
 
 namespace Projekt
 {
-    public class Province:Tile
+    public class Province
     {
         int province_value;
         int province_movement = 2;
         bool clicked;
         bool has_unit = false;
+        protected int province_id;
+        protected int province_owner = 0;
+        protected terrain terrain;
+        protected bool is_water;
         City City_on_this_province = null;
         Object Building_on_this_province = null;
 
         public Province(int province_id, int province_owner, terrain terrain, bool is_water,
-            int province_value):base(province_id, province_owner, terrain, is_water)
+            int province_value)
         {
             this.province_id = province_id;
             this.province_owner = province_owner;
             this.terrain = terrain;
             this.is_water = is_water;
-
         }
         public void AddCity(City City)
         {
