@@ -98,23 +98,24 @@ namespace Projekt
             _graphics.PreferredBackBufferWidth = GraphicsDevice.Adapter.CurrentDisplayMode.Width; //window size to be the display size
             _graphics.PreferredBackBufferHeight = GraphicsDevice.Adapter.CurrentDisplayMode.Height;
             _graphics.ApplyChanges();
-            StreamReader sr = File.OpenText(path);
-            x = int.Parse(sr.ReadLine()); //map dimensions
-            y = int.Parse(sr.ReadLine());
-            map = new Province[x, y];
-
-            for (int k = 0; k < y; k++) //loading map file
-            {
-                for (int k2 = 0; k2 < x; k2++)
-                {
-                    s = sr.ReadLine();
-                    s2 = (terrain)Enum.Parse(typeof(terrain), s, true);
-                    Province load = new Province(i, 0, s2, false);
-                    map[k2, k] = load;
-                    i++;
-                }
-            }
-            sr.Close();
+            //StreamReader sr = File.OpenText(path);
+            //x = int.Parse(sr.ReadLine()); //map dimensions
+            //y = int.Parse(sr.ReadLine());
+            //map = new Province[x, y];
+            //
+            //for (int k = 0; k < y; k++) //loading map file
+            //{
+            //    for (int k2 = 0; k2 < x; k2++)
+            //    {
+            //        s = sr.ReadLine();
+            //        s2 = (terrain)Enum.Parse(typeof(terrain), s, true);
+            //        Province load = new Province(i, 0, s2, false);
+            //        map[k2, k] = load;
+            //        i++;
+            //    }
+            //}
+            //sr.Close();
+            map = Randommap(32); x = 32; y = 32;
             Province spawnpoint = map[15, 15]; //making the settler
             Settler kobold_settler=new Settler(spawnpoint,Kobold);
             Kobold.AddUnits(kobold_settler);
@@ -305,7 +306,7 @@ namespace Projekt
         protected override void Draw(GameTime gameTime)
         {
             //background
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
             Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
             bool flip = false;
@@ -417,5 +418,112 @@ namespace Projekt
 
             base.Draw(gameTime);
         }
+
+        Province[,] Randommap(int x)
+        {
+            Province[,] M = new Province[x, x];
+            terrain[,] TM = new terrain[x, x];
+            double[,] H = RandT(x);
+            double[,] T = RandT(x);
+            terrain[,] terr = new terrain[3, 3];
+            terr[2, 0] = terrain.mountains; terr[2, 1] = terrain.farmland; terr[2, 2] = terrain.jungle;
+            terr[1, 0] = terrain.taiga; terr[1, 1] = terrain.plains; terr[1, 2] = terrain.forest;
+            terr[0, 0] = terrain.tundra; terr[0, 1] = terrain.hills; terr[0, 2] = terrain.desert;
+
+
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < x; j++)
+                {
+                    int h = (int)(Math.Round(H[i, j]));
+                    if (h > 1) h = 1;
+                    if (h < -1) h = -1;
+                    System.Diagnostics.Debug.WriteLine(H[i, j]);
+
+                    int t = (int)(Math.Round(T[i, j]));
+                    if (t > 1) t = 1;
+                    if (t < -1) t = -1;
+                    System.Diagnostics.Debug.WriteLine(T[i, j]);
+
+                    h = h + 1; t = t + 1;
+
+                    TM[i, j] = terr[h, t];
+                }
+            }
+
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < x; j++)
+                {
+                    M[i, j] = new Province(j * x + i, 0, TM[i, j], false);
+                }
+            }
+
+            return M;
+        }
+
+        double[,] RandT(int n)
+        {
+            double[,] O = new double[n, n];
+            int pn = n;
+            Point[] Pt = new Point[pn];
+            Random rnd = new Random();
+            for (int i = 0; i < n; i++)
+            {
+                Point p1 = new Point();
+                p1.x = rnd.Next(0, n);
+                p1.y = rnd.Next(0, n);
+                p1.val = (double)(rnd.Next(-2, 2));
+                //System.Diagnostics.Debug.WriteLine(p1.val);
+                Pt[i] = p1;
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    O[i, j] = 0;
+                }
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    for (int k = 0; k < pn; k++)
+                    {
+                        double l = Math.Sqrt(((i - Pt[k].x) * (i - Pt[k].x)) + ((j - Pt[k].y) * (j - Pt[k].y)));
+                        //double l = ((i - Pt[k].x) * (i - Pt[k].x)) + ((j - Pt[k].y) * (j - Pt[k].y));
+                        if (l == 0) l = 1;
+                        O[i, j] += Pt[k].val / l;
+
+                    }
+                }
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    O[i, j] += 1;
+                }
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    //O[i, j] = O[i, j] - 0.5;
+                    System.Diagnostics.Debug.WriteLine(O[i, j]);
+                }
+            }
+            return O;
+        }
+
+
+        struct Point
+        { public int x; public int y; public double val; }
+
+
     }
 }
