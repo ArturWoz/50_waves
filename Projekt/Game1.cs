@@ -115,8 +115,9 @@ namespace Projekt
             //    }
             //}
             //sr.Close();
-            map = Randommap(32); x = 32; y = 32;
-            Province spawnpoint = map[15, 15]; //making the settler
+            int MapSize=128;
+            map = Randommap(MapSize); x = MapSize; y = MapSize;
+            Province spawnpoint = map[MapSize/2, MapSize/2]; //making the settler
             Settler kobold_settler=new Settler(spawnpoint,Kobold);
             Kobold.AddUnits(kobold_settler);
             Debug = new Province(99999, 999, terrain.sea, false);
@@ -438,12 +439,12 @@ namespace Projekt
                     int h = (int)(Math.Round(H[i, j]));
                     if (h > 1) h = 1;
                     if (h < -1) h = -1;
-                    System.Diagnostics.Debug.WriteLine(H[i, j]);
+                  //  System.Diagnostics.Debug.WriteLine(H[i, j]);
 
                     int t = (int)(Math.Round(T[i, j]));
                     if (t > 1) t = 1;
                     if (t < -1) t = -1;
-                    System.Diagnostics.Debug.WriteLine(T[i, j]);
+                  //  System.Diagnostics.Debug.WriteLine(T[i, j]);
 
                     h = h + 1; t = t + 1;
 
@@ -514,7 +515,7 @@ namespace Projekt
                 for (int j = 0; j < n; j++)
                 {
                     //O[i, j] = O[i, j] - 0.5;
-                    System.Diagnostics.Debug.WriteLine(O[i, j]);
+                  //  System.Diagnostics.Debug.WriteLine(O[i, j]);
                 }
             }
             return O;
