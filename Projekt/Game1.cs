@@ -475,7 +475,6 @@ namespace Projekt
                 p1.x = rnd.Next(0, n);
                 p1.y = rnd.Next(0, n);
                 p1.val = (double)(rnd.Next(-2, 2));
-                //System.Diagnostics.Debug.WriteLine(p1.val);
                 Pt[i] = p1;
             }
 
@@ -483,7 +482,7 @@ namespace Projekt
             {
                 for (int j = 0; j < n; j++)
                 {
-                    O[i, j] = 0;
+                    O[i, j] = 1;
                 }
             }
 
@@ -494,28 +493,9 @@ namespace Projekt
                     for (int k = 0; k < pn; k++)
                     {
                         double l = Math.Sqrt(((i - Pt[k].x) * (i - Pt[k].x)) + ((j - Pt[k].y) * (j - Pt[k].y)));
-                        //double l = ((i - Pt[k].x) * (i - Pt[k].x)) + ((j - Pt[k].y) * (j - Pt[k].y));
                         if (l == 0) l = 1;
                         O[i, j] += Pt[k].val / l;
-
                     }
-                }
-            }
-
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-                    O[i, j] += 1;
-                }
-            }
-
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-                    //O[i, j] = O[i, j] - 0.5;
-                  //  System.Diagnostics.Debug.WriteLine(O[i, j]);
                 }
             }
             return O;
