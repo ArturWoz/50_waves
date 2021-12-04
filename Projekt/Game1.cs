@@ -115,7 +115,7 @@ namespace Projekt
             //    }
             //}
             //sr.Close();
-            int MapSize=128;
+            int MapSize=100;
             map = Randommap(MapSize); x = MapSize; y = MapSize;
             Province spawnpoint = map[MapSize/2, MapSize/2]; //making the settler
             Settler kobold_settler=new Settler(spawnpoint,Kobold);
@@ -428,7 +428,7 @@ namespace Projekt
             double[,] T = RandT(x);
             terrain[,] terr = new terrain[3, 3];
             terr[2, 0] = terrain.mountains; terr[2, 1] = terrain.farmland; terr[2, 2] = terrain.jungle;
-            terr[1, 0] = terrain.taiga; terr[1, 1] = terrain.plains; terr[1, 2] = terrain.forest;
+            terr[1, 0] = terrain.taiga; terr[1, 1] = terrain.sea; terr[1, 2] = terrain.forest;
             terr[0, 0] = terrain.tundra; terr[0, 1] = terrain.hills; terr[0, 2] = terrain.desert;
 
 
@@ -437,16 +437,16 @@ namespace Projekt
                 for (int j = 0; j < x; j++)
                 {
                     int h = (int)(Math.Round(H[i, j]));
-                    if (h > 1) h = 1;
-                    if (h < -1) h = -1;
+                    if (h > 2) h = 2;
+                    if (h < 0) h = 0;
                   //  System.Diagnostics.Debug.WriteLine(H[i, j]);
 
                     int t = (int)(Math.Round(T[i, j]));
-                    if (t > 1) t = 1;
-                    if (t < -1) t = -1;
+                    if (t > 2) t = 2;
+                    if (t < 0) t = 0;
                   //  System.Diagnostics.Debug.WriteLine(T[i, j]);
 
-                    h = h + 1; t = t + 1;
+                  
 
                     TM[i, j] = terr[h, t];
                 }
@@ -465,18 +465,30 @@ namespace Projekt
 
         double[,] RandT(int n)
         {
+            
+            int pn = 3*n;
             double[,] O = new double[n, n];
-            int pn = n;
             Point[] Pt = new Point[pn];
             Random rnd = new Random();
-            for (int i = 0; i < n; i++)
-            {
-                Point p1 = new Point();
-                p1.x = rnd.Next(0, n);
-                p1.y = rnd.Next(0, n);
-                p1.val = (double)(rnd.Next(-2, 2));
-                Pt[i] = p1;
-            }
+           int  ik = 0;
+        
+                for (int j = 0; j < Math.Sqrt(n); j++)
+                {
+                    for (int k = 0; k < Math.Sqrt(n); k++)
+                    {
+                    int rand_point = rnd.Next(1, 3);
+                    for (int i = 0; i < rand_point; i++)
+                    {
+                        Point p1 = new Point();
+                        p1.x = rnd.Next((int)(j * Math.Sqrt(n)), (int)((j + 1) * Math.Sqrt(n)));
+                        p1.y = rnd.Next((int)(k * Math.Sqrt(n)), (int)((k + 1) * Math.Sqrt(n)));
+                        p1.val = 1.7 * Math.Pow(-1, rnd.Next(0, 1000));
+                        Pt[ik] = p1;
+                        ik++;
+                    }
+                    }
+                }
+       
 
             for (int i = 0; i < n; i++)
             {
@@ -490,11 +502,11 @@ namespace Projekt
             {
                 for (int j = 0; j < n; j++)
                 {
-                    for (int k = 0; k < pn; k++)
+                    for (int k = 0; k < ik; k++)
                     {
                         double l = Math.Sqrt(((i - Pt[k].x) * (i - Pt[k].x)) + ((j - Pt[k].y) * (j - Pt[k].y)));
                         if (l == 0) l = 1;
-                        O[i, j] += Pt[k].val / l;
+                    if(l<=10)  O[i, j] += Pt[k].val / l;
                     }
                 }
             }
