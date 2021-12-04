@@ -437,16 +437,17 @@ namespace Projekt
                 for (int j = 0; j < x; j++)
                 {
                     int h = (int)(Math.Round(H[i, j]));
-                    if (h > 1) h = 1;
-                    if (h < -1) h = -1;
-                  //  System.Diagnostics.Debug.WriteLine(H[i, j]);
+                    if (h > 2) h = 2;
+                    if (h < 0) h = 0;
+                    System.Diagnostics.Debug.WriteLine(H[i, j]);
+                    System.Diagnostics.Debug.WriteLine(h);
 
                     int t = (int)(Math.Round(T[i, j]));
-                    if (t > 1) t = 1;
-                    if (t < -1) t = -1;
-                  //  System.Diagnostics.Debug.WriteLine(T[i, j]);
+                    if (t > 2) t = 2;
+                    if (t < 0) t = 0;
+                    //System.Diagnostics.Debug.WriteLine(T[i, j]);
 
-                    h = h + 1; t = t + 1;
+                    //h = h + 1; t = t + 1;
 
                     TM[i, j] = terr[h, t];
                 }
@@ -472,9 +473,11 @@ namespace Projekt
             for (int i = 0; i < n; i++)
             {
                 Point p1 = new Point();
-                p1.x = rnd.Next(0, n);
-                p1.y = rnd.Next(0, n);
-                p1.val = (double)(rnd.Next(-2, 2));
+                p1.x = rnd.Next(0, n-1);
+                p1.y = rnd.Next(0, n-1);
+                p1.val = 1.6*Math.Pow(-1, rnd.Next(1, 7));
+                //p1.val = (double)(rnd.Next(-9, 9))/1.6;
+                //p1.val += Math.Sign(p1.val)*1.3;
                 Pt[i] = p1;
             }
 
@@ -492,8 +495,8 @@ namespace Projekt
                 {
                     for (int k = 0; k < pn; k++)
                     {
-                        double l = Math.Sqrt(((i - Pt[k].x) * (i - Pt[k].x)) + ((j - Pt[k].y) * (j - Pt[k].y)));
-                        if (l == 0) l = 1;
+                        double l = Math.Sqrt((double)(((i - Pt[k].x) * (i - Pt[k].x)) + ((j - Pt[k].y) * (j - Pt[k].y))));
+                        if (l == 0) l = 1.3;
                         O[i, j] += Pt[k].val / l;
                     }
                 }
