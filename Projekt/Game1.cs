@@ -467,7 +467,7 @@ namespace Projekt
         double[,] RandT(int n)
         {
             double[,] O = new double[n, n];
-            int pn = n;
+            int pn = 4*n;
             Point[] Pt = new Point[pn];
             Random rnd = new Random();
             for (int i = 0; i < n; i++)
