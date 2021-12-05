@@ -9,18 +9,18 @@ using System.Collections.Generic;
 namespace Projekt
 {
     public class Game1 : Game
-    { 
+    {
         //semi-global variables
-            //monogame stuff
+        //monogame stuff
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-            //map display
+        //map display
         float targetX = 128; //province size
         float targetY;
         float zoom = 1;
-            //texture declarations
-        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills,province_highlight,province_city, province_interface, city_interface, new_building, trading_post,trading_post_province,  nationInterface,turnHUD,kobold_settler, allied_ZoC_R, allied_ZoC_U, allied_ZoC_D, allied_ZoC_L, hostile_ZoC_L, hostile_ZoC_R, hostile_ZoC_U, hostile_ZoC_D;
-            //vector variables 
+        //texture declarations
+        Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills, province_highlight, province_city, province_interface, city_interface, new_building, trading_post, trading_post_province, nationInterface, turnHUD, kobold_settler, allied_ZoC_R, allied_ZoC_U, allied_ZoC_D, allied_ZoC_L, hostile_ZoC_L, hostile_ZoC_R, hostile_ZoC_U, hostile_ZoC_D;
+        //vector variables 
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Mouse_position;
         Vector2 Scale;
@@ -28,12 +28,12 @@ namespace Projekt
         Vector2 Prev_highlighted_province;
         Vector2 City_interface_position;
         Vector2 City_building_slots_origin_coordinates;
-            //Settler objects to allow for city placement
+        //Settler objects to allow for city placement
         Settler ClickedSettler;
         Province Debug; //used to initialize the settler, this province is far beyond the map
         Settler PrevClickedSettler;
-            //bools used to determine what menu to display/what actions to allow
-        bool global_clicked_province = false,global_clicked_unit=false;
+        //bools used to determine what menu to display/what actions to allow
+        bool global_clicked_province = false, global_clicked_unit = false;
         bool global_clicked_province_is_city = false;
         bool building_to_be_made = false;
         Province ClickedProvince;
@@ -47,8 +47,8 @@ namespace Projekt
         SpriteFont font;
         private FrameCounter _frameCounter = new FrameCounter();
         int i = 0, x, y, scroll = 0; //Yprov will be always remembered :(
-            //faction declaration (TODO: other factions)
-        Nation Kobold = new Nation(1,"Kobolds");
+                                     //faction declaration (TODO: other factions)
+        Nation Kobold = new Nation(1, "Kobolds");
         bool check_unit = true;
         public Game1()
         {
@@ -115,10 +115,10 @@ namespace Projekt
             //    }
             //}
             //sr.Close();
-            int MapSize=100;
+            int MapSize = 100;
             map = Randommap(MapSize); x = MapSize; y = MapSize;
-            Province spawnpoint = map[MapSize/2, MapSize/2]; //making the settler
-            Settler kobold_settler=new Settler(spawnpoint,Kobold);
+            Province spawnpoint = map[MapSize / 2, MapSize / 2]; //making the settler
+            Settler kobold_settler = new Settler(spawnpoint, Kobold);
             Kobold.AddUnits(kobold_settler);
             Debug = new Province(99999, 999, terrain.sea, false);
             PrevClickedSettler = new Settler(Debug, Kobold);
@@ -278,7 +278,7 @@ namespace Projekt
                         else
                         {
                             global_clicked_province_is_city = false;
-                            if(building_to_be_made && ClickedProvince.GetBuilding()==null)
+                            if (building_to_be_made && ClickedProvince.GetBuilding() == null)
                             {
                                 TradingPost TradingPost = new TradingPost(building_status.working, ClickedProvince);
                                 MostRecentlyClickedCity.AddBuilding(TradingPost);
@@ -312,7 +312,7 @@ namespace Projekt
             Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
             bool flip = false;
             //drawing provinces 
-            for (int k = 0; k < y; k++) 
+            for (int k = 0; k < y; k++)
             {
                 if (k % 2 == 0) flip = true;
                 else flip = false;
@@ -328,8 +328,8 @@ namespace Projekt
                     {
                         _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                     }
-                    if (map[k, k2].GetBuilding()!=null)
-                        if(map[k,k2].GetBuilding().GetType()==typeof(TradingPost))
+                    if (map[k, k2].GetBuilding() != null)
+                        if (map[k, k2].GetBuilding().GetType() == typeof(TradingPost))
                         {
                             _spriteBatch.Draw(trading_post_province, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                         }
@@ -345,10 +345,10 @@ namespace Projekt
                 Vector2 unit_offset = new Vector2(targetX / zoom * settler_positionID.X, targetY / zoom * settler_positionID.Y);
                 Settler.GetPosition().SetUnit(true);
                 _spriteBatch.Draw(kobold_settler, position: ((Camera_position) / zoom + Camera_offset) + unit_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
-                if(Settler.GetClicked()==true) { _spriteBatch.Draw(province_highlight, position: ((Camera_position) / zoom + Camera_offset) + unit_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0); }
+                if (Settler.GetClicked() == true) { _spriteBatch.Draw(province_highlight, position: ((Camera_position) / zoom + Camera_offset) + unit_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0); }
             }
             //draw city interface
-            if(global_clicked_province_is_city && global_clicked_province)
+            if (global_clicked_province_is_city && global_clicked_province)
             {
                 City_interface_position = new Vector2(0, _graphics.PreferredBackBufferHeight - city_interface.Height);
                 _spriteBatch.Draw(city_interface, position: City_interface_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
@@ -358,16 +358,16 @@ namespace Projekt
                 Vector2 building_slot_position = new Vector2(city_interface.Width * fraction_of_interfaces_width, _graphics.PreferredBackBufferHeight - city_interface.Height + fraction_of_interfaces_height * city_interface.Height); //Git gud
                 int k = 0;
                 City_building_slots_origin_coordinates = building_slot_position;
-                if (ClickedProvince.GetCity().GetBuildings()!=null)
+                if (ClickedProvince.GetCity().GetBuildings() != null)
                 {
                     foreach (TradingPost tradingPost in ClickedProvince.GetCity().GetBuildings())
                     {
                         _spriteBatch.Draw(trading_post, position: building_slot_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
-                        
+
                         if (k > 1)
                         {
                             building_slot_position.Y += trading_post.Height;
-                            building_slot_position.X -= trading_post.Width*2;
+                            building_slot_position.X -= trading_post.Width * 2;
                             k = 0;
                         }
                         else
@@ -396,21 +396,21 @@ namespace Projekt
                 _spriteBatch.DrawString(font, "Movement Cost" + " " + map[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetProvince_movement().ToString(), interface_position + interface_offset2, Color.OrangeRed);
 
             }
-            if(building_to_be_made) // building icon should follow mouse until it is placed
+            if (building_to_be_made) // building icon should follow mouse until it is placed
             {
-                _spriteBatch.Draw(trading_post, position: Mouse_position, null, Color.White, 0, Vector2.Zero, 1/zoom, 0, 0);
+                _spriteBatch.Draw(trading_post, position: Mouse_position, null, Color.White, 0, Vector2.Zero, 1 / zoom, 0, 0);
             }
             //drawing nation interface
             _spriteBatch.Draw(nationInterface, position: Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
-            _spriteBatch.Draw(turnHUD, position: HUD_position,null, Color.White, 0, Vector2.Zero, 1, 0, 0);
+            _spriteBatch.Draw(turnHUD, position: HUD_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
             _spriteBatch.DrawString(font, "100", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 50, Color.OrangeRed);
             _spriteBatch.DrawString(font, "696969", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 350, Color.OrangeRed);
             _spriteBatch.DrawString(font, "420", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 650, Color.OrangeRed);
-            _spriteBatch.DrawString(font, "0", HUD_position+Vector2.UnitY*60+Vector2.UnitX*75, Color.OrangeRed);
+            _spriteBatch.DrawString(font, "0", HUD_position + Vector2.UnitY * 60 + Vector2.UnitX * 75, Color.OrangeRed);
             _spriteBatch.DrawString(font, Camera_position.ToString() + "\n" + Mouse_position.ToString() + '\n' + map[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetID() + '\n' + map[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit() + '\n' + fps, Vector2.Zero + Vector2.UnitY * 200, Color.OrangeRed);
             if (ClickedProvince != null && ClickedProvince.GetBuilding() != null)
-            {  
-                _spriteBatch.DrawString(font, ","+'\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + ClickedProvince.GetBuilding().ToString(), Vector2.Zero , Color.OrangeRed);
+            {
+                _spriteBatch.DrawString(font, "," + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + ClickedProvince.GetBuilding().ToString(), Vector2.Zero, Color.OrangeRed);
                 //TradingPost post = ClickedProvince.GetBuilding();
             }
 
@@ -424,12 +424,28 @@ namespace Projekt
         {
             Province[,] M = new Province[x, x];
             terrain[,] TM = new terrain[x, x];
-            double[,] H = RandT(x);
-            double[,] T = RandT(x);
-            terrain[,] terr = new terrain[3, 3];
-            terr[2, 0] = terrain.mountains; terr[2, 1] = terrain.farmland; terr[2, 2] = terrain.jungle;
-            terr[1, 0] = terrain.taiga; terr[1, 1] = terrain.sea; terr[1, 2] = terrain.forest;
-            terr[0, 0] = terrain.tundra; terr[0, 1] = terrain.hills; terr[0, 2] = terrain.desert;
+            double[,] H = RandT(x, false);
+            double[,] T = RandT(x, false);
+            double[,] W = RandT(x, true);
+            terrain[,,] terr = new terrain[3, 3, 6];
+            terr[2, 0, 0] = terrain.sea; terr[2, 1, 0] = terrain.sea; ; terr[2, 2, 0] = terrain.sea; ;
+            terr[1, 0, 0] = terrain.sea; terr[1, 1, 0] = terrain.sea; terr[1, 2, 0] = terrain.sea; ;
+            terr[0, 0, 0] = terrain.sea; terr[0, 1, 0] = terrain.sea; terr[0, 2, 0] = terrain.sea;
+            terr[2, 0, 1] = terrain.sea; terr[2, 1, 1] = terrain.sea; terr[2, 2, 1] = terrain.sea;
+            terr[1, 0, 1] = terrain.sea; terr[1, 1, 1] = terrain.sea; terr[1, 2, 1] = terrain.sea;
+            terr[0, 0, 1] = terrain.sea; terr[0, 1, 1] = terrain.sea; terr[0, 2, 1] = terrain.sea;
+            terr[2, 0, 2] = terrain.plains; terr[2, 1, 2] = terrain.farmland; terr[2, 2, 2] = terrain.jungle;
+            terr[1, 0, 2] = terrain.taiga; terr[1, 1, 2] = terrain.plains; terr[1, 2, 2] = terrain.forest;
+            terr[0, 0, 2] = terrain.tundra; terr[0, 1, 2] = terrain.plains; terr[0, 2, 2] = terrain.desert;
+            terr[2, 0, 3] = terrain.plains; terr[2, 1, 3] = terrain.farmland; terr[2, 2, 3] = terrain.jungle;
+            terr[1, 0, 3] = terrain.taiga; terr[1, 1, 3] = terrain.plains; terr[1, 2, 3] = terrain.forest;
+            terr[0, 0, 3] = terrain.tundra; terr[0, 1, 3] = terrain.plains; terr[0, 2, 3] = terrain.desert;
+            terr[2, 0, 4] = terrain.hills; terr[2, 1, 4] = terrain.farmland; terr[2, 2, 4] = terrain.jungle;
+            terr[1, 0, 4] = terrain.taiga; terr[1, 1, 4] = terrain.hills; terr[1, 2, 4] = terrain.forest;
+            terr[0, 0, 4] = terrain.tundra; terr[0, 1, 4] = terrain.plains; terr[0, 2, 4] = terrain.desert;
+            terr[2, 0, 5] = terrain.mountains; terr[2, 1, 5] = terrain.mountains; terr[2, 2, 5] = terrain.mountains;
+            terr[1, 0, 5] = terrain.mountains; terr[1, 1, 5] = terrain.mountains; terr[1, 2, 5] = terrain.mountains;
+            terr[0, 0, 5] = terrain.mountains; terr[0, 1, 5] = terrain.mountains; terr[0, 2, 5] = terrain.mountains;
 
 
             for (int i = 0; i < x; i++)
@@ -439,16 +455,18 @@ namespace Projekt
                     int h = (int)(Math.Round(H[i, j]));
                     if (h > 2) h = 2;
                     if (h < 0) h = 0;
-                  //  System.Diagnostics.Debug.WriteLine(H[i, j]);
+                    //  System.Diagnostics.Debug.WriteLine(H[i, j]);
 
                     int t = (int)(Math.Round(T[i, j]));
                     if (t > 2) t = 2;
                     if (t < 0) t = 0;
-                  //  System.Diagnostics.Debug.WriteLine(T[i, j]);
+                    //  System.Diagnostics.Debug.WriteLine(T[i, j]);
+                    int w = (int)(Math.Round(W[i, j]));
+                    if (w > 5) w = 5;
+                    if (w < 0) w = 0;
 
-                  
 
-                    TM[i, j] = terr[h, t];
+                    TM[i, j] = terr[h, t, w];
                 }
             }
 
@@ -459,11 +477,49 @@ namespace Projekt
                     M[i, j] = new Province(j * x + i, 0, TM[i, j], false);
                 }
             }
+            // post processing for generating coast if water is nearby
+            for (int check = 0; check < x; check++)
+            {
+                for (int check2 = 0; check2 < x; check2++)
+                {
+                    Province checkedP;
+                    Province checkedP2;
+                    checkedP = new Province(M[check, check2]);
+                    int L, R, U, D;
+                     L = check - 1;
+                     R = check + 1;
+                    U = check2 - 1;
+                    D = check2 + 1;
+                    if(checkedP.GetTerrain()!=terrain.sea)
+                    {
+                        if(L!=-1)
+                        {
+                            checkedP2 = new Province(M[L, check2]);
+                            if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                        }
+                        if(R<x)
+                        {
+                            checkedP2 = new Province(M[R, check2]);
+                            if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                        }
+                        if(U!=-1)
+                        {
+                            checkedP2 = new Province(M[check, U]);
+                            if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                        }
+                        if(D<x)
+                        {
+                           checkedP2 = new Province(M[check, D]);
+                           if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                        }
+                    }
+                }
+            }
+           
 
-            return M;
-        }
-
-        double[,] RandT(int n)
+                    return M;
+                }
+        double[,] RandT(int n,bool is_height)
         {
             
             int pn = 3*n;
@@ -471,30 +527,53 @@ namespace Projekt
             Point[] Pt = new Point[pn];
             Random rnd = new Random();
            int  ik = 0;
-        
+            if (!is_height)
+            {
                 for (int j = 0; j < Math.Sqrt(n); j++)
                 {
                     for (int k = 0; k < Math.Sqrt(n); k++)
                     {
-                    int rand_point = rnd.Next(1, 3);
-                    for (int i = 0; i < rand_point; i++)
-                    {
-                        Point p1 = new Point();
-                        p1.x = rnd.Next((int)(j * Math.Sqrt(n)), (int)((j + 1) * Math.Sqrt(n)));
-                        p1.y = rnd.Next((int)(k * Math.Sqrt(n)), (int)((k + 1) * Math.Sqrt(n)));
-                        p1.val = 1.7 * Math.Pow(-1, rnd.Next(0, 1000));
-                        Pt[ik] = p1;
-                        ik++;
-                    }
+                        int rand_point = rnd.Next(1, 3);
+                        for (int i = 0; i < rand_point; i++)
+                        {
+                            Point p1 = new Point();
+                            p1.x = rnd.Next((int)(j * Math.Sqrt(n)), (int)((j + 1) * Math.Sqrt(n)));
+                            p1.y = rnd.Next((int)(k * Math.Sqrt(n)), (int)((k + 1) * Math.Sqrt(n)));
+                            p1.val = rnd.Next(-5,6)/ 2;     
+                            Pt[ik] = p1;
+                            ik++;
+                        }
                     }
                 }
-       
+            }
+            else if(is_height)
+            {
+                for (int j = 0; j < Math.Sqrt(n); j++)
+             {
+                    for (int k = 0; k < Math.Sqrt(n); k++)
+                    {
+                        int rand_point = rnd.Next(1, 3);
+                        for (int i = 0; i < rand_point; i++)
+                        {
+                            Point p1 = new Point();
+                            p1.x = rnd.Next((int)(j * Math.Sqrt(n)), (int)((j + 1) * Math.Sqrt(n)));
+                            p1.y = rnd.Next((int)(k * Math.Sqrt(n)), (int)((k + 1) * Math.Sqrt(n)));
+                            if (j == 0 || k == 0 || (j == Math.Sqrt(n)-1) || k == Math.Sqrt(n)-1) p1.val = -3;
+                            else p1.val = rnd.Next(-3,5);
+                            Pt[ik] = p1;
+                            System.Diagnostics.Debug.WriteLine(Pt[ik].val); ;
+                            ik++;
+                        }
+                    }
+                }
+            }
 
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
-                    O[i, j] = 1;
+                    if (is_height) O[i, j] = 2;
+                    else O[i, j] = 1;
                 }
             }
 
@@ -505,13 +584,16 @@ namespace Projekt
                     for (int k = 0; k < ik; k++)
                     {
                         double l = Math.Sqrt(((i - Pt[k].x) * (i - Pt[k].x)) + ((j - Pt[k].y) * (j - Pt[k].y)));
-                        if (l == 0) l = 1;
-                    if(l<=10)  O[i, j] += Pt[k].val / l;
+                        if (l < 1 ) l = 1;
+                        if (!is_height) if (l <= 12) O[i, j] += Pt[k].val / l;
+                        if (is_height) { if(l<=8) O[i, j] += Pt[k].val  / l; }
+                      
                     }
                 }
             }
             return O;
         }
+                
 
 
         struct Point
@@ -520,3 +602,4 @@ namespace Projekt
 
     }
 }
+
