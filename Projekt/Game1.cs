@@ -477,7 +477,7 @@ namespace Projekt
                     M[i, j] = new Province(j * x + i, 0, TM[i, j], false);
                 }
             }
-            // post processing for generating coast if water is nearby
+            // post processing
             for (int check = 0; check < x; check++)
             {
                 for (int check2 = 0; check2 < x; check2++)
@@ -486,38 +486,148 @@ namespace Projekt
                     Province checkedP2;
                     checkedP = new Province(M[check, check2]);
                     int L, R, U, D;
-                     L = check - 1;
-                     R = check + 1;
+                    L = check - 1;
+                    R = check + 1;
                     U = check2 - 1;
                     D = check2 + 1;
-                    if(checkedP.GetTerrain()!=terrain.sea)
+                    if (checkedP.GetTerrain()!=terrain.sea) // post processing that removes isolated biomes and replaces them with dominating neighbor
                     {
-                        if(L!=-1)
+                        terrain terrain_inQuestion = checkedP.GetTerrain();
+                        int  plains_count, mountains_count, hills_count, forest_count, tundra_count, taiga_count, desert_count,farmland_count,jungle_count;
+                        plains_count = 0; mountains_count = 0; hills_count = 0; forest_count = 0;tundra_count = 0;taiga_count = 0;desert_count = 0;farmland_count = 0; jungle_count=0;
+                        int isolation = 0; // if isolation = 4 province has no neighbors of the same type
+                        if (L != -1)
                         {
                             checkedP2 = new Province(M[L, check2]);
-                            if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                            if (checkedP2.GetTerrain() != terrain_inQuestion) isolation++;
                         }
-                        if(R<x)
+                        if (R < x)
                         {
                             checkedP2 = new Province(M[R, check2]);
-                            if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                            if (checkedP2.GetTerrain() != terrain_inQuestion) isolation++;
                         }
-                        if(U!=-1)
+                        if (U != -1)
                         {
                             checkedP2 = new Province(M[check, U]);
-                            if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                            if (checkedP2.GetTerrain() != terrain_inQuestion) isolation++;
                         }
-                        if(D<x)
+                        if (D < x)
                         {
-                           checkedP2 = new Province(M[check, D]);
-                           if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                            checkedP2 = new Province(M[check, D]);
+                            if (checkedP2.GetTerrain() != terrain_inQuestion) isolation++;
                         }
-                    }
-                }
-            }
-           
+                        //System.Diagnostics.Debug.WriteLine(isolation);
+                        if (isolation==4)
+                        {
+                            Province checkedL = new Province(checkedP);
+                            Province checkedR = new Province(checkedP);
+                            Province checkedD = new Province(checkedP);
+                            Province checkedU = new Province(checkedP);
+                            if (L != -1)
+                            {
+                                checkedL = new Province(M[L, check2]);
+                            }
+                            if (R < x)
+                            {
+                                checkedR = new Province(M[R, check2]);
+                            }
+                            if (U != -1)
+                            {
+                                checkedU = new Province(M[check, U]);
+                            }
+                            if (D < x)
+                            {
+                                checkedD = new Province(M[check, D]);
+                            }
+                            if (checkedL.GetTerrain() == terrain.farmland) farmland_count++;
+                           else if (checkedL.GetTerrain() == terrain.mountains) mountains_count++;
+                           else if (checkedL.GetTerrain() == terrain.tundra) tundra_count++;
+                           else if (checkedL.GetTerrain() == terrain.taiga) taiga_count++;
+                           else if (checkedL.GetTerrain() == terrain.forest) forest_count++;
+                           else if (checkedL.GetTerrain() == terrain.hills) hills_count++;
+                           else if (checkedL.GetTerrain() == terrain.desert) desert_count++;
+                           else if (checkedL.GetTerrain() == terrain.plains) plains_count++;
+                            else if (checkedL.GetTerrain() == terrain.jungle) jungle_count++;
+                            if (checkedR.GetTerrain() == terrain.farmland) farmland_count++;
+                            else if (checkedR.GetTerrain() == terrain.mountains) mountains_count++;
+                            else if (checkedR.GetTerrain() == terrain.tundra) tundra_count++;
+                            else if (checkedR.GetTerrain() == terrain.taiga) taiga_count++;
+                            else if (checkedR.GetTerrain() == terrain.forest) forest_count++;
+                            else if (checkedR.GetTerrain() == terrain.hills) hills_count++;
+                            else if (checkedR.GetTerrain() == terrain.desert) desert_count++;
+                            else if (checkedR.GetTerrain() == terrain.plains) plains_count++;
+                            else if (checkedR.GetTerrain() == terrain.jungle) jungle_count++;
+                            if (checkedU.GetTerrain() == terrain.farmland) farmland_count++;
+                           else if (checkedU.GetTerrain() == terrain.mountains) mountains_count++;
+                           else if (checkedU.GetTerrain() == terrain.tundra) tundra_count++;
+                           else if (checkedU.GetTerrain() == terrain.taiga) taiga_count++;
+                           else if (checkedU.GetTerrain() == terrain.forest) forest_count++;
+                           else if (checkedU.GetTerrain() == terrain.hills) hills_count++;
+                           else if (checkedU.GetTerrain() == terrain.desert) desert_count++;
+                           else if (checkedU.GetTerrain() == terrain.plains) plains_count++;
+                            else if (checkedU.GetTerrain() == terrain.jungle) jungle_count++;
+                            else if (checkedD.GetTerrain() == terrain.farmland) farmland_count++;
+                           else if (checkedD.GetTerrain() == terrain.mountains) mountains_count++;
+                           else if (checkedD.GetTerrain() == terrain.tundra) tundra_count++;
+                           else if (checkedD.GetTerrain() == terrain.taiga) taiga_count++;
+                           else if (checkedD.GetTerrain() == terrain.forest) forest_count++;
+                           else if (checkedD.GetTerrain() == terrain.hills) hills_count++;
+                           else if (checkedD.GetTerrain() == terrain.desert) desert_count++;
+                           else if (checkedD.GetTerrain() == terrain.plains) plains_count++;
+                            else if (checkedD.GetTerrain() == terrain.jungle) jungle_count++;
+                            if (mountains_count >= 2) M[check, check2].SetTerrain(terrain.mountains);
+                           else if (farmland_count >= 2) M[check, check2].SetTerrain(terrain.farmland);
+                           else if (tundra_count >= 2) M[check, check2].SetTerrain(terrain.tundra);
+                           else if (taiga_count >= 2) M[check, check2].SetTerrain(terrain.taiga);
+                           else if (forest_count >= 2) M[check, check2].SetTerrain(terrain.forest);
+                           else if (hills_count >= 2) M[check, check2].SetTerrain(terrain.hills);
+                           else if (desert_count >= 2) M[check, check2].SetTerrain(terrain.desert);
+                            else if (jungle_count >= 2) M[check, check2].SetTerrain(terrain.jungle);
+                            else if (plains_count >= 2) M[check, check2].SetTerrain(terrain.plains);
 
-                    return M;
+                        }
+                        // post processing part 2, if water is neighbouring, replace province with coast
+                        if (checkedP.GetTerrain() != terrain.sea)
+                        {
+                            if (L != -1)
+                            {
+                                checkedP2 = new Province(M[L, check2]);
+                                if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                            }
+                            if (R < x)
+                            {
+                                checkedP2 = new Province(M[R, check2]);
+                                if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                            }
+                            if (U != -1)
+                            {
+                                checkedP2 = new Province(M[check, U]);
+                                if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                            }
+                            if (D < x)
+                            {
+                                checkedP2 = new Province(M[check, D]);
+                                if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                            }
+                        }
+                        isolation = 0;
+                        mountains_count = 0;
+                        plains_count = 0;
+                        desert_count = 0;
+                        tundra_count = 0;
+                        taiga_count = 0;
+                        forest_count = 0;
+                        hills_count = 0;
+                        farmland_count = 0;
+                        jungle_count = 0;
+                    }
+
+                }
+ 
+            }
+       
+
+            return M;
                 }
         double[,] RandT(int n,bool is_height)
         {
@@ -561,7 +671,6 @@ namespace Projekt
                             if (j == 0 || k == 0 || (j == Math.Sqrt(n)-1) || k == Math.Sqrt(n)-1) p1.val = -3;
                             else p1.val = rnd.Next(-3,5);
                             Pt[ik] = p1;
-                            System.Diagnostics.Debug.WriteLine(Pt[ik].val); ;
                             ik++;
                         }
                     }
