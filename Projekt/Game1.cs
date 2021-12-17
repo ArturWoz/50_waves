@@ -12,12 +12,12 @@ namespace Projekt
     {
         //semi-global variables
         //monogame stuff
-        private GraphicsDeviceManager _graphics;
+        public GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         //map display
         float targetX = 128; //province size
         float targetY;
-        float zoom = 1;
+        float zoom;
         //texture declarations
         Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills, province_highlight, province_city, province_interface, city_interface, new_building, trading_post, trading_post_province, nationInterface, turnHUD, kobold_settler, allied_ZoC_R, allied_ZoC_U, allied_ZoC_D, allied_ZoC_L, hostile_ZoC_L, hostile_ZoC_R, hostile_ZoC_U, hostile_ZoC_D;
         //vector variables 
@@ -48,8 +48,11 @@ namespace Projekt
         private FrameCounter _frameCounter = new FrameCounter();
         int i = 0, x, y, scroll = 0; //Yprov will be always remembered :(
                                      //faction declaration (TODO: other factions)
+        Camera Camera = new Camera();
         Nation Kobold = new Nation(1, "Kobolds");
         bool check_unit = true;
+       
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -98,23 +101,6 @@ namespace Projekt
             _graphics.PreferredBackBufferWidth = GraphicsDevice.Adapter.CurrentDisplayMode.Width; //window size to be the display size
             _graphics.PreferredBackBufferHeight = GraphicsDevice.Adapter.CurrentDisplayMode.Height;
             _graphics.ApplyChanges();
-            //StreamReader sr = File.OpenText(path);
-            //x = int.Parse(sr.ReadLine()); //map dimensions
-            //y = int.Parse(sr.ReadLine());
-            //map = new Province[x, y];
-            //
-            //for (int k = 0; k < y; k++) //loading map file
-            //{
-            //    for (int k2 = 0; k2 < x; k2++)
-            //    {
-            //        s = sr.ReadLine();
-            //        s2 = (terrain)Enum.Parse(typeof(terrain), s, true);
-            //        Province load = new Province(i, 0, s2, false);
-            //        map[k2, k] = load;
-            //        i++;
-            //    }
-            //}
-            //sr.Close();
             int MapSize = 100;
             map = Randommap(MapSize); x = MapSize; y = MapSize;
             Province spawnpoint = map[MapSize / 2, MapSize / 2]; //making the settler
@@ -122,7 +108,7 @@ namespace Projekt
             Kobold.AddUnits(kobold_settler);
             Debug = new Province(99999, 999, terrain.sea, false);
             PrevClickedSettler = new Settler(Debug, Kobold);
-
+            Camera.Initialize(Camera_position, _graphics);
             base.Initialize();
         }
 
@@ -166,44 +152,12 @@ namespace Projekt
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
             KeyboardState keystate = Keyboard.GetState();
             MouseState mousestate = Mouse.GetState();
-
-            if (keystate.IsKeyDown(Keys.S) | mousestate.Y >= _graphics.PreferredBackBufferHeight - 15) //camera movement
-            {
-                Camera_position.Y = Camera_position.Y - (30 * zoom);
-            }
-            if (keystate.IsKeyDown(Keys.W) | mousestate.Y <= 25)
-            {
-                Camera_position.Y = Camera_position.Y + (30 * zoom);
-            }
-            if (keystate.IsKeyDown(Keys.D) | mousestate.X >= _graphics.PreferredBackBufferWidth - 15)
-            {
-                Camera_position.X = Camera_position.X - (30 * zoom);
-            }
-            if (keystate.IsKeyDown(Keys.A) | mousestate.X <= 25)
-            {
-                Camera_position.X = Camera_position.X + (30 * zoom);
-            }
-            if (keystate.IsKeyDown(Keys.Up) && zoom > 0.5) //zoom
-            {
-                zoom = zoom - (float)0.025;
-            }
-            if (keystate.IsKeyDown(Keys.Down) && zoom < 8)
-            {
-                zoom = zoom + (float)0.025;
-            }
-            if (mousestate.ScrollWheelValue > scroll && zoom > 0.5) //mouse zoom
-            {
-                zoom = zoom - (float)0.25;
-            }
-            if (mousestate.ScrollWheelValue < scroll && zoom < 8)
-            {
-                zoom = zoom + (float)0.25;
-            }
-            if (zoom < 0.5) zoom = 0.5f; //zoom cap
-            if (zoom > 8) zoom = 8;
-
+            Camera.Update(keystate, mousestate);
+            Camera_position = Camera.GetCameraPosition();
+            zoom = Camera.GetZoom();
             if (keystate.IsKeyDown(Keys.Space)) //settling a city
             {
                 if (PrevClickedSettler.GetClicked())
@@ -214,8 +168,6 @@ namespace Projekt
             }
             Scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height); // adjusting scrolling to different camera positions
             targetY = targetX;
-            scroll = mousestate.ScrollWheelValue;
-
             int Xpos, Ypos; //reading mouse position
             Xpos = Mouse.GetState().Position.X;
             Ypos = Mouse.GetState().Position.Y;
@@ -307,7 +259,7 @@ namespace Projekt
         protected override void Draw(GameTime gameTime)
         {
             //background
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
             bool flip = false;
