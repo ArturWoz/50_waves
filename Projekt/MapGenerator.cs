@@ -260,7 +260,7 @@ namespace Projekt
                             p1.x = rnd.Next((int)(j * Math.Sqrt(n)), (int)((j + 1) * Math.Sqrt(n)));
                             p1.y = rnd.Next((int)(k * Math.Sqrt(n)), (int)((k + 1) * Math.Sqrt(n)));
                             if (j == 0 || k == 0 || (j == Math.Sqrt(n) - 1) || k == Math.Sqrt(n) - 1) p1.val = -1.25; // change to -3 if you want OG settings
-                            else p1.val = rnd.Next(-14, 16)/3; // change to -3, 5 if you want OG settings
+                            else p1.val = rnd.Next(-15, 16)/3; // change to -3, 5 if you want OG settings
                             Pt[ik] = p1;
                             ik++;
                         }
