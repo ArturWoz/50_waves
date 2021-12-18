@@ -12,12 +12,12 @@ namespace Projekt
 {
    public class Camera
     {
-        private KeyboardState keystate;
-        private MouseState mousestate;
+     private KeyboardState keystate;
+     private MouseState mousestate;
      private Vector2 Camera_position;
      private float zoom;
      private float scroll;
-    GraphicsDeviceManager _graphics;
+     GraphicsDeviceManager _graphics;
         public void Initialize(Vector2 Camera_position, GraphicsDeviceManager _graphics)
         {
             zoom = 1;
