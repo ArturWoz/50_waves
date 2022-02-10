@@ -14,8 +14,8 @@ namespace Projekt
             double[,] T = RandT(x, false);
             double[,] W = RandT(x, true);
             terrain[,,] terr = new terrain[3, 3, 6];
-            terr[2, 0, 0] = terrain.sea; terr[2, 1, 0] = terrain.sea; ; terr[2, 2, 0] = terrain.sea; ;
-            terr[1, 0, 0] = terrain.sea; terr[1, 1, 0] = terrain.sea; terr[1, 2, 0] = terrain.sea; ;
+            terr[2, 0, 0] = terrain.sea; terr[2, 1, 0] = terrain.sea; ; terr[2, 2, 0] = terrain.sea;
+            terr[1, 0, 0] = terrain.sea; terr[1, 1, 0] = terrain.sea; terr[1, 2, 0] = terrain.sea;
             terr[0, 0, 0] = terrain.sea; terr[0, 1, 0] = terrain.sea; terr[0, 2, 0] = terrain.sea;
             terr[2, 0, 1] = terrain.sea; terr[2, 1, 1] = terrain.sea; terr[2, 2, 1] = terrain.sea;
             terr[1, 0, 1] = terrain.sea; terr[1, 1, 1] = terrain.sea; terr[1, 2, 1] = terrain.sea;
@@ -40,7 +40,7 @@ namespace Projekt
                 {
                     int h = (int)(Math.Round(H[i, j]));
                     if (h > 2) h = 2;
-                    if (h < 0) h = 0;
+                    if (h < 0) { h = 0; }
                     //  System.Diagnostics.Debug.WriteLine(H[i, j]);
 
                     int t = (int)(Math.Round(T[i, j]));
@@ -247,7 +247,7 @@ namespace Projekt
                     }
                 }
             }
-            else if (is_height)
+            else
             {
                 for (int j = 0; j < Math.Sqrt(n); j++)
                 {

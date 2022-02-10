@@ -49,7 +49,8 @@ namespace Projekt
         Camera Camera = new Camera();
         Nation Kobold = new Nation(1, "Kobolds");
         bool check_unit = true;
-       
+        
+        int MapSize = 500;
 
         public Game1()
         {
@@ -99,7 +100,7 @@ namespace Projekt
             _graphics.PreferredBackBufferWidth = GraphicsDevice.Adapter.CurrentDisplayMode.Width; //window size to be the display size
             _graphics.PreferredBackBufferHeight = GraphicsDevice.Adapter.CurrentDisplayMode.Height;
             _graphics.ApplyChanges();
-            int MapSize = 100;
+            
             MapGenerator generator = new MapGenerator();
             map = generator.Randommap(MapSize); x = MapSize; y = MapSize;
             Province spawnpoint = map[MapSize / 2, MapSize / 2]; //making the settler
@@ -263,11 +264,22 @@ namespace Projekt
             Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
             bool flip = false;
             //drawing provinces 
-            for (int k = 0; k < y; k++)
+
+            int mx_y = (int)( (zoom * Camera_offset.X - Camera_position.X)/targetX)+1;
+            if (mx_y > MapSize) mx_y = MapSize;
+            int mx_x = (int)((zoom * Camera_offset.Y - Camera_position.Y) / targetY)+1;
+            if (mx_x > MapSize) mx_x = MapSize;
+
+            int mn_y = (int)((-zoom * Camera_offset.X - Camera_position.X) / targetX) - 1;
+            if (mn_y <0) mn_y = 0;
+            int mn_x = (int)((-zoom * Camera_offset.Y - Camera_position.Y) / targetY) - 1;
+            if (mn_x < 0) mn_x = 0;
+
+            for (int k = mn_y; k < mx_y; k++)
             {
                 if (k % 2 == 0) flip = true;
                 else flip = false;
-                for (int k2 = 0; k2 < x; k2++)
+                for (int k2 = mn_x; k2 < mx_x; k2++)
                 {
                     terrain SS = map[k2, k].GetTerrain();
                     Vector2 Province_offset = new Vector2(targetX / zoom * k, targetY / zoom * k2);
