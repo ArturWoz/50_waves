@@ -84,7 +84,7 @@ namespace Projekt
                 }
                 return Camera_position;
             }
-            return player_position;
+            return Camera_position;
         }
     }
 }

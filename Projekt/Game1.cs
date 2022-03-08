@@ -96,13 +96,15 @@ namespace Projekt
             _graphics.PreferredBackBufferWidth = GraphicsDevice.Adapter.CurrentDisplayMode.Width; //window size to be the display size
             _graphics.PreferredBackBufferHeight = GraphicsDevice.Adapter.CurrentDisplayMode.Height;
             _graphics.ApplyChanges();
-            
+
+            Player_position = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
+
             MapGenerator generator = new MapGenerator();
             map = generator.Randommap(MapSize); x = MapSize; y = MapSize;
             Province spawnpoint = map[MapSize / 2, MapSize / 2]; //making the settler
             Debug = new Province(99999, 999, terrain.sea, false);
             Camera.Initialize(Camera_position, _graphics);
-            player = new Player(player_skin, 100, 100, _graphics);
+            player = new Player(player_skin, 100, 30, _graphics);
 
             base.Initialize();
             

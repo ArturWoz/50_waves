@@ -273,3 +273,6 @@ C:\Users\Artur\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\
 C:\Users\Artur\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\Trading_post.xnb
 C:\Users\Artur\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\trading_post_province.xnb
 C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\player_skin.xnb
+C:\Users\panch\OneDrive\Dokumenty\GitHub\Projekt\bin\Debug\netcoreapp3.1\Content\border.xnb
+C:\Users\panch\OneDrive\Dokumenty\GitHub\Projekt\bin\Debug\netcoreapp3.1\Content\desert2.xnb
+C:\Users\panch\OneDrive\Dokumenty\GitHub\Projekt\bin\Debug\netcoreapp3.1\Content\player_skin.xnb
