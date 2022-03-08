@@ -84,7 +84,12 @@ namespace Projekt
                 }
                 return Camera_position;
             }
+            if (locked) Camera_position = player_position;
             return Camera_position;
+        }
+        public bool GetLocked()
+        {
+            return this.locked;
         }
     }
 }
