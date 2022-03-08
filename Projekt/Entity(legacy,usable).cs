@@ -37,9 +37,7 @@ namespace Projekt
         {
             if (movement_points >= position.GetProvince_movement())
             {
-                this.position.SetUnit(false);
                 this.position = position;
-                this.position.SetUnit(true);
                 this.stance = stance.moving;
                 this.movement_points = this.movement_points - position.GetProvince_movement();
             }

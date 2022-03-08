@@ -20,37 +20,33 @@ namespace Projekt
         float zoom;
         //texture declarations
         Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills, province_highlight, province_city, province_interface, city_interface, new_building, trading_post, trading_post_province, nationInterface, turnHUD, kobold_settler, allied_ZoC_R, allied_ZoC_U, allied_ZoC_D, allied_ZoC_L, hostile_ZoC_L, hostile_ZoC_R, hostile_ZoC_U, hostile_ZoC_D;
+        Texture2D player_skin;
         //vector variables 
         Vector2 Camera_position = Vector2.Zero;
+        Vector2 Player_position;
         Vector2 Mouse_position;
         Vector2 Scale;
-        Vector2 Highlighted_province;
-        Vector2 Prev_highlighted_province;
-        Vector2 City_interface_position;
-        Vector2 City_building_slots_origin_coordinates;
+        Vector2 Highlighted_province=new Vector2(1,1);
+        Vector2 Prev_highlighted_province= new Vector2(1, 1);
         //Settler objects to allow for city placement
-        Settler ClickedSettler;
         Province Debug; //used to initialize the settler, this province is far beyond the map
         Settler PrevClickedSettler;
+      
         //bools used to determine what menu to display/what actions to allow
-        bool global_clicked_province = false;
-        bool global_clicked_province_is_city = false;
-        bool global_clicked_unit = false;
-        bool building_to_be_made = false;
+        bool is_province_clicked = false;
+        
         Province ClickedProvince;
-        City MostRecentlyClickedCity;
-        //if_interfaces_open
-        bool city_interface_open = false;
         Province[,] map;
         SpriteFont font;
         private FrameCounter _frameCounter = new FrameCounter();
         int x, y; //Yprov will be always remembered :(
                                      //faction declaration (TODO: other factions)
         Camera Camera = new Camera();
+        Player player;
         Nation Kobold = new Nation(1, "Kobolds");
         bool check_unit = true;
         
-        int MapSize = 500;
+        int MapSize = 100;
 
         public Game1()
         {
@@ -104,12 +100,12 @@ namespace Projekt
             MapGenerator generator = new MapGenerator();
             map = generator.Randommap(MapSize); x = MapSize; y = MapSize;
             Province spawnpoint = map[MapSize / 2, MapSize / 2]; //making the settler
-            Settler kobold_settler = new Settler(spawnpoint, Kobold);
-            Kobold.AddUnits(kobold_settler);
             Debug = new Province(99999, 999, terrain.sea, false);
-            PrevClickedSettler = new Settler(Debug, Kobold);
             Camera.Initialize(Camera_position, _graphics);
+            player = new Player(player_skin, 100, 100, _graphics);
+
             base.Initialize();
+            
         }
 
         protected override void LoadContent()
@@ -130,6 +126,8 @@ namespace Projekt
             province_hills = Content.Load<Texture2D>("hills1");
             province_highlight = Content.Load<Texture2D>("provinceHighlight");
             province_interface = Content.Load<Texture2D>("provInterfacePlaceholder");
+            player_skin = Content.Load<Texture2D>("player_skin");
+            /*
             nationInterface = Content.Load<Texture2D>("countryHUD");
             turnHUD = Content.Load<Texture2D>("turnHUD");
             kobold_settler = Content.Load<Texture2D>("kobold_osadnik_papież");
@@ -145,7 +143,8 @@ namespace Projekt
             hostile_ZoC_D = Content.Load<Texture2D>("hostile_ZoC_down");
             hostile_ZoC_R = Content.Load<Texture2D>("hostile_ZoC_right");
             hostile_ZoC_U = Content.Load<Texture2D>("hostile_ZoC_up");
-            hostile_ZoC_L = Content.Load<Texture2D>("hostile_ZoC_left");
+            hostile_ZoC_L = Content.Load<Texture2D>("hostile_ZoC_left"); 
+            */
         }
 
         protected override void Update(GameTime gameTime)
@@ -155,111 +154,44 @@ namespace Projekt
 
             KeyboardState keystate = Keyboard.GetState();
             MouseState mousestate = Mouse.GetState();
-            Camera.Update(keystate, mousestate);
+            Camera.Update(keystate, mousestate,Player_position);
+            player.Update(keystate, mousestate); 
             Camera_position = Camera.GetCameraPosition();
+            Player_position = player.GetPlayerPosition();
             zoom = Camera.GetZoom();
-            if (keystate.IsKeyDown(Keys.Space)) //settling a city
-            {
-                if (PrevClickedSettler.GetClicked())
-                {
-                    PrevClickedSettler.CreateCity(Kobold, 1, "Nirwana");
-                    Kobold.RemoveUnits(PrevClickedSettler);
-                }
-            }
             Scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height); // adjusting scrolling to different camera positions
             targetY = targetX;
             int Xpos, Ypos; //reading mouse position
             Xpos = Mouse.GetState().Position.X;
             Ypos = Mouse.GetState().Position.Y;
             Mouse_position = new Vector2(Xpos, Ypos);
-            Vector2 Test = MouseToMapCoordinate(Mouse_position);
-            //checking if mouse is on the city interface (comment added to obscure the fact, that this is total spaghetti)
-            if (city_interface_open && Mouse_position.X < City_interface_position.X + city_interface.Width && Mouse_position.Y > City_interface_position.Y && mousestate.LeftButton == ButtonState.Pressed)
+            Vector2 Test = MouseToMapCoordinate(Mouse_position); // testing if mouse is inside the map
+            // reading map coordinates based on current mouse position
+            if ((int)Test.X > -1 && (int)Test.Y > -1 && (int)Test.X < x && (int)Test.Y < y) // x and y are map dimensions; determining which province is selected
             {
-                int number_of_taken_building_slots = ClickedProvince.GetCity().GetBuildings().Count;
-
-                if (Mouse_position.X < City_building_slots_origin_coordinates.X + ((number_of_taken_building_slots % 3) + 1) * new_building.Width)
-                    if (Mouse_position.X > City_building_slots_origin_coordinates.X + (number_of_taken_building_slots % 3) * new_building.Width)
-                        if (Mouse_position.Y > City_building_slots_origin_coordinates.Y + (number_of_taken_building_slots / 3) * new_building.Width)
-                            if (Mouse_position.Y < City_building_slots_origin_coordinates.Y + ((number_of_taken_building_slots / 3) + 1) * new_building.Width)
-                            {
-                                building_to_be_made = true;
-                                IsMouseVisible = false;
-                            }
+                Highlighted_province = MouseToMapCoordinate(Mouse_position);
             }
-            else
+            if (mousestate.LeftButton==ButtonState.Pressed)
             {
-                if ((int)Test.X > -1 && (int)Test.Y > -1 && (int)Test.X < x && (int)Test.Y < y) // x and y are map dimensions; determining which province is selected
-                {
-                    Highlighted_province = MouseToMapCoordinate(Mouse_position);
-                }
-                if (mousestate.LeftButton == ButtonState.Pressed)
-                {
-                    if (map[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit() != false) //if a unit has been selected
-                    {
-                        foreach (Settler settler in Kobold.Units)
-                        {
-                            if (settler.GetPosition().GetID() == Highlighted_province.X * x + Highlighted_province.Y * 1)
-                            {
-                                global_clicked_province = false;
-                                global_clicked_province_is_city = false;
-                                global_clicked_unit = true;
-                                ClickedSettler = settler;
-                                PrevClickedSettler.SetClicked(false);
-                                ClickedSettler.SetClicked(true);
-                                PrevClickedSettler = ClickedSettler;
-                                map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
-                                break;
-                            }
-                        }
-                    }
-                    else //if a province has been selected
-                    {
-                        global_clicked_province = true;
-                        global_clicked_unit = false;
-                        ClickedProvince = map[(int)Highlighted_province.X, (int)Highlighted_province.Y];
-                        map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
-                        map[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
-                        PrevClickedSettler.SetClicked(false);
-                        Prev_highlighted_province = Highlighted_province;
-                        if (map[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetTerrain() == terrain.city) // if the province is a city
-                        {
-                            global_clicked_province_is_city = true;
-                            MostRecentlyClickedCity = ClickedProvince.GetCity();
-                        }
-                        else
-                        {
-                            global_clicked_province_is_city = false;
-                            if (building_to_be_made && ClickedProvince.GetBuilding() == null)
-                            {
-                                TradingPost TradingPost = new TradingPost(building_status.working, ClickedProvince);
-                                MostRecentlyClickedCity.AddBuilding(TradingPost);
-                                ClickedProvince.AddBuilding(TradingPost);
-                                building_to_be_made = false;
-                                IsMouseVisible = true;
-                            }
-                        }
-                    }
-                }
-            }
+                is_province_clicked = true;
+                map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
+                map[(int)Highlighted_province.X, (int)Highlighted_province.Y].SetClicked(true);
+                Prev_highlighted_province = Highlighted_province;
+            }    
+         
             if (mousestate.RightButton == ButtonState.Pressed) //unclicking everything
             {
-                global_clicked_province = false;
-                global_clicked_unit = false;
+                is_province_clicked = false;
                 map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].SetClicked(false);
-                PrevClickedSettler.SetClicked(false);
-                building_to_be_made = false;
                 IsMouseVisible = true;
             }
-
-            city_interface_open = global_clicked_province && global_clicked_province_is_city;
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             //background
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.Black);  
             _spriteBatch.Begin();
             Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
             bool flip = false;
@@ -291,91 +223,23 @@ namespace Projekt
                     {
                         _spriteBatch.Draw(TerrainToTexture(SS), position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                     }
-                    if (map[k, k2].GetBuilding() != null)
-                        if (map[k, k2].GetBuilding().GetType() == typeof(TradingPost))
-                        {
-                            _spriteBatch.Draw(trading_post_province, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
-                        }
                     if (map[k, k2].GetClicked()) _spriteBatch.Draw(province_highlight, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
-
                 }
             }
-            //drawing units
-            foreach (Settler Settler in Kobold.Units)
+            if (player.GetRotation())
             {
-                Province settler_positionProvince = Settler.GetPosition();
-                Vector2 settler_positionID = ProvinceIDToMapCoordinate(settler_positionProvince.GetID());
-                Vector2 unit_offset = new Vector2(targetX / zoom * settler_positionID.X, targetY / zoom * settler_positionID.Y);
-                Settler.GetPosition().SetUnit(true);
-                _spriteBatch.Draw(kobold_settler, position: ((Camera_position) / zoom + Camera_offset) + unit_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
-                if (Settler.GetClicked() == true) { _spriteBatch.Draw(province_highlight, position: ((Camera_position) / zoom + Camera_offset) + unit_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0); }
+                _spriteBatch.Draw(player_skin, position: ((Player_position / zoom) + Camera_offset),null, Color.White,0,Vector2.Zero,Scale,0,0);
             }
-            //draw city interface
-            if (global_clicked_province_is_city && global_clicked_province)
+            else
             {
-                City_interface_position = new Vector2(0, _graphics.PreferredBackBufferHeight - city_interface.Height);
-                _spriteBatch.Draw(city_interface, position: City_interface_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
-                // Drawing an array of building slots
-                float fraction_of_interfaces_height = (float)1 / 15;
-                float fraction_of_interfaces_width = (float)1 / 3;
-                Vector2 building_slot_position = new Vector2(city_interface.Width * fraction_of_interfaces_width, _graphics.PreferredBackBufferHeight - city_interface.Height + fraction_of_interfaces_height * city_interface.Height); //Git gud
-                int k = 0;
-                City_building_slots_origin_coordinates = building_slot_position;
-                if (ClickedProvince.GetCity().GetBuildings() != null)
-                {
-                    foreach (TradingPost tradingPost in ClickedProvince.GetCity().GetBuildings())
-                    {
-                        _spriteBatch.Draw(trading_post, position: building_slot_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
-
-                        if (k > 1)
-                        {
-                            building_slot_position.Y += trading_post.Height;
-                            building_slot_position.X -= trading_post.Width * 2;
-                            k = 0;
-                        }
-                        else
-                        {
-                            building_slot_position.X += trading_post.Width;
-                            k++;
-                        }
-                    }
-                }
-                _spriteBatch.Draw(new_building, position: building_slot_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
-
+                _spriteBatch.Draw(player_skin, position: ((Player_position / zoom) + Camera_offset), null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0);
             }
             //show camera position and province id and FPS
             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _frameCounter.Update(deltaTime);
             var fps = string.Format("FPS: {0}", _frameCounter.AverageFramesPerSecond);
-            Vector2 interface_position = new Vector2(0, _graphics.PreferredBackBufferHeight - province_interface.Height);
-            Vector2 HUD_position = new Vector2(_graphics.PreferredBackBufferWidth - 350, 0);
-            Vector2 interface_offset1 = new Vector2(100, 35);
-            Vector2 interface_offset2 = new Vector2(150, 200);
-            //draw province interface
-            if (global_clicked_province && !global_clicked_province_is_city)
-            {
-                _spriteBatch.Draw(province_interface, position: interface_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
-                _spriteBatch.DrawString(font, "type" + " " + map[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetTerrain().ToString(), interface_position + interface_offset1, Color.OrangeRed);
-                _spriteBatch.DrawString(font, "Movement Cost" + " " + map[(int)Prev_highlighted_province.Y, (int)Prev_highlighted_province.X].GetProvince_movement().ToString(), interface_position + interface_offset2, Color.OrangeRed);
-
-            }
-            if (building_to_be_made) // building icon should follow mouse until it is placed
-            {
-                _spriteBatch.Draw(trading_post, position: Mouse_position, null, Color.White, 0, Vector2.Zero, 1 / zoom, 0, 0);
-            }
-            //drawing nation interface
-            _spriteBatch.Draw(nationInterface, position: Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
-            _spriteBatch.Draw(turnHUD, position: HUD_position, null, Color.White, 0, Vector2.Zero, 1, 0, 0);
-            _spriteBatch.DrawString(font, "100", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 50, Color.OrangeRed);
-            _spriteBatch.DrawString(font, "696969", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 350, Color.OrangeRed);
-            _spriteBatch.DrawString(font, "420", Vector2.Zero + Vector2.UnitY * 40 + Vector2.UnitX * 650, Color.OrangeRed);
-            _spriteBatch.DrawString(font, "0", HUD_position + Vector2.UnitY * 60 + Vector2.UnitX * 75, Color.OrangeRed);
-            _spriteBatch.DrawString(font, Camera_position.ToString() + "\n" + Mouse_position.ToString() + '\n' + map[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetID() + '\n' + map[(int)Highlighted_province.X, (int)Highlighted_province.Y].HasUnit() + '\n' + fps, Vector2.Zero + Vector2.UnitY * 200, Color.OrangeRed);
-            if (ClickedProvince != null && ClickedProvince.GetBuilding() != null)
-            {
-                _spriteBatch.DrawString(font, "," + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + '\n' + ClickedProvince.GetBuilding().ToString(), Vector2.Zero, Color.OrangeRed);
-                //TradingPost post = ClickedProvince.GetBuilding();
-            }
+           //debug_info
+            _spriteBatch.DrawString(font, Camera_position.ToString() + "\n" + Mouse_position.ToString() + '\n' + map[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetID() +'\n' + map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].GetID() + '\n' + fps, Vector2.Zero + Vector2.UnitY * 200, Color.OrangeRed);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
