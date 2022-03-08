@@ -243,7 +243,7 @@ namespace Projekt
             var fps = string.Format("FPS: {0}", _frameCounter.AverageFramesPerSecond);
            //debug_info
             _spriteBatch.DrawString(font, Camera_position.ToString() + "\n" + Mouse_position.ToString() + '\n' + map[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetID() +'\n' + map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].GetID() + '\n'+ Player_position.ToString() +'\n' + fps, Vector2.Zero + Vector2.UnitY * 200, Color.OrangeRed);
-            _spriteBatch.DrawString(font, (Player_position / zoom + Camera_offset).ToString(),Vector2.Zero,Color.Blue);
+            _spriteBatch.DrawString(font, (Player_position / zoom + Camera_offset).ToString() + '\n'+Camera.GetLocked(), Vector2.Zero,Color.Blue);
             _spriteBatch.End();
             base.Draw(gameTime);
         }

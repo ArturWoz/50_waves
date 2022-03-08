@@ -25,7 +25,7 @@ namespace Projekt
             this.speed = speed;
             this._graphics = _graphics;
             this.rotation = true;
-            this.player_position = new Vector2((float) _graphics.PreferredBackBufferWidth / 2, (float)_graphics.PreferredBackBufferHeight / 2);
+            this.player_position =  Vector2.Zero;
         }
         public void Update(KeyboardState keystate,MouseState mouseState)
         {

@@ -26,7 +26,7 @@ namespace Projekt
             scroll = 0;
             this.Camera_position = Camera_position;
             this._graphics = _graphics;
-            this.locked = true;
+            this.locked = false;
         }
         public void Update(KeyboardState keystate,MouseState mousestate,Vector2 player_position)
         {
@@ -61,7 +61,12 @@ namespace Projekt
         {
             if(keystate.IsKeyDown(Keys.Space))
             {
-                locked = !locked;
+                locked = true;
+                Camera_position = player_position;
+            }
+            if (keystate.IsKeyDown(Keys.Tab))
+            {
+                locked = false;
                 Camera_position = player_position;
             }
             if (!locked)
