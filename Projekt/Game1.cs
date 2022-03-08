@@ -97,14 +97,14 @@ namespace Projekt
             _graphics.PreferredBackBufferHeight = GraphicsDevice.Adapter.CurrentDisplayMode.Height;
             _graphics.ApplyChanges();
 
-            Player_position = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
+            Player_position = Vector2.Zero;
 
             MapGenerator generator = new MapGenerator();
             map = generator.Randommap(MapSize); x = MapSize; y = MapSize;
             Province spawnpoint = map[MapSize / 2, MapSize / 2]; //making the settler
             Debug = new Province(99999, 999, terrain.sea, false);
             Camera.Initialize(Camera_position, _graphics);
-            player = new Player(player_skin, 100, 30, _graphics);
+            player = new Player(player_skin, 100, 13, _graphics);
 
             base.Initialize();
             
@@ -229,13 +229,13 @@ namespace Projekt
                     if (map[k, k2].GetClicked()) _spriteBatch.Draw(province_highlight, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                 }
             }
-            if (player.GetRotation())
+            if (!player.GetRotation())
             {
-                _spriteBatch.Draw(player_skin, position: ((Player_position)/zoom)+Camera_offset,null, Color.White,0,Vector2.Zero,Scale,0,0);
+                _spriteBatch.Draw(player_skin, position: ((Camera_position)/zoom)+Camera_offset- Player_position/zoom, null, Color.White,0,Vector2.Zero,Scale,0,0);
             }
             else
             {
-                _spriteBatch.Draw(player_skin, position: ((Player_position)/zoom)+Camera_offset, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0);
+                _spriteBatch.Draw(player_skin, position: ((Camera_position) / zoom) + Camera_offset - Player_position/zoom, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0);
             }
             //show camera position and province id and FPS
             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
