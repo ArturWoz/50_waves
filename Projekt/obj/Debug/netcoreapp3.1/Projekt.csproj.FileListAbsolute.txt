@@ -276,3 +276,4 @@ C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\
 C:\Users\panch\OneDrive\Dokumenty\GitHub\Projekt\bin\Debug\netcoreapp3.1\Content\border.xnb
 C:\Users\panch\OneDrive\Dokumenty\GitHub\Projekt\bin\Debug\netcoreapp3.1\Content\desert2.xnb
 C:\Users\panch\OneDrive\Dokumenty\GitHub\Projekt\bin\Debug\netcoreapp3.1\Content\player_skin.xnb
+C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\player_boat.xnb

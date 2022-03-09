@@ -356,6 +356,18 @@
 /processorParam:TextureFormat=Color
 /build:plains1_highlighted.png
 
+#begin player_boat.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:player_boat.png
+
 #begin player_skin.png
 /importer:TextureImporter
 /processor:TextureProcessor

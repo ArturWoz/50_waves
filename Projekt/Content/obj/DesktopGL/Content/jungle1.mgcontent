@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/panch/OneDrive/Dokumenty/GitHub/Projekt/Content/../graphics/jungle1.png</SourceFile>
-  <SourceTime>2021-10-03T20:06:59.9129787+02:00</SourceTime>
-  <DestFile>C:/Users/panch/OneDrive/Dokumenty/GitHub/Projekt/Content/bin/DesktopGL/Content/jungle1.xnb</DestFile>
-  <DestTime>2022-03-08T21:15:34.115697+01:00</DestTime>
+  <SourceFile>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/../graphics/jungle1.png</SourceFile>
+  <SourceTime>2021-09-27T21:31:45.0387027+02:00</SourceTime>
+  <DestFile>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/bin/DesktopGL/Content/jungle1.xnb</DestFile>
+  <DestTime>2022-03-08T22:28:05.7301605+01:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
+  <ImporterTime>2020-08-10T16:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2020-08-10T18:17:54+02:00</ProcessorTime>
+  <ProcessorTime>2020-08-10T16:17:54+02:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>

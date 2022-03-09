@@ -32,6 +32,14 @@ namespace Projekt
             this.keystate = keystate;
             this.mousestate = mouseState;
         }
+        public void SetSkin(Texture2D skin)
+        {
+            this.skin = skin;
+        }
+        public Texture2D GetSkin()
+        {
+            return this.skin;
+        }
         public void move()
         {
             if (keystate.IsKeyDown(Keys.S)) //camera movement
@@ -53,9 +61,13 @@ namespace Projekt
                 rotation = true;
             }
         }
-        public Vector2 GetPlayerPosition()
+        public Vector2 GetPlayerPosition(int MapSize,float Scale)
         {
             move();
+            if (player_position.X > 0) player_position.X = 0;
+            if (player_position.Y > 0) player_position.Y = 0;
+            if (player_position.X < -1 * MapSize * Scale + Scale) player_position.X = -1 * MapSize * Scale + Scale;
+            if (player_position.Y < -1 * MapSize * Scale + Scale) player_position.Y = -1 * MapSize * Scale + Scale;
             return player_position;
         }
         public bool GetRotation()

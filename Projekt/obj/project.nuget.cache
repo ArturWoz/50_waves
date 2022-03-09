@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "iHqifvFaaT4B90+pjZlqaf1ILeEd4n9BtF9UjdGAWJU/MjW8BPpBjzBjXDkKyWG3Z1UtZIkNxqZkoTsp1Ori8A==",
+  "dgSpecHash": "G8KFw+mPosWD4v53WQIUQbu+t6lAIw35JvpZRotyMk/bUliDXy0gnIemcD4XUSDm+bMg/DxVj6xZMOCRpAdRYw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\panch\\OneDrive\\Dokumenty\\GitHub\\Projekt\\Projekt.csproj",
+  "projectFilePath": "C:\\Users\\eldaw\\Documents\\GitHub\\EREKTON\\Projekt\\Projekt.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\panch\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
-    "C:\\Users\\panch\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512"
+    "C:\\Users\\eldaw\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\eldaw\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512"
   ],
   "logs": []
 }

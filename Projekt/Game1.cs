@@ -20,7 +20,7 @@ namespace Projekt
         float zoom;
         //texture declarations
         Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills, province_highlight, province_city, province_interface, city_interface, new_building, trading_post, trading_post_province, nationInterface, turnHUD, kobold_settler, allied_ZoC_R, allied_ZoC_U, allied_ZoC_D, allied_ZoC_L, hostile_ZoC_L, hostile_ZoC_R, hostile_ZoC_U, hostile_ZoC_D;
-        Texture2D player_skin;
+        Texture2D player_skin,player_on_water;
         //vector variables 
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Player_position;
@@ -45,8 +45,9 @@ namespace Projekt
         Player player;
         Nation Kobold = new Nation(1, "Kobolds");
         bool check_unit = true;
+        Vector2 Player_position_on_map;
         
-        int MapSize = 100;
+        int MapSize = 144;
 
         public Game1()
         {
@@ -129,6 +130,7 @@ namespace Projekt
             province_highlight = Content.Load<Texture2D>("provinceHighlight");
             province_interface = Content.Load<Texture2D>("provInterfacePlaceholder");
             player_skin = Content.Load<Texture2D>("player_skin");
+            player_on_water = Content.Load<Texture2D>("player_boat");
             /*
             nationInterface = Content.Load<Texture2D>("countryHUD");
             turnHUD = Content.Load<Texture2D>("turnHUD");
@@ -156,10 +158,13 @@ namespace Projekt
 
             KeyboardState keystate = Keyboard.GetState();
             MouseState mousestate = Mouse.GetState();
-        
+            
             player.Update(keystate, mousestate); 
             Camera_position = Camera.GetCameraPosition();
-           if(Camera.GetLocked()) Player_position = player.GetPlayerPosition();
+            if (Camera.GetLocked())
+            {
+                Player_position = player.GetPlayerPosition(MapSize,targetX);
+            }
             Camera.Update(keystate, mousestate, Player_position);
             zoom = Camera.GetZoom();
             Scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height); // adjusting scrolling to different camera positions
@@ -169,8 +174,12 @@ namespace Projekt
             Ypos = Mouse.GetState().Position.Y;
             Mouse_position = new Vector2(Xpos, Ypos);
             Vector2 Test = MouseToMapCoordinate(Mouse_position); // testing if mouse is inside the map
+            Player_position_on_map = new Vector2((int)(Player_position.X / (int)targetX), (int)(Player_position.Y / (int)targetY))*-1;
+            if (map[(int)Player_position_on_map.Y, (int)Player_position_on_map.X].GetTerrain().ToString() == "sea") { player.SetSkin(player_on_water); }
+            else player.SetSkin(player_skin);
+
             // reading map coordinates based on current mouse position
-            if ((int)Test.X > -1 && (int)Test.Y > -1 && (int)Test.X < x && (int)Test.Y < y) // x and y are map dimensions; determining which province is selected
+                if ((int)Test.X > -1 && (int)Test.Y > -1 && (int)Test.X < x && (int)Test.Y < y) // x and y are map dimensions; determining which province is selected
             {
                 Highlighted_province = MouseToMapCoordinate(Mouse_position);
             }
@@ -194,19 +203,19 @@ namespace Projekt
         protected override void Draw(GameTime gameTime)
         {
             //background
-            GraphicsDevice.Clear(Color.Black);  
+            GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             Vector2 Camera_offset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
             bool flip = false;
             //drawing provinces 
 
-            int mx_y = (int)( (zoom * Camera_offset.X - Camera_position.X)/targetX)+1;
+            int mx_y = (int)((zoom * Camera_offset.X - Camera_position.X) / targetX) + 1;
             if (mx_y > MapSize) mx_y = MapSize;
-            int mx_x = (int)((zoom * Camera_offset.Y - Camera_position.Y) / targetY)+1;
+            int mx_x = (int)((zoom * Camera_offset.Y - Camera_position.Y) / targetY) + 1;
             if (mx_x > MapSize) mx_x = MapSize;
 
             int mn_y = (int)((-zoom * Camera_offset.X - Camera_position.X) / targetX) - 1;
-            if (mn_y <0) mn_y = 0;
+            if (mn_y < 0) mn_y = 0;
             int mn_x = (int)((-zoom * Camera_offset.Y - Camera_position.Y) / targetY) - 1;
             if (mn_x < 0) mn_x = 0;
 
@@ -231,19 +240,20 @@ namespace Projekt
             }
             if (!player.GetRotation())
             {
-                _spriteBatch.Draw(player_skin, position: ((Camera_position)/zoom)+Camera_offset- Player_position/zoom, null, Color.White,0,Vector2.Zero,Scale,0,0);
+                _spriteBatch.Draw(player.GetSkin(), position: ((Camera_position) / zoom) + Camera_offset - Player_position / zoom, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
             }
             else
             {
-                _spriteBatch.Draw(player_skin, position: ((Camera_position) / zoom) + Camera_offset - Player_position/zoom, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0);
+                _spriteBatch.Draw(player.GetSkin(), position: ((Camera_position) / zoom) + Camera_offset - Player_position / zoom, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.FlipHorizontally, 0);
             }
             //show camera position and province id and FPS
             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _frameCounter.Update(deltaTime);
             var fps = string.Format("FPS: {0}", _frameCounter.AverageFramesPerSecond);
-           //debug_info
-            _spriteBatch.DrawString(font, Camera_position.ToString() + "\n" + Mouse_position.ToString() + '\n' + map[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetID() +'\n' + map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].GetID() + '\n'+ Player_position.ToString() +'\n' + fps, Vector2.Zero + Vector2.UnitY * 200, Color.OrangeRed);
-            _spriteBatch.DrawString(font, (Player_position / zoom + Camera_offset).ToString() + '\n'+Camera.GetLocked(), Vector2.Zero,Color.Blue);
+            //debug_info
+            _spriteBatch.DrawString(font, Camera_position.ToString() + "\n" + Mouse_position.ToString() + '\n' + map[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetID() + '\n' + map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].GetID() + '\n' + Player_position.ToString() + '\n' + fps, Vector2.Zero + Vector2.UnitY * 200, Color.OrangeRed);
+            _spriteBatch.DrawString(font, (Player_position / zoom + Camera_offset).ToString() + '\n' + Camera.GetLocked(), Vector2.Zero, Color.Blue);
+            _spriteBatch.DrawString(font, "\n"+'\n'+ map[(int)Player_position_on_map.Y,(int) Player_position_on_map.X].GetTerrain().ToString(), Vector2.Zero, Color.Purple);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
