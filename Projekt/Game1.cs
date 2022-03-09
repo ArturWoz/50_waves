@@ -159,6 +159,7 @@ namespace Projekt
             KeyboardState keystate = Keyboard.GetState();
             MouseState mousestate = Mouse.GetState();
             
+            //Camera && Player_camera logics
             player.Update(keystate, mousestate); 
             Camera_position = Camera.GetCameraPosition();
             if (Camera.GetLocked())
@@ -169,17 +170,21 @@ namespace Projekt
             zoom = Camera.GetZoom();
             Scale = new Vector2(targetX / zoom / (float)province_desert.Width, targetX / zoom / (float)province_desert.Height); // adjusting scrolling to different camera positions
             targetY = targetX;
-            int Xpos, Ypos; //reading mouse position
-            Xpos = Mouse.GetState().Position.X;
-            Ypos = Mouse.GetState().Position.Y;
-            Mouse_position = new Vector2(Xpos, Ypos);
-            Vector2 Test = MouseToMapCoordinate(Mouse_position); // testing if mouse is inside the map
+           
+            //Player_skin_alghoritm
             Player_position_on_map = new Vector2((int)((Player_position.X -(0.5*targetX)) / (int)targetX), (int)((Player_position.Y - (0.5 * targetY)) / (int)targetY))*-1;
             if (map[(int)Player_position_on_map.Y, (int)Player_position_on_map.X].GetTerrain().ToString() == "sea") { player.SetSkin(player_on_water); }
             else player.SetSkin(player_skin);
 
+            int Xpos, Ypos; //reading mouse position
+            Xpos = Mouse.GetState().Position.X;
+            Ypos = Mouse.GetState().Position.Y;
+            Mouse_position = new Vector2(Xpos, Ypos);
+
+            Vector2 Test = MouseToMapCoordinate(Mouse_position); // testing if mouse is inside the map
+
             // reading map coordinates based on current mouse position
-                if ((int)Test.X > -1 && (int)Test.Y > -1 && (int)Test.X < x && (int)Test.Y < y) // x and y are map dimensions; determining which province is selected
+            if ((int)Test.X > -1 && (int)Test.Y > -1 && (int)Test.X < x && (int)Test.Y < y) // x and y are map dimensions; determining which province is selected
             {
                 Highlighted_province = MouseToMapCoordinate(Mouse_position);
             }
