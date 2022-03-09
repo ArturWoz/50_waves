@@ -277,3 +277,14 @@ C:\Users\panch\OneDrive\Dokumenty\GitHub\Projekt\bin\Debug\netcoreapp3.1\Content
 C:\Users\panch\OneDrive\Dokumenty\GitHub\Projekt\bin\Debug\netcoreapp3.1\Content\desert2.xnb
 C:\Users\panch\OneDrive\Dokumenty\GitHub\Projekt\bin\Debug\netcoreapp3.1\Content\player_skin.xnb
 C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\player_boat.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\allied_ZoC_down.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\allied_ZoC_left.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\allied_ZoC_right.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\allied_ZoC_up.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\desert2.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\hostile_ZoC_down.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\hostile_ZoC_left.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\hostile_ZoC_right.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\hostile_ZoC_up.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\player_boat.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\player_skin.xnb
