@@ -174,7 +174,7 @@ namespace Projekt
             Ypos = Mouse.GetState().Position.Y;
             Mouse_position = new Vector2(Xpos, Ypos);
             Vector2 Test = MouseToMapCoordinate(Mouse_position); // testing if mouse is inside the map
-            Player_position_on_map = new Vector2((int)(Player_position.X / (int)targetX), (int)(Player_position.Y / (int)targetY))*-1;
+            Player_position_on_map = new Vector2((int)((Player_position.X -(0.5*targetX)) / (int)targetX), (int)((Player_position.Y - (0.5 * targetY)) / (int)targetY))*-1;
             if (map[(int)Player_position_on_map.Y, (int)Player_position_on_map.X].GetTerrain().ToString() == "sea") { player.SetSkin(player_on_water); }
             else player.SetSkin(player_skin);
 
