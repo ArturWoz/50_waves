@@ -106,7 +106,7 @@ namespace Projekt
             Province spawnpoint = map[MapSize / 2, MapSize / 2]; //making the settler
             Debug = new Province(99999, 999, terrain.sea, false);
             Camera.Initialize(Camera_position, _graphics);
-            player = new Player(player_skin, 100, 6, _graphics);
+            player = new Player(player_skin, 100, 1, _graphics);
 
             base.Initialize();
             

@@ -19,10 +19,10 @@ namespace Projekt
         }
         public void TerrainToMovementSpeed(terrain terrain)
         {
-            if (terrain == terrain.farmland  || terrain == terrain.coast || terrain == terrain.city || terrain == terrain.plains) province_movement = 2;
-            else if (terrain == terrain.forest || terrain == terrain.hills || terrain == terrain.tundra || terrain == terrain.jungle || terrain == terrain.taiga || terrain == terrain.desert) province_movement = 1;
-            else if (terrain == terrain.lake || terrain == terrain.sea) province_movement = 3;
-            else province_movement = -10;
+            if (terrain == terrain.farmland  || terrain == terrain.coast || terrain == terrain.city || terrain == terrain.plains) province_movement = 10;
+            else if (terrain == terrain.forest || terrain == terrain.hills || terrain == terrain.tundra || terrain == terrain.jungle || terrain == terrain.taiga || terrain == terrain.desert) province_movement = 5;
+            else if (terrain == terrain.lake || terrain == terrain.sea) province_movement = 15;
+            else province_movement = 1;
         }
         public Province(Province Province)
         {
