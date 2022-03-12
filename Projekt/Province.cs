@@ -6,7 +6,7 @@ namespace Projekt
 {
     public class Province
     {
-        int province_movement = 2;
+        int province_movement = 1;
         bool clicked;
         protected int province_id;
         protected terrain terrain;
@@ -15,6 +15,14 @@ namespace Projekt
         {
             this.province_id = province_id;
             this.terrain = terrain;
+            TerrainToMovementSpeed(terrain);
+        }
+        public void TerrainToMovementSpeed(terrain terrain)
+        {
+            if (terrain == terrain.farmland  || terrain == terrain.coast || terrain == terrain.city || terrain == terrain.plains) province_movement = 2;
+            else if (terrain == terrain.forest || terrain == terrain.hills || terrain == terrain.tundra || terrain == terrain.jungle || terrain == terrain.taiga || terrain == terrain.desert) province_movement = 1;
+            else if (terrain == terrain.lake || terrain == terrain.sea) province_movement = 3;
+            else province_movement = -10;
         }
         public Province(Province Province)
         {
@@ -29,7 +37,7 @@ namespace Projekt
             return province.province_id == this.province_id;
         }
         public terrain GetTerrain() { return this.terrain; }
-        public void SetTerrain(terrain terrain) { this.terrain = terrain; }
+        public void SetTerrain(terrain terrain) { this.terrain = terrain; TerrainToMovementSpeed(terrain); }
         public int GetID() { return this.province_id; }
 
         public bool GetClicked() { return this.clicked; } //LMAO get clicked n00b

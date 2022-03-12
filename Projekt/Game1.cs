@@ -24,6 +24,7 @@ namespace Projekt
         //vector variables 
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Player_position;
+        Vector2 Player_position_on_map;
         Vector2 Mouse_position;
         Vector2 Scale;
         Vector2 Highlighted_province=new Vector2(1,1);
@@ -45,7 +46,7 @@ namespace Projekt
         Player player;
         Nation Kobold = new Nation(1, "Kobolds");
         bool check_unit = true;
-        Vector2 Player_position_on_map;
+        
         
         int MapSize = 144;
 
@@ -105,7 +106,7 @@ namespace Projekt
             Province spawnpoint = map[MapSize / 2, MapSize / 2]; //making the settler
             Debug = new Province(99999, 999, terrain.sea, false);
             Camera.Initialize(Camera_position, _graphics);
-            player = new Player(player_skin, 100, 13, _graphics);
+            player = new Player(player_skin, 100, 6, _graphics);
 
             base.Initialize();
             
@@ -175,6 +176,8 @@ namespace Projekt
             Player_position_on_map = new Vector2((int)((Player_position.X -(0.5*targetX)) / (int)targetX), (int)((Player_position.Y - (0.5 * targetY)) / (int)targetY))*-1;
             if (map[(int)Player_position_on_map.Y, (int)Player_position_on_map.X].GetTerrain().ToString() == "sea") { player.SetSkin(player_on_water); }
             else player.SetSkin(player_skin);
+      
+            player.SetTempSpeed(map[(int)Player_position_on_map.Y, (int)Player_position_on_map.X]);
 
             int Xpos, Ypos; //reading mouse position
             Xpos = Mouse.GetState().Position.X;
@@ -258,7 +261,7 @@ namespace Projekt
             //debug_info
             _spriteBatch.DrawString(font, Camera_position.ToString() + "\n" + Mouse_position.ToString() + '\n' + map[(int)Highlighted_province.X, (int)Highlighted_province.Y].GetID() + '\n' + map[(int)Prev_highlighted_province.X, (int)Prev_highlighted_province.Y].GetID() + '\n' + Player_position.ToString() + '\n' + fps, Vector2.Zero + Vector2.UnitY * 200, Color.OrangeRed);
             _spriteBatch.DrawString(font, (Player_position / zoom + Camera_offset).ToString() + '\n' + Camera.GetLocked(), Vector2.Zero, Color.Blue);
-            _spriteBatch.DrawString(font, "\n"+'\n'+ map[(int)Player_position_on_map.Y,(int) Player_position_on_map.X].GetTerrain().ToString(), Vector2.Zero, Color.Purple);
+            _spriteBatch.DrawString(font, "\n"+'\n'+ map[(int)Player_position_on_map.Y,(int) Player_position_on_map.X].GetTerrain().ToString()+'\n'+player.GetTempSpeed(), Vector2.Zero, Color.Purple);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
