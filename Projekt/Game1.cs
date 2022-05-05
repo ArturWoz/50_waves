@@ -19,8 +19,12 @@ namespace Projekt
         float targetY;
         float zoom;
         //texture declarations
+        //255 textures
         Texture2D province_desert, province_farmland, province_forest, province_jungle, province_lake, province_mountains, province_plains, province_sea, province_taiga, province_tundra, province_coast, province_hills, province_highlight, province_city, province_interface, city_interface, new_building, trading_post, trading_post_province, nationInterface, turnHUD, kobold_settler, allied_ZoC_R, allied_ZoC_U, allied_ZoC_D, allied_ZoC_L, hostile_ZoC_L, hostile_ZoC_R, hostile_ZoC_U, hostile_ZoC_D;
+        //player_skins
         Texture2D player_skin,player_on_water;
+        //512 textures
+        Texture2D castle_tp;
         //vector variables 
         Vector2 Camera_position = Vector2.Zero;
         Vector2 Player_position;
@@ -38,6 +42,7 @@ namespace Projekt
         
         Province ClickedProvince;
         Province[,] map;
+        List<dynamic> MapObjects;
         SpriteFont font;
         private FrameCounter _frameCounter = new FrameCounter();
         int x, y; //Yprov will be always remembered :(
@@ -74,24 +79,28 @@ namespace Projekt
             Output.Y = (int)(Temp.Y / Province_size.Y);
             return Output;
         }
-        protected Texture2D TerrainToTexture(terrain SS)
+        protected Texture2D TerrainToTexture(Terrain SS)
         {
-            if (SS == terrain.desert) return province_desert;
-            else if (SS == terrain.sea) return province_sea;
-            else if (SS == terrain.coast) return province_coast;
-            else if (SS == terrain.lake) return province_lake;
-            else if (SS == terrain.hills) return province_hills;
-            else if (SS == terrain.taiga) return province_taiga;
-            else if (SS == terrain.tundra) return province_tundra;
-            else if (SS == terrain.plains) return province_plains;
-            else if (SS == terrain.farmland) return province_farmland;
-            else if (SS == terrain.forest) return province_forest;
-            else if (SS == terrain.mountains) return province_mountains;
-            else if (SS == terrain.jungle) return province_jungle;
-            else if (SS == terrain.city) return province_city;
+            if (SS == Terrain.desert) return province_desert;
+            else if (SS == Terrain.sea) return province_sea;
+            else if (SS == Terrain.coast) return province_coast;
+            else if (SS == Terrain.lake) return province_lake;
+            else if (SS == Terrain.hills) return province_hills;
+            else if (SS == Terrain.taiga) return province_taiga;
+            else if (SS == Terrain.tundra) return province_tundra;
+            else if (SS == Terrain.plains) return province_plains;
+            else if (SS == Terrain.farmland) return province_farmland;
+            else if (SS == Terrain.forest) return province_forest;
+            else if (SS == Terrain.mountains) return province_mountains;
+            else if (SS == Terrain.jungle) return province_jungle;
+            else if (SS == Terrain.city) return province_city;
             else return province_sea;
         }
-
+        protected Texture2D MapObjectToTexture(Object SS)
+        {
+            if (SS == Object.castle) return castle_tp;
+            else return null;
+        }
 
         protected override void Initialize()
         {
@@ -104,10 +113,14 @@ namespace Projekt
             MapGenerator generator = new MapGenerator();
             map = generator.Randommap(MapSize); x = MapSize; y = MapSize;
             Province spawnpoint = map[MapSize / 2, MapSize / 2]; //making the settler
-            Debug = new Province(99999, 999, terrain.sea, false);
+            Debug = new Province(99999, 999, Terrain.sea, false);
             Camera.Initialize(Camera_position, _graphics);
             player = new Player(player_skin, 100, 1, _graphics);
-
+            MapObjects = new List<dynamic>();
+            MapObject testt = new MapObject(4500, Object.castle);
+            MapObjectTest testtt = new MapObjectTest(4495, Object.castle);
+            MapObjects.Add(testt);
+            MapObjects.Add(testtt);
             base.Initialize();
             
         }
@@ -132,6 +145,7 @@ namespace Projekt
             province_interface = Content.Load<Texture2D>("provInterfacePlaceholder");
             player_skin = Content.Load<Texture2D>("player_skin");
             player_on_water = Content.Load<Texture2D>("player_boat");
+            castle_tp = Content.Load<Texture2D>("castle_tp");
             /*
             nationInterface = Content.Load<Texture2D>("countryHUD");
             turnHUD = Content.Load<Texture2D>("turnHUD");
@@ -233,7 +247,7 @@ namespace Projekt
                 else flip = false;
                 for (int k2 = mn_x; k2 < mx_x; k2++)
                 {
-                    terrain SS = map[k2, k].GetTerrain();
+                    Terrain SS = map[k2, k].GetTerrain();
                     Vector2 Province_offset = new Vector2(targetX / zoom * k, targetY / zoom * k2);
                     if (flip)
                     {
@@ -245,6 +259,13 @@ namespace Projekt
                     }
                     if (map[k, k2].GetClicked()) _spriteBatch.Draw(province_highlight, position: ((Camera_position) / zoom + Camera_offset) + Province_offset, null, Color.White, 0, Vector2.Zero, Scale, 0, 0);
                 }
+            }
+            foreach(var mapobject in MapObjects)
+            {
+                Vector2 objectPosition;
+                objectPosition = ProvinceIDToMapCoordinate(mapobject.GetPosition());
+                Vector2 coordinates = new Vector2(MapObjectToTexture(mapobject.GetObject()).Height / 2 / zoom * objectPosition.X, MapObjectToTexture(mapobject.GetObject()).Width / 2 / zoom * objectPosition.Y)/2;
+                _spriteBatch.Draw(MapObjectToTexture(mapobject.GetObject()), position: ((Camera_position) / zoom + Camera_offset + coordinates), sourceRectangle: null, color: Color.White, rotation: 0, origin: Vector2.Zero, scale: Scale, effects: 0, layerDepth: 0); 
             }
             if (!player.GetRotation())
             {

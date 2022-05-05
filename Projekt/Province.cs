@@ -9,19 +9,18 @@ namespace Projekt
         int province_movement = 1;
         bool clicked;
         protected int province_id;
-        protected terrain terrain;
-
-        public Province(int province_id, int province_owner, terrain terrain, bool is_water)
+        protected Terrain terrain;
+        public Province(int province_id, int province_owner, Terrain terrain, bool is_water)
         {
             this.province_id = province_id;
             this.terrain = terrain;
             TerrainToMovementSpeed(terrain);
         }
-        public void TerrainToMovementSpeed(terrain terrain)
+        public void TerrainToMovementSpeed(Terrain terrain)
         {
-            if (terrain == terrain.farmland  || terrain == terrain.coast || terrain == terrain.city || terrain == terrain.plains) province_movement = 10;
-            else if (terrain == terrain.forest || terrain == terrain.hills || terrain == terrain.tundra || terrain == terrain.jungle || terrain == terrain.taiga || terrain == terrain.desert) province_movement = 5;
-            else if (terrain == terrain.lake || terrain == terrain.sea) province_movement = 15;
+            if (terrain == Terrain.farmland  || terrain == Terrain.coast || terrain == Terrain.city || terrain == Terrain.plains) province_movement = 10;
+            else if (terrain == Terrain.forest || terrain == Terrain.hills || terrain == Terrain.tundra || terrain == Terrain.jungle || terrain == Terrain.taiga || terrain == Terrain.desert) province_movement = 5;
+            else if (terrain == Terrain.lake || terrain == Terrain.sea) province_movement = 15;
             else province_movement = 1;
         }
         public Province(Province Province)
@@ -36,10 +35,9 @@ namespace Projekt
         {
             return province.province_id == this.province_id;
         }
-        public terrain GetTerrain() { return this.terrain; }
-        public void SetTerrain(terrain terrain) { this.terrain = terrain; TerrainToMovementSpeed(terrain); }
+        public Terrain GetTerrain() { return this.terrain; }
+        public void SetTerrain(Terrain terrain) { this.terrain = terrain; TerrainToMovementSpeed(terrain); }
         public int GetID() { return this.province_id; }
-
         public bool GetClicked() { return this.clicked; } //LMAO get clicked n00b
         public int GetProvince_movement() { return this.province_movement; }
 

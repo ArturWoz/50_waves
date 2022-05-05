@@ -14,6 +14,7 @@
     <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/allied_ZoC_left.png</File>
     <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/allied_ZoC_right.png</File>
     <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/allied_ZoC_up.png</File>
+    <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/castle_tp.png</File>
     <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/city_interface.png</File>
     <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/city_interface_2.bmp</File>
     <File>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/coast1.png</File>
@@ -51,6 +52,7 @@
     <File>jungle1.png</File>
     <File>taiga1.png</File>
     <File>taiga2.png</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

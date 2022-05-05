@@ -13,15 +13,15 @@ namespace Projekt
         {
             this.status = status;
             this.location = location;
-            if (location.GetTerrain() == terrain.coast || location.GetTerrain() == terrain.farmland)
+            if (location.GetTerrain() == Terrain.coast || location.GetTerrain() == Terrain.farmland)
             {
                 income_modifier = 2f;
             }
-            else if(location.GetTerrain() == terrain.plains)
+            else if(location.GetTerrain() == Terrain.plains)
             {
                 income_modifier = 1.5f;
             }
-            else if(location.GetTerrain() == terrain.desert || location.GetTerrain() == terrain.jungle || location.GetTerrain() == terrain.mountains || location.GetTerrain() == terrain.tundra)
+            else if(location.GetTerrain() == Terrain.desert || location.GetTerrain() == Terrain.jungle || location.GetTerrain() == Terrain.mountains || location.GetTerrain() == Terrain.tundra)
             {
                 income_modifier = 0.5f;
             }

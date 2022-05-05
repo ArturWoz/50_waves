@@ -9,29 +9,29 @@ namespace Projekt
        public Province[,] Randommap(int x)
         {
             Province[,] M = new Province[x, x];
-            terrain[,] TM = new terrain[x, x];
+            Terrain[,] TM = new Terrain[x, x];
             double[,] H = RandT(x, false);
             double[,] T = RandT(x, false);
             double[,] W = RandT(x, true);
-            terrain[,,] terr = new terrain[3, 3, 6];
-            terr[2, 0, 0] = terrain.sea; terr[2, 1, 0] = terrain.sea; ; terr[2, 2, 0] = terrain.sea;
-            terr[1, 0, 0] = terrain.sea; terr[1, 1, 0] = terrain.sea; terr[1, 2, 0] = terrain.sea;
-            terr[0, 0, 0] = terrain.sea; terr[0, 1, 0] = terrain.sea; terr[0, 2, 0] = terrain.sea;
-            terr[2, 0, 1] = terrain.sea; terr[2, 1, 1] = terrain.sea; terr[2, 2, 1] = terrain.sea;
-            terr[1, 0, 1] = terrain.sea; terr[1, 1, 1] = terrain.sea; terr[1, 2, 1] = terrain.sea;
-            terr[0, 0, 1] = terrain.sea; terr[0, 1, 1] = terrain.sea; terr[0, 2, 1] = terrain.sea;
-            terr[2, 0, 2] = terrain.plains; terr[2, 1, 2] = terrain.farmland; terr[2, 2, 2] = terrain.jungle;
-            terr[1, 0, 2] = terrain.taiga; terr[1, 1, 2] = terrain.farmland; terr[1, 2, 2] = terrain.forest;
-            terr[0, 0, 2] = terrain.tundra; terr[0, 1, 2] = terrain.farmland; terr[0, 2, 2] = terrain.desert;
-            terr[2, 0, 3] = terrain.plains; terr[2, 1, 3] = terrain.forest; terr[2, 2, 3] = terrain.jungle;
-            terr[1, 0, 3] = terrain.taiga; terr[1, 1, 3] = terrain.plains; terr[1, 2, 3] = terrain.forest;
-            terr[0, 0, 3] = terrain.tundra; terr[0, 1, 3] = terrain.plains; terr[0, 2, 3] = terrain.desert;
-            terr[2, 0, 4] = terrain.hills; terr[2, 1, 4] = terrain.hills; terr[2, 2, 4] = terrain.jungle;
-            terr[1, 0, 4] = terrain.taiga; terr[1, 1, 4] = terrain.hills; terr[1, 2, 4] = terrain.forest;
-            terr[0, 0, 4] = terrain.tundra; terr[0, 1, 4] = terrain.plains; terr[0, 2, 4] = terrain.desert;
-            terr[2, 0, 5] = terrain.mountains; terr[2, 1, 5] = terrain.mountains; terr[2, 2, 5] = terrain.mountains;
-            terr[1, 0, 5] = terrain.mountains; terr[1, 1, 5] = terrain.mountains; terr[1, 2, 5] = terrain.mountains;
-            terr[0, 0, 5] = terrain.mountains; terr[0, 1, 5] = terrain.mountains; terr[0, 2, 5] = terrain.mountains;
+            Terrain[,,] terr = new Terrain[3, 3, 6];
+            terr[2, 0, 0] = Terrain.sea; terr[2, 1, 0] = Terrain.sea; ; terr[2, 2, 0] = Terrain.sea;
+            terr[1, 0, 0] = Terrain.sea; terr[1, 1, 0] = Terrain.sea; terr[1, 2, 0] = Terrain.sea;
+            terr[0, 0, 0] = Terrain.sea; terr[0, 1, 0] = Terrain.sea; terr[0, 2, 0] = Terrain.sea;
+            terr[2, 0, 1] = Terrain.sea; terr[2, 1, 1] = Terrain.sea; terr[2, 2, 1] = Terrain.sea;
+            terr[1, 0, 1] = Terrain.sea; terr[1, 1, 1] = Terrain.sea; terr[1, 2, 1] = Terrain.sea;
+            terr[0, 0, 1] = Terrain.sea; terr[0, 1, 1] = Terrain.sea; terr[0, 2, 1] = Terrain.sea;
+            terr[2, 0, 2] = Terrain.plains; terr[2, 1, 2] = Terrain.farmland; terr[2, 2, 2] = Terrain.jungle;
+            terr[1, 0, 2] = Terrain.taiga; terr[1, 1, 2] = Terrain.farmland; terr[1, 2, 2] = Terrain.forest;
+            terr[0, 0, 2] = Terrain.tundra; terr[0, 1, 2] = Terrain.farmland; terr[0, 2, 2] = Terrain.desert;
+            terr[2, 0, 3] = Terrain.plains; terr[2, 1, 3] = Terrain.forest; terr[2, 2, 3] = Terrain.jungle;
+            terr[1, 0, 3] = Terrain.taiga; terr[1, 1, 3] = Terrain.plains; terr[1, 2, 3] = Terrain.forest;
+            terr[0, 0, 3] = Terrain.tundra; terr[0, 1, 3] = Terrain.plains; terr[0, 2, 3] = Terrain.desert;
+            terr[2, 0, 4] = Terrain.hills; terr[2, 1, 4] = Terrain.hills; terr[2, 2, 4] = Terrain.jungle;
+            terr[1, 0, 4] = Terrain.taiga; terr[1, 1, 4] = Terrain.hills; terr[1, 2, 4] = Terrain.forest;
+            terr[0, 0, 4] = Terrain.tundra; terr[0, 1, 4] = Terrain.plains; terr[0, 2, 4] = Terrain.desert;
+            terr[2, 0, 5] = Terrain.mountains; terr[2, 1, 5] = Terrain.mountains; terr[2, 2, 5] = Terrain.mountains;
+            terr[1, 0, 5] = Terrain.mountains; terr[1, 1, 5] = Terrain.mountains; terr[1, 2, 5] = Terrain.mountains;
+            terr[0, 0, 5] = Terrain.mountains; terr[0, 1, 5] = Terrain.mountains; terr[0, 2, 5] = Terrain.mountains;
 
 
             for (int i = 0; i < x; i++)
@@ -76,9 +76,9 @@ namespace Projekt
                     R = check + 1;
                     U = check2 - 1;
                     D = check2 + 1;
-                    if (checkedP.GetTerrain() != terrain.sea) // post processing that removes isolated biomes and replaces them with dominating neighbor
+                    if (checkedP.GetTerrain() != Terrain.sea) // post processing that removes isolated biomes and replaces them with dominating neighbor
                     {
-                        terrain terrain_inQuestion = checkedP.GetTerrain();
+                        Terrain terrain_inQuestion = checkedP.GetTerrain();
                         int plains_count, mountains_count, hills_count, forest_count, tundra_count, taiga_count, desert_count, farmland_count, jungle_count;
                         plains_count = 0; mountains_count = 0; hills_count = 0; forest_count = 0; tundra_count = 0; taiga_count = 0; desert_count = 0; farmland_count = 0; jungle_count = 0;
                         int isolation = 0; // if isolation = 4 province has no neighbors of the same type
@@ -126,79 +126,79 @@ namespace Projekt
                                 checkedD = new Province(M[check, D]);
                             }
 
-                            if (checkedL.GetTerrain() == terrain.farmland) { farmland_count++; }
-                            else if (checkedL.GetTerrain() == terrain.mountains) mountains_count++;
-                            else if (checkedL.GetTerrain() == terrain.tundra) tundra_count++;
-                            else if (checkedL.GetTerrain() == terrain.taiga) taiga_count++;
-                            else if (checkedL.GetTerrain() == terrain.forest) forest_count++;
-                            else if (checkedL.GetTerrain() == terrain.hills) hills_count++;
-                            else if (checkedL.GetTerrain() == terrain.desert) desert_count++;
-                            else if (checkedL.GetTerrain() == terrain.plains) plains_count++;
-                            else if (checkedL.GetTerrain() == terrain.jungle) jungle_count++;
+                            if (checkedL.GetTerrain() == Terrain.farmland) { farmland_count++; }
+                            else if (checkedL.GetTerrain() == Terrain.mountains) mountains_count++;
+                            else if (checkedL.GetTerrain() == Terrain.tundra) tundra_count++;
+                            else if (checkedL.GetTerrain() == Terrain.taiga) taiga_count++;
+                            else if (checkedL.GetTerrain() == Terrain.forest) forest_count++;
+                            else if (checkedL.GetTerrain() == Terrain.hills) hills_count++;
+                            else if (checkedL.GetTerrain() == Terrain.desert) desert_count++;
+                            else if (checkedL.GetTerrain() == Terrain.plains) plains_count++;
+                            else if (checkedL.GetTerrain() == Terrain.jungle) jungle_count++;
 
-                            if (checkedR.GetTerrain() == terrain.farmland) { farmland_count++; }
-                            else if (checkedR.GetTerrain() == terrain.mountains) mountains_count++;
-                            else if (checkedR.GetTerrain() == terrain.tundra) tundra_count++;
-                            else if (checkedR.GetTerrain() == terrain.taiga) taiga_count++;
-                            else if (checkedR.GetTerrain() == terrain.forest) forest_count++;
-                            else if (checkedR.GetTerrain() == terrain.hills) hills_count++;
-                            else if (checkedR.GetTerrain() == terrain.desert) desert_count++;
-                            else if (checkedR.GetTerrain() == terrain.plains) plains_count++;
-                            else if (checkedR.GetTerrain() == terrain.jungle) jungle_count++;
+                            if (checkedR.GetTerrain() == Terrain.farmland) { farmland_count++; }
+                            else if (checkedR.GetTerrain() == Terrain.mountains) mountains_count++;
+                            else if (checkedR.GetTerrain() == Terrain.tundra) tundra_count++;
+                            else if (checkedR.GetTerrain() == Terrain.taiga) taiga_count++;
+                            else if (checkedR.GetTerrain() == Terrain.forest) forest_count++;
+                            else if (checkedR.GetTerrain() == Terrain.hills) hills_count++;
+                            else if (checkedR.GetTerrain() == Terrain.desert) desert_count++;
+                            else if (checkedR.GetTerrain() == Terrain.plains) plains_count++;
+                            else if (checkedR.GetTerrain() == Terrain.jungle) jungle_count++;
 
-                            if (checkedU.GetTerrain() == terrain.farmland) { farmland_count++; }
-                            else if (checkedU.GetTerrain() == terrain.mountains) mountains_count++;
-                            else if (checkedU.GetTerrain() == terrain.tundra) tundra_count++;
-                            else if (checkedU.GetTerrain() == terrain.taiga) taiga_count++;
-                            else if (checkedU.GetTerrain() == terrain.forest) forest_count++;
-                            else if (checkedU.GetTerrain() == terrain.hills) hills_count++;
-                            else if (checkedU.GetTerrain() == terrain.desert) desert_count++;
-                            else if (checkedU.GetTerrain() == terrain.plains) plains_count++;
-                            else if (checkedU.GetTerrain() == terrain.jungle) jungle_count++;
+                            if (checkedU.GetTerrain() == Terrain.farmland) { farmland_count++; }
+                            else if (checkedU.GetTerrain() == Terrain.mountains) mountains_count++;
+                            else if (checkedU.GetTerrain() == Terrain.tundra) tundra_count++;
+                            else if (checkedU.GetTerrain() == Terrain.taiga) taiga_count++;
+                            else if (checkedU.GetTerrain() == Terrain.forest) forest_count++;
+                            else if (checkedU.GetTerrain() == Terrain.hills) hills_count++;
+                            else if (checkedU.GetTerrain() == Terrain.desert) desert_count++;
+                            else if (checkedU.GetTerrain() == Terrain.plains) plains_count++;
+                            else if (checkedU.GetTerrain() == Terrain.jungle) jungle_count++;
 
-                            if (checkedD.GetTerrain() == terrain.farmland) { farmland_count++; }
-                            else if (checkedD.GetTerrain() == terrain.mountains) mountains_count++;
-                            else if (checkedD.GetTerrain() == terrain.tundra) tundra_count++;
-                            else if (checkedD.GetTerrain() == terrain.taiga) taiga_count++;
-                            else if (checkedD.GetTerrain() == terrain.forest) forest_count++;
-                            else if (checkedD.GetTerrain() == terrain.hills) hills_count++;
-                            else if (checkedD.GetTerrain() == terrain.desert) desert_count++;
-                            else if (checkedD.GetTerrain() == terrain.plains) plains_count++;
-                            else if (checkedD.GetTerrain() == terrain.jungle) jungle_count++;
+                            if (checkedD.GetTerrain() == Terrain.farmland) { farmland_count++; }
+                            else if (checkedD.GetTerrain() == Terrain.mountains) mountains_count++;
+                            else if (checkedD.GetTerrain() == Terrain.tundra) tundra_count++;
+                            else if (checkedD.GetTerrain() == Terrain.taiga) taiga_count++;
+                            else if (checkedD.GetTerrain() == Terrain.forest) forest_count++;
+                            else if (checkedD.GetTerrain() == Terrain.hills) hills_count++;
+                            else if (checkedD.GetTerrain() == Terrain.desert) desert_count++;
+                            else if (checkedD.GetTerrain() == Terrain.plains) plains_count++;
+                            else if (checkedD.GetTerrain() == Terrain.jungle) jungle_count++;
 
-                            if (mountains_count >= 2) { M[check, check2].SetTerrain(terrain.mountains); }
-                            else if (farmland_count >= 2) M[check, check2].SetTerrain(terrain.farmland);
-                            else if (tundra_count >= 2) M[check, check2].SetTerrain(terrain.tundra);
-                            else if (taiga_count >= 2) M[check, check2].SetTerrain(terrain.taiga);
-                            else if (forest_count >= 2) M[check, check2].SetTerrain(terrain.forest);
-                            else if (hills_count >= 2) M[check, check2].SetTerrain(terrain.hills);
-                            else if (desert_count >= 2) M[check, check2].SetTerrain(terrain.desert);
-                            else if (jungle_count >= 2) M[check, check2].SetTerrain(terrain.jungle);
-                            else if (plains_count >= 2) M[check, check2].SetTerrain(terrain.plains);
+                            if (mountains_count >= 2) { M[check, check2].SetTerrain(Terrain.mountains); }
+                            else if (farmland_count >= 2) M[check, check2].SetTerrain(Terrain.farmland);
+                            else if (tundra_count >= 2) M[check, check2].SetTerrain(Terrain.tundra);
+                            else if (taiga_count >= 2) M[check, check2].SetTerrain(Terrain.taiga);
+                            else if (forest_count >= 2) M[check, check2].SetTerrain(Terrain.forest);
+                            else if (hills_count >= 2) M[check, check2].SetTerrain(Terrain.hills);
+                            else if (desert_count >= 2) M[check, check2].SetTerrain(Terrain.desert);
+                            else if (jungle_count >= 2) M[check, check2].SetTerrain(Terrain.jungle);
+                            else if (plains_count >= 2) M[check, check2].SetTerrain(Terrain.plains);
 
                         }
                         // post processing part 2, if water is neighbouring, replace province with coast
-                        if (checkedP.GetTerrain() != terrain.sea)
+                        if (checkedP.GetTerrain() != Terrain.sea)
                         {
                             if (L != -1)
                             {
                                 checkedP2 = new Province(M[L, check2]);
-                                if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                                if (checkedP2.GetTerrain() == Terrain.sea) M[check, check2].SetTerrain(Terrain.coast);
                             }
                             if (R < x)
                             {
                                 checkedP2 = new Province(M[R, check2]);
-                                if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                                if (checkedP2.GetTerrain() == Terrain.sea) M[check, check2].SetTerrain(Terrain.coast);
                             }
                             if (U != -1)
                             {
                                 checkedP2 = new Province(M[check, U]);
-                                if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                                if (checkedP2.GetTerrain() == Terrain.sea) M[check, check2].SetTerrain(Terrain.coast);
                             }
                             if (D < x)
                             {
                                 checkedP2 = new Province(M[check, D]);
-                                if (checkedP2.GetTerrain() == terrain.sea) M[check, check2].SetTerrain(terrain.coast);
+                                if (checkedP2.GetTerrain() == Terrain.sea) M[check, check2].SetTerrain(Terrain.coast);
                             }
                         }
                         isolation = 0;
