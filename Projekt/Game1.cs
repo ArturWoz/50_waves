@@ -99,7 +99,7 @@ namespace Projekt
         protected Texture2D MapObjectToTexture(Object SS)
         {
             if (SS == Object.castle) return castle_tp;
-            else return province_highlight;
+            else return player_skin;
         }
 
         protected override void Initialize()
@@ -262,10 +262,11 @@ namespace Projekt
                 }
             }
             foreach(var mapobject in MapObjects)
-            {
-                Vector2 objectPosition;
-                objectPosition = ProvinceIDToMapCoordinate(mapobject.GetPosition());
-                Vector2 coordinates = new Vector2(MapObjectToTexture(mapobject.GetObject()).Height / 2 / zoom * objectPosition.X, MapObjectToTexture(mapobject.GetObject()).Width / 2 / zoom * objectPosition.Y)/ (MapObjectToTexture(mapobject.GetObject()).Height/255)+((objectPosition/zoom)/(MapObjectToTexture(mapobject.GetObject()).Height / 255));
+            { // if objectPosition is in area visible on screen should be there, but I am not sure if checking conditions isn't more costly than just drawing not visible areas
+                Vector2 objectPosition; // id of a province it should be on 
+                objectPosition = ProvinceIDToMapCoordinate(mapobject.GetPosition()); // map position 
+                Vector2 help = new Vector2(targetX / zoom, targetY / zoom); //size of a visible province
+                Vector2 coordinates = objectPosition * help; // id converted to map position times size of a visible province
                 _spriteBatch.Draw(MapObjectToTexture(mapobject.GetObject()), position: ((Camera_position) / zoom + Camera_offset + coordinates), sourceRectangle: null, color: Color.White, rotation: 0, origin: Vector2.Zero, scale: Scale, effects: 0, layerDepth: 0); 
             }
             if (!player.GetRotation())
