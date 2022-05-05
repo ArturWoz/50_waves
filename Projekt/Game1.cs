@@ -99,7 +99,7 @@ namespace Projekt
         protected Texture2D MapObjectToTexture(Object SS)
         {
             if (SS == Object.castle) return castle_tp;
-            else return null;
+            else return province_highlight;
         }
 
         protected override void Initialize()
@@ -118,7 +118,7 @@ namespace Projekt
             player = new Player(player_skin, 100, 1, _graphics);
             MapObjects = new List<dynamic>();
             MapObject testt = new MapObject(4500, Object.castle);
-            MapObjectTest testtt = new MapObjectTest(4495, Object.castle);
+            MapObjectTest testtt = new MapObjectTest(4495, 0);
             MapObjects.Add(testt);
             MapObjects.Add(testtt);
             base.Initialize();
@@ -146,11 +146,12 @@ namespace Projekt
             player_skin = Content.Load<Texture2D>("player_skin");
             player_on_water = Content.Load<Texture2D>("player_boat");
             castle_tp = Content.Load<Texture2D>("castle_tp");
+            province_city = Content.Load<Texture2D>("village");
             /*
             nationInterface = Content.Load<Texture2D>("countryHUD");
             turnHUD = Content.Load<Texture2D>("turnHUD");
             kobold_settler = Content.Load<Texture2D>("kobold_osadnik_papież");
-            province_city = Content.Load<Texture2D>("village");
+           
             city_interface = Content.Load<Texture2D>("city_interface_2");
             trading_post = Content.Load<Texture2D>("trading_post");
             new_building = Content.Load<Texture2D>("new_building");
@@ -264,7 +265,7 @@ namespace Projekt
             {
                 Vector2 objectPosition;
                 objectPosition = ProvinceIDToMapCoordinate(mapobject.GetPosition());
-                Vector2 coordinates = new Vector2(MapObjectToTexture(mapobject.GetObject()).Height / 2 / zoom * objectPosition.X, MapObjectToTexture(mapobject.GetObject()).Width / 2 / zoom * objectPosition.Y)/2;
+                Vector2 coordinates = new Vector2(MapObjectToTexture(mapobject.GetObject()).Height / 2 / zoom * objectPosition.X, MapObjectToTexture(mapobject.GetObject()).Width / 2 / zoom * objectPosition.Y)/ (MapObjectToTexture(mapobject.GetObject()).Height/255)+((objectPosition/zoom)/(MapObjectToTexture(mapobject.GetObject()).Height / 255));
                 _spriteBatch.Draw(MapObjectToTexture(mapobject.GetObject()), position: ((Camera_position) / zoom + Camera_offset + coordinates), sourceRectangle: null, color: Color.White, rotation: 0, origin: Vector2.Zero, scale: Scale, effects: 0, layerDepth: 0); 
             }
             if (!player.GetRotation())
