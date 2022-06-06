@@ -4,34 +4,43 @@ using System.Text;
 
 namespace Projekt
 {
-    class Province:Tile
+    public class Province
     {
-        int province_building_slots;
-        int province_value;
-
-        public Province(int province_id, string province_name, int province_owner, terrain terrain, bool is_water, int province_building_slots,
-            int province_value):base(province_id, province_name, province_owner, terrain, is_water)
+        int province_movement = 1;
+        bool clicked;
+        protected int province_id;
+        protected Terrain terrain;
+        public Province(int province_id, int province_owner, Terrain terrain, bool is_water)
         {
             this.province_id = province_id;
-            this.province_name = province_name;
-            this.province_owner = province_owner;
             this.terrain = terrain;
-            this.is_water = is_water;
-            this.province_building_slots = province_building_slots;
-            this.province_value = province_value;
-
+            TerrainToMovementSpeed(terrain);
         }
-        public void ChangeProvinceValue(int province_value)
+        public void TerrainToMovementSpeed(Terrain terrain)
         {
-            this.province_value += province_value;
+            if (terrain == Terrain.farmland  || terrain == Terrain.coast || terrain == Terrain.city || terrain == Terrain.plains) province_movement = 10;
+            else if (terrain == Terrain.forest || terrain == Terrain.hills || terrain == Terrain.tundra || terrain == Terrain.jungle || terrain == Terrain.taiga || terrain == Terrain.desert) province_movement = 5;
+            else if (terrain == Terrain.lake || terrain == Terrain.sea) province_movement = 15;
+            else province_movement = 1;
         }
-        public void ChangeOwnership(int province_owner)
+        public Province(Province Province)
         {
-            this.province_owner = province_owner;
+            this.province_id = Province.province_id;
+            this.terrain = Province.terrain;
+            this.clicked = Province.clicked;
+            this.province_movement = Province.province_movement;
         }
+     
         public bool Equals(Province province)
         {
             return province.province_id == this.province_id;
         }
+        public Terrain GetTerrain() { return this.terrain; }
+        public void SetTerrain(Terrain terrain) { this.terrain = terrain; TerrainToMovementSpeed(terrain); }
+        public int GetID() { return this.province_id; }
+        public bool GetClicked() { return this.clicked; } //LMAO get clicked n00b
+        public int GetProvince_movement() { return this.province_movement; }
+
+        public void SetClicked(bool value) { this.clicked = value; }
     }
 }

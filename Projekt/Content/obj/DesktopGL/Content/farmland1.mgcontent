@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/farmland1.png</SourceFile>
-  <SourceTime>2021-09-19T00:15:18.4846944+02:00</SourceTime>
+  <SourceFile>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/../graphics/farmland1.png</SourceFile>
+  <SourceTime>2021-09-27T19:58:00.3747382+02:00</SourceTime>
   <DestFile>C:/Users/eldaw/Documents/GitHub/EREKTON/Projekt/Content/bin/DesktopGL/Content/farmland1.xnb</DestFile>
-  <DestTime>2021-09-19T00:17:28.8174855+02:00</DestTime>
+  <DestTime>2022-03-10T00:24:44.4136054+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T16:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
