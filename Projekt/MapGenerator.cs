@@ -13,7 +13,7 @@ namespace Projekt
             double[,] H = RandT(x, false);
             double[,] T = RandT(x, false);
             double[,] W = RandT(x, true);
-            Terrain[,,] terr = new Terrain[3, 3, 6];
+            Terrain[,,] terr = new Terrain[3, 3, 6]; //HeatMap used to determine what type of province should be generated, first value is Humidity, second is temperature and the last one is Height
             terr[2, 0, 0] = Terrain.sea; terr[2, 1, 0] = Terrain.sea; ; terr[2, 2, 0] = Terrain.sea;
             terr[1, 0, 0] = Terrain.sea; terr[1, 1, 0] = Terrain.sea; terr[1, 2, 0] = Terrain.sea;
             terr[0, 0, 0] = Terrain.sea; terr[0, 1, 0] = Terrain.sea; terr[0, 2, 0] = Terrain.sea;
@@ -38,7 +38,7 @@ namespace Projekt
             {
                 for (int j = 0; j < x; j++)
                 {
-                    int h = (int)(Math.Round(H[i, j]));
+                    int h = (int)(Math.Round(H[i, j])); // all values generated as floats are rounded to match terrain type table
                     if (h > 2) h = 2;
                     if (h < 0) { h = 0; }
                     //  System.Diagnostics.Debug.WriteLine(H[i, j]);
@@ -60,7 +60,7 @@ namespace Projekt
             {
                 for (int j = 0; j < x; j++)
                 {
-                    M[i, j] = new Province(j * x + i, 0, TM[i, j], false);
+                    M[i, j] = new Province(j * x + i, 0, TM[i, j]);
                 }
             }
             // post processing
@@ -220,7 +220,7 @@ namespace Projekt
 
             return M;
         }
-        double[,] RandT(int n, bool is_height)
+        double[,] RandT(int n, bool is_height) // this function creates points of heat that are affecting whole map
         {
 
             int pn = (int)Math.Sqrt(n)/3 * n;

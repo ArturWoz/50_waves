@@ -12,5 +12,6 @@ namespace Projekt
             this.position = position;
             this.Object = Object;
         }
+        public override void Flip() { if (position % 2 == 0) position = position + 1; else position = position - 1; } // alternative Flip implementation to see if we can use this type of architecture
     }
 }

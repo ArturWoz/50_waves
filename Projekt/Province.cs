@@ -10,7 +10,7 @@ namespace Projekt
         bool clicked;
         protected int province_id;
         protected Terrain terrain;
-        public Province(int province_id, int province_owner, Terrain terrain, bool is_water)
+        public Province(int province_id, int province_owner, Terrain terrain)
         {
             this.province_id = province_id;
             this.terrain = terrain;
