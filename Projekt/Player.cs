@@ -44,7 +44,7 @@ namespace Projekt
         }
         public void SetTempSpeed(Province where_player_is)
         {
-            tempspeed = speed * where_player_is.GetProvince_movement();
+            tempspeed = speed * where_player_is.getProvinceMovement();
         }
         public int GetTempSpeed() { return this.tempspeed; }
         public void move()

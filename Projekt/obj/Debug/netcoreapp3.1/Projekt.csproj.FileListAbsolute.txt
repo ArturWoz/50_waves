@@ -289,3 +289,4 @@ C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Deb
 C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\player_boat.xnb
 C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\player_skin.xnb
 C:\Users\eldaw\Documents\GitHub\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\castle_tp.xnb
+C:\Users\pucha\Desktop\Projekt Projekt(nazwa tymczasowa)\EREKTON\Projekt\bin\Debug\netcoreapp3.1\Content\castle_tp.xnb

@@ -133,23 +133,7 @@ namespace Projekt
             player_on_water = Content.Load<Texture2D>("player_boat");
             castle_tp = Content.Load<Texture2D>("castle_tp");
             province_city = Content.Load<Texture2D>("village");
-            /*
-            nationInterface = Content.Load<Texture2D>("countryHUD");
-            turnHUD = Content.Load<Texture2D>("turnHUD");
-            kobold_settler = Content.Load<Texture2D>("kobold_osadnik_papież");
-            city_interface = Content.Load<Texture2D>("city_interface_2");
-            trading_post = Content.Load<Texture2D>("trading_post");
-            new_building = Content.Load<Texture2D>("new_building");
-            trading_post_province = Content.Load<Texture2D>("trading_post_province");
-            allied_ZoC_D = Content.Load<Texture2D>("allied_ZoC_down");
-            allied_ZoC_R = Content.Load<Texture2D>("allied_ZoC_right");
-            allied_ZoC_U = Content.Load<Texture2D>("allied_ZoC_up");
-            allied_ZoC_L = Content.Load<Texture2D>("allied_ZoC_left");
-            hostile_ZoC_D = Content.Load<Texture2D>("hostile_ZoC_down");
-            hostile_ZoC_R = Content.Load<Texture2D>("hostile_ZoC_right");
-            hostile_ZoC_U = Content.Load<Texture2D>("hostile_ZoC_up");
-            hostile_ZoC_L = Content.Load<Texture2D>("hostile_ZoC_left"); 
-            */
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -217,21 +201,21 @@ namespace Projekt
             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             totalTime+= deltaTime;
             _frameCounter.Update(deltaTime);
-            int mx_y = (int)((zoom * Camera_offset.X - Camera_position.X) / TileXSize) + 1;
-            if (mx_y > MapSize) mx_y = MapSize;
-            int mx_x = (int)((zoom * Camera_offset.Y - Camera_position.Y) / TileYSize) + 1;
-            if (mx_x > MapSize) mx_x = MapSize;
+            int max_y = (int)((zoom * Camera_offset.X - Camera_position.X) / TileXSize) + 1;
+            if (max_y > MapSize) max_y = MapSize;
+            int max_x = (int)((zoom * Camera_offset.Y - Camera_position.Y) / TileYSize) + 1;
+            if (max_x > MapSize) max_x = MapSize;
 
-            int mn_y = (int)((-zoom * Camera_offset.X - Camera_position.X) / TileXSize) - 1;
-            if (mn_y < 0) mn_y = 0;
-            int mn_x = (int)((-zoom * Camera_offset.Y - Camera_position.Y) / TileYSize) - 1;
-            if (mn_x < 0) mn_x = 0;
+            int min_y = (int)((-zoom * Camera_offset.X - Camera_position.X) / TileXSize) - 1;
+            if (min_y < 0) min_y = 0;
+            int min_x = (int)((-zoom * Camera_offset.Y - Camera_position.Y) / TileYSize) - 1;
+            if (min_x < 0) min_x = 0;
 
-            for (int k = mn_y; k < mx_y; k++)
+            for (int k = min_y; k < max_y; k++)
             {
                 if (k % 2 == 0) flip = true;
                 else flip = false;
-                for (int k2 = mn_x; k2 < mx_x; k2++)
+                for (int k2 = min_x; k2 < max_x; k2++)
                 {
                     Terrain SS = map[k2, k].GetTerrain();
                     Vector2 Province_offset = new Vector2(TileXSize * k, TileYSize* k2)/zoom;

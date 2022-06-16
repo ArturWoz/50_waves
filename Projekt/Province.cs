@@ -39,7 +39,7 @@ namespace Projekt
         public void SetTerrain(Terrain terrain) { this.terrain = terrain; TerrainToMovementSpeed(terrain); }
         public int GetID() { return this.province_id; }
         public bool GetClicked() { return this.clicked; } //LMAO get clicked n00b
-        public int GetProvince_movement() { return this.province_movement; }
+        public int getProvinceMovement() { return this.province_movement; }
 
         public void SetClicked(bool value) { this.clicked = value; }
     }
